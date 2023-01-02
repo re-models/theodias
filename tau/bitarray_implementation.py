@@ -1,3 +1,5 @@
+# Todo (@Andreas): Add module docstring.
+
 from .base import Position
 from .base import DialecticalStructure
 from .numpy_implementation import NumpyPosition
@@ -278,6 +280,7 @@ class BitarrayPosition(Position):
         for neighbour in NumpyPosition.np_neighbours(self, depth):
             yield BitarrayPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool())
 
+# Todo (@Andreas): Add class docstring.
 class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None):

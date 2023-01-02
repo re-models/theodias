@@ -1,3 +1,5 @@
+# Todo (@Andreas): Add module docstring.
+
 from __future__ import annotations
 
 from .base import Position, DialecticalStructure
@@ -11,7 +13,7 @@ from typing import List, Iterator, Set
 from dd.autoref import BDD
 from collections import deque
 
-
+# Todo (@Andreas): Add class docstring.
 class NumpyPosition(Position):
 
     def __init__(self, pos: np.ndarray):
@@ -256,6 +258,7 @@ class NumpyPosition(Position):
         for neighbour in NumpyPosition.np_neighbours(self, depth):
             yield NumpyPosition(neighbour)
 
+# Todo (@Andreas): Add class docstring.
 class DAGNumpyDialecticalStructure(DialecticalStructure):
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None):
@@ -598,6 +601,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
         return None
 
+# Todo (@Andreas): Add class docstring.
 class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None):

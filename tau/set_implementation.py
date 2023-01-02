@@ -1,3 +1,5 @@
+# Todo (@Basti): Add module docstring.
+
 # see: https://stackoverflow.com/questions/33533148
 from __future__ import annotations
 
@@ -14,6 +16,7 @@ import logging
 
 logging.basicConfig(filename='setbased_implementation.log', level=logging.INFO)
 
+# Todo (@Basti): Add class docstring.
 class SetBasedPosition(Position):
 
     # comment: `def __init__(self, position1: Set[int] = set()):` should do as well, but it doesn't... beats me
@@ -162,7 +165,7 @@ class SetBasedPosition(Position):
         for neighbour in NumpyPosition.np_neighbours(self, depth):
             yield SetBasedPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool())
 
-
+# Todo (@Basti): Add class docstring.
 class DAGSetBasedDialecticalStructure(DialecticalStructure):
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None):
