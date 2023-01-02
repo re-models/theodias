@@ -273,9 +273,9 @@ def random_position_as_set(n_sentences, allow_empty_position=False):
     return __ternary2set(__dec2ternary(pos, n_sentences), n_sentences)
 
 # todo: rename
-def create_random_arguments2(n_sentences, n_arguments, n_max_premises, n_principles=0,
-                             variation=True, connected=True, use_all_sentences = False,
-                             max_loops = 1000) -> List[List[int]]:
+def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principles=0,
+                            variation=True, connected=True, use_all_sentences = False,
+                            max_loops = 1000) -> List[List[int]]:
     """Returns a list of arguments represented as integer lists.
 
     The dialectical structure given by the returned arguments is satisfiable
@@ -450,8 +450,8 @@ def create_random_argument_list(n_arguments_min: int, n_arguments_max: int,
 
     """
     n_arguments = randint(n_arguments_min, n_arguments_max)
-    args = create_random_arguments2(n_sentences=n_sentences, n_arguments=n_arguments,
-                                    n_max_premises=n_premises_max, max_loops=1000)
+    args = create_random_arguments(n_sentences=n_sentences, n_arguments=n_arguments,
+                                   n_max_premises=n_premises_max, max_loops=1000)
 
     return args
 
