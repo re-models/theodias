@@ -10,9 +10,9 @@ Further information can be found under [https://debatelab.github.io/re-docs/](ht
 
 ## Literature
 
-Betz, G., 2010. Theorie dialektischer Strukturen. Klostermann, Frankfurt am Main.
+Betz, G., 2010. Theorie dialektischer Strukturen. Klostermann, Frankfurt am Main.[https://doi.org/10.5771/9783465136293](https://doi.org/10.5771/9783465136293)
 
-Betz, G., 2013. Debate Dynamics: How Controversy Improves Our Beliefs, Synthese Library. Springer Netherlands.
+Betz, G., 2013. Debate Dynamics: How Controversy Improves Our Beliefs, Synthese Library. Springer Netherlands.[https://www.springer.com/de/book/9789400745988](https://www.springer.com/de/book/9789400745988)
 
 
 
