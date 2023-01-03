@@ -10,13 +10,7 @@ from os import getcwd, path, pardir, remove
 import importlib
 import tarfile
 
-#from rethon.deprecated_re import create_random_arguments
-#from rethon.ensemble_generation import random_position_as_set
-#from remodeldescription.basics import Position, DialecticalStructure, REState
-#from rethon.set_implementation import SetBasedPosition, DAGSetBasedDialecticalStructure, GlobalSetBasedReflectiveEquilibrium
-#from rethon.numpy_implementation import LocalNumpyReflectiveEquilibrium
-#from rethon.model import FullBranchREContainer
-#from rethon.util import re_dumps, re_dump, re_loads, re_load
+
 from .set_implementation import SetBasedPosition
 from .base import Position
 
@@ -103,7 +97,7 @@ class TestRemodel:
     #                    filemode='a',
     #                    level=logging.INFO)
 
-    log = logging.getLogger("RE unit testing ")
+    log = logging.getLogger("Tau unit testing ")
 
     # the following tests describe the expected behaviour for all implementations that
     # inherit `remodeldescription.basics.Position`
