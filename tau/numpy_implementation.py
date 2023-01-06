@@ -320,7 +320,12 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return self
 
     def get_arguments(self) -> List[List[int]]:
-        return self.arguments
+        # remove tautological arguments (which are an artefact of this implementation)
+        arguments = self.arguments.copy()
+        for s in range(1, self.sentence_pool().size()+1):
+            if [s,s] in arguments:
+                arguments.remove([s, s])
+        return arguments
 
     '''
     Sentence-pool, domain and completeness
