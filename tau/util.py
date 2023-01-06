@@ -603,15 +603,19 @@ def tau_dump(re_object, fp, cls=TauJSONEncoder, serialize_implementation=False, 
 def tau_loads(json_obj,
               use_json_specified_type=False,
               position_module='tau',
-              position_class='BitarrayPosition',
+              position_class='NumpyPosition',
               dialectical_structure_module='tau',
-              dialectical_structure_class='BitarrayDialecticalStructure'):
+              dialectical_structure_class='BDDNumpyDialecticalStructure'):
     """Loading an object from a JSON string.
 
     This is a convenient method that calls :py:func:`json.loads` and uses :py:func:`tau_decoder` as object hook
     to handle the instantiation of :class:`Position` and :class:`DialecticalStructure` objects. Desired
     implementation details can be given by parameter values (see :py:func:`tau_decoder`).
 
+    .. note::
+
+            Per default positions will be instantiated as :class:`NumpyPosition` and dialectical structures
+            as :class:`BDDNumpyDialecticalStructure` (to avoid long instantiation times).
     """
     return loads(json_obj, object_hook=lambda x: tau_decoder(json_obj = x,
                                                              use_json_specified_type = use_json_specified_type,
@@ -624,15 +628,19 @@ def tau_loads(json_obj,
 def tau_load(fp,
             use_json_specified_type=False,
             position_module='tau',
-            position_class='BitarrayPosition',
+            position_class='NumpyPosition',
             dialectical_structure_module='tau',
-            dialectical_structure_class='BitarrayDialecticalStructure'):
+            dialectical_structure_class='BDDNumpyDialecticalStructure'):
     """Loading an object from a JSON file.
 
     This is a convenient method that calls :py:func:`json.load` and uses :py:func:`tau_decoder` as object hook
     to handle the instantiation of :class:`Position` and :class:`DialecticalStructure` objects. Desired
     implementation details can be given by parameter values (see :py:func:`tau_decoder`).
 
+    .. note::
+
+            Per default positions will be instantiated as :class:`NumpyPosition` and dialectical structures
+            as :class:`BDDNumpyDialecticalStructure` (to avoid long instantiation times).
     """
     return load(fp, object_hook=lambda x: tau_decoder(json_obj = x,
                                                       use_json_specified_type = use_json_specified_type,
