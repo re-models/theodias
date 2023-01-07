@@ -14,7 +14,7 @@ from pysat.solvers import Minisat22
 import numpy as np
 import logging
 
-logging.basicConfig(filename='setbased_implementation.log', level=logging.INFO)
+#logging.basicConfig(filename='setbased_implementation2.log', level=logging.INFO)
 
 # Todo (@Basti): Add class docstring.
 class SetBasedPosition(Position):

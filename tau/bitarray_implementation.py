@@ -9,7 +9,7 @@ from typing import Set, Iterator, List, Union
 from itertools import combinations, product
 
 import logging
-logging.basicConfig(filename='bitarray_implementation.log', level=logging.INFO)
+#logging.basicConfig(filename='bitarray_implementation.log', level=logging.INFO)
 
 
 class BitarrayPosition(Position):
