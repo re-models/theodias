@@ -1,8 +1,7 @@
-from .bitarray_implementation import BitarrayPosition
-from .numpy_implementation import DAGNumpyDialecticalStructure, BDDNumpyDialecticalStructure
+from .numpy_implementation import DAGNumpyDialecticalStructure, BDDNumpyDialecticalStructure, NumpyPosition
 
 
-class StandardPosition(BitarrayPosition):
+class StandardPosition(NumpyPosition):
     """
     Class that simply tags :py:class:`NumpyPosition` as the default implementation of :py:class:`Position`
     """
