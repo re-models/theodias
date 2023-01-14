@@ -269,9 +269,9 @@ def random_positions(n_sentences: int, k: int = 1, allow_empty_position: bool = 
     n_minimally_consistent_pos = 3 ** n_sentences
     # choose random position (by its int/decimal-representation)
     if allow_empty_position:
-        positions = sample(range(n_minimally_consistent_pos+1), k = k)
+        positions = sample(range(n_minimally_consistent_pos), k = k)
     else:
-        positions = sample(range(1, n_minimally_consistent_pos+1), k = k)
+        positions = sample(range(1, n_minimally_consistent_pos), k = k)
     # convert the pos to its ternary representation and then to its set representation
     return [__ternary2set(__dec2ternary(pos, n_sentences), n_sentences) for
             pos in positions]
