@@ -77,6 +77,8 @@ class Position(ABC):
 
         return self.__hash
 
+    # ToDo: Perhaps we should harmonise the behaviour of this function with DialecticalStructure.sentence_pool and/
+    #  rename the function.
     @abstractmethod
     def sentence_pool(self) -> int:
         """Size of sentence pool.
@@ -239,6 +241,8 @@ class Position(ABC):
         """
         pass
 
+    # ToDo: This is unfortunate. Since the method is static the use has to decide which implementation
+    #  to use. Perhaps better as a non-static method?
     @staticmethod
     @abstractmethod
     def union(positions: Set[Position]) -> Position:
@@ -248,6 +252,8 @@ class Position(ABC):
         """
         pass
 
+    # ToDo: This is unfortunate. Since the method is static the use has to decide which implementation
+    #  to use. Perhaps better as a non-static method?
     @staticmethod
     @abstractmethod
     def intersection(positions: Set[Position]) -> Position:
