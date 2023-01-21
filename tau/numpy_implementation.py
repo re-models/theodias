@@ -617,9 +617,10 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 # Todo (@Andreas): Add class docstring.
 class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
-    def __init__(self, n: int, initial_arguments: List[List[int]] = None):
+    def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
         self.__updated = False
         self.__full_sentence_pool = NumpyPosition(np.array([3 for i in range(n)]))
+        self.name = name
         super().__init__(n, initial_arguments)
 
         # add trivial arguments to catch sentences that are not used in any argument
@@ -627,8 +628,15 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
             self.arguments.append([s, s])
 
     @staticmethod
-    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int) -> DialecticalStructure:
-        return BDDNumpyDialecticalStructure(n_unnegated_sentence_pool, arguments)
+    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
+                       name: str = None) -> DialecticalStructure:
+        return BDDNumpyDialecticalStructure(n_unnegated_sentence_pool, arguments, name)
+
+    def get_name(self) -> str:
+        return self.name
+
+    def set_name(self, name: str):
+        self.name = name
 
     # auxiliary methods
     def _args_to_expr(self):
