@@ -289,7 +289,8 @@ class DialecticalStructure(ABC):
 
     @staticmethod
     @abstractmethod
-    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int) -> DialecticalStructure:
+    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
+                       name : str = None) -> DialecticalStructure:
         """Instanciating a :class:`DialecticalStructure` from a list of int lists.
 
         :return: :class:`DialecticalStructure`
@@ -320,6 +321,14 @@ class DialecticalStructure(ABC):
 
         :return: The arguments as a list of integer lists. The last element of each inner list represents the conclusion, the others the premises.
         """
+        pass
+
+    @abstractmethod
+    def get_name(self) -> str:
+        pass
+
+    @abstractmethod
+    def set_name(self, name: str):
         pass
 
     '''

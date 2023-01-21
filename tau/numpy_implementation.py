@@ -261,9 +261,10 @@ class NumpyPosition(Position):
 # Todo (@Andreas): Add class docstring.
 class DAGNumpyDialecticalStructure(DialecticalStructure):
 
-    def __init__(self, n: int, initial_arguments: List[List[int]] = None):
+    def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
         self.arguments_cnf = set()
         self.arguments = []
+        self.name = name
         self.n = n      # number of unnegated sentences in sentence pool used to iterate through positions
         self.__sp = NumpyPosition(np.ones(n))   # full sentence pool
 
@@ -291,8 +292,15 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             self._update()
 
     @staticmethod
-    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int) -> DialecticalStructure:
-        return DAGNumpyDialecticalStructure(n_unnegated_sentence_pool, arguments)
+    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
+                       name: str = None) -> DialecticalStructure:
+        return DAGNumpyDialecticalStructure(n_unnegated_sentence_pool, arguments, name)
+
+    def get_name(self) -> str:
+        return self.name
+
+    def set_name(self, name: str):
+        self.name = name
 
     def add_argument(self, argument: List[int]) -> DialecticalStructure:
         # arguments are represented as a single position (of its negated premises + its conclusion)
