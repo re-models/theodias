@@ -539,6 +539,7 @@ class TauJSONEncoder(JSONEncoder):
 
         if isinstance(o, DialecticalStructure):
             json_dict = {'arguments': o.get_arguments(),
+                         'tau_name': o.get_name(),
                          'n_unnegated_sentence_pool': o.sentence_pool().size()
                          }
             if self.serialize_implementation:
@@ -587,7 +588,8 @@ def tau_decoder(json_obj,
         else:
             ds_class_ = getattr(importlib.import_module(dialectical_structure_module),
                                 dialectical_structure_class)
-        return ds_class_.from_arguments(json_obj['arguments'], json_obj['n_unnegated_sentence_pool'])
+        return ds_class_.from_arguments(json_obj['arguments'], json_obj['n_unnegated_sentence_pool'],
+                                        json_obj['tau_name'])
 
     return json_obj
 

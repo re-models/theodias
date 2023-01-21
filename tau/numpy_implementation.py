@@ -9,7 +9,7 @@ from bitarray import bitarray
 from itertools import product
 from itertools import combinations
 import numpy as np
-from typing import List, Iterator, Set
+from typing import List, Iterator, Set, Optional
 from dd.autoref import BDD
 from collections import deque
 
@@ -617,11 +617,12 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 # Todo (@Andreas): Add class docstring.
 class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
+    name: Optional[str]
+
     def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
         self.__updated = False
         self.__full_sentence_pool = NumpyPosition(np.array([3 for i in range(n)]))
-        self.name = name
-        super().__init__(n, initial_arguments)
+        super().__init__(n, initial_arguments, name)
 
         # add trivial arguments to catch sentences that are not used in any argument
         for s in range(1, n+1):
