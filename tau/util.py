@@ -588,8 +588,12 @@ def tau_decoder(json_obj,
         else:
             ds_class_ = getattr(importlib.import_module(dialectical_structure_module),
                                 dialectical_structure_class)
+        if 'tau_name' in json_obj:
+            tau_name = json_obj['tau_name']
+        else:
+            tau_name = None
         return ds_class_.from_arguments(json_obj['arguments'], json_obj['n_unnegated_sentence_pool'],
-                                        json_obj['tau_name'])
+                                        tau_name)
 
     return json_obj
 
