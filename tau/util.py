@@ -36,10 +36,11 @@ def is_satisfiable(args: List[List[int]], principles: List[int] = None):
 
 
 def inferential_density(dialectical_structure):
-    """ Inferential density of a dialectical structure.
+    """ Inferential density of a dialectical structure :math:`\tau`.
 
-    As defined by Betz (2013), p. 44: todo
-
+    As defined by Betz (2013, Debate Dynamics, p. 44): :math:`D(\\tau) = \\frac{n-log_{2}(\\sigma)}{n}`,
+    where :math:`\\sigma(\\tau)` is the number of complete and dialectically consistent positions
+    of :math:`\tau`.
     """
     n_complete_extensions = dialectical_structure.n_complete_extensions()
     if n_complete_extensions == 0:
