@@ -44,8 +44,8 @@ class NumpyPosition(Position):
     def __and__(self, other):
         return NumpyPosition(NumpyPosition.as_np_array(self) & NumpyPosition.as_np_array(other))
 
-    def sentence_pool(self) -> int:
-        return self.n_unnegated_sentence_pool
+    def sentence_pool(self) -> Position:
+        return NumpyPosition(np.ones(self.n_unnegated_sentence_pool))
 
     # number of non-supended sentences
     def size(self) -> int:
@@ -77,14 +77,14 @@ class NumpyPosition(Position):
     def to_numpy_position(position: Position) -> NumpyPosition:
         if isinstance(position, NumpyPosition):
             return position
-        return NumpyPosition.from_set(position.as_set(), position.sentence_pool())
+        return NumpyPosition.from_set(position.as_set(), position.sentence_pool().size())
 
     @staticmethod
     def as_np_array(position: Position) -> np.ndarray:
         if isinstance(position, NumpyPosition):
             return position.__np_array
         else:
-            arr = np.zeros(position.sentence_pool())
+            arr = np.zeros(position.sentence_pool().size())
             for s in position.as_set():
                 if s < 0:
                     arr[abs(s) - 1] += 2

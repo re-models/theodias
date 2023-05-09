@@ -50,14 +50,16 @@ class SetBasedPosition(Position):
         if isinstance(position, SetBasedPosition):
             return position
         else:
-            return SetBasedPosition(position.as_set(), position.sentence_pool())
+            return SetBasedPosition(position.as_set(),
+                                    position.sentence_pool().size())
 
-    def sentence_pool(self) -> int:
-        return self.n_unnegated_sentence_pool
+    def sentence_pool(self) -> Position:
+        return SetBasedPosition.from_set(set(range(1, self.n_unnegated_sentence_pool + 1)),
+                                         self.n_unnegated_sentence_pool)
 
     def domain(self) -> Position:
         return SetBasedPosition(self.__position | {-1 * sentence for sentence in self.__position},
-                                self.sentence_pool())
+                                self.sentence_pool().size())
 
     def as_bitarray(self) -> bitarray:
         #if len(self.__position) == 0:
@@ -100,8 +102,8 @@ class SetBasedPosition(Position):
 
     def are_minimally_compatible(self, position: Position) -> bool:
         return SetBasedPosition(self.as_set() | position.as_set(),
-                                max(self.sentence_pool(),
-                                    position.sentence_pool())).is_minimally_consistent()
+                                max(self.sentence_pool().size(),
+                                    position.sentence_pool().size())).is_minimally_consistent()
 
     def is_subposition(self, position: Position) -> bool:
         return self.__position.issubset(position.as_set())
@@ -111,22 +113,22 @@ class SetBasedPosition(Position):
             # for n = -1 or invalid n-values just return the powerset of position
             if n == -1:
                 return chain.from_iterable(
-                    map(lambda x: SetBasedPosition(set(x), self.sentence_pool()),
+                    map(lambda x: SetBasedPosition(set(x), self.sentence_pool().size()),
                         combinations(list(self.__position), r)) for r in
                     range(len(self.__position) + 1))
             else:
-                return map(lambda x: SetBasedPosition(set(x), self.sentence_pool()),
+                return map(lambda x: SetBasedPosition(set(x), self.sentence_pool().size()),
                            combinations(list(self.__position), n))
         else:
             # for n = -1 just return the powerset of position
             if n == -1:
                 return filter(lambda x: x.is_minimally_consistent(), chain.from_iterable(
-                    map(lambda x: SetBasedPosition(set(x), self.sentence_pool()),
+                    map(lambda x: SetBasedPosition(set(x), self.sentence_pool().size()),
                         combinations(list(self.__position), r)) for r in
                     range(len(self.__position) + 1)))
             else:
                 return filter(lambda x: x.is_minimally_consistent(),
-                                   map(lambda x: SetBasedPosition(set(x), self.sentence_pool()),
+                                   map(lambda x: SetBasedPosition(set(x), self.sentence_pool().size()),
                                        combinations(list(self.__position), n)))
 
     def is_accepting(self, sentence: int) -> bool:
@@ -142,7 +144,7 @@ class SetBasedPosition(Position):
     def union(positions: Set[Position]) -> Position:
         if not positions:
             return SetBasedPosition(set(),0)
-        n_sentence_pool = max([pos.sentence_pool() for pos in positions])
+        n_sentence_pool = max([pos.sentence_pool().size() for pos in positions])
         ret = set()
         for position in positions:
             ret = ret | position.as_set()
@@ -152,18 +154,18 @@ class SetBasedPosition(Position):
     def intersection(positions: Set[Position]) -> Position:
         if not positions:
             return SetBasedPosition(set(),0)
-        n_sentence_pool = max([pos.sentence_pool() for pos in positions])
+        n_sentence_pool = max([pos.sentence_pool().size() for pos in positions])
         ret = positions.pop().as_set()
         for position in positions:
             ret = ret & position.as_set()
         return SetBasedPosition(list(ret), n_sentence_pool)
 
     def difference(self, pos: Position ) -> Position:
-        return SetBasedPosition(self.as_set().difference(pos.as_set()), pos.sentence_pool())
+        return SetBasedPosition(self.as_set().difference(pos.as_set()), pos.sentence_pool().size())
 
     def neighbours(self, depth: int) -> Iterator[Position]:
         for neighbour in NumpyPosition.np_neighbours(self, depth):
-            yield SetBasedPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool())
+            yield SetBasedPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool().size())
 
 # Todo (@Basti): Add class docstring.
 class DAGSetBasedDialecticalStructure(DialecticalStructure):

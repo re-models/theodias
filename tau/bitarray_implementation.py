@@ -77,8 +77,10 @@ class BitarrayPosition(Position):
                 position_ba[2 * (abs(sentence) - 1)] = True
         return BitarrayPosition(position_ba, n_unnegated_sentence_pool)
 
-    def sentence_pool(self) -> int:
-        return self.n_unnegated_sentence_pool
+    def sentence_pool(self) -> Position:
+
+        return BitarrayPosition.from_set(set(range(1, self.n_unnegated_sentence_pool+1)),
+                                         self.n_unnegated_sentence_pool)
 
     # number of a position's non-supended sentences
     def size(self) -> int:
@@ -278,7 +280,7 @@ class BitarrayPosition(Position):
 
     def neighbours(self, depth: int) -> Iterator[Position]:
         for neighbour in NumpyPosition.np_neighbours(self, depth):
-            yield BitarrayPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool())
+            yield BitarrayPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool().size())
 
 # Todo (@Andreas): Add class docstring.
 class DAGBitarrayDialecticalStructure(DialecticalStructure):

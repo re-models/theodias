@@ -108,9 +108,9 @@ class TestRemodel:
             ## TESTING MONADIC FUNCTIONS
 
             # testing function `sentence_pool`
-            assert get_position({1, 2}, 3, impl).sentence_pool() == 3
-            assert get_position({}, 3, impl).sentence_pool() == 3
-            assert get_position({}, 0, impl).sentence_pool() == 0
+            assert get_position({1, 2}, 3, impl).sentence_pool().size() == 3
+            assert get_position({}, 3, impl).sentence_pool().size() == 3
+            assert get_position({}, 0, impl).sentence_pool().size() == 0
 
             # testing function `domain`
             assert get_position({1, 2, 3}, 3, impl).domain().as_set() == {1, 2, 3, -1, -2, -3}
@@ -228,17 +228,17 @@ class TestRemodel:
             # testing `from_set`
             assert (position_class_.from_set(set(), 0).as_set() == set())
             assert (position_class_.from_set(set(), 0).size() == 0)
-            assert (position_class_.from_set(set(), 0).sentence_pool() == 0)
+            assert (position_class_.from_set(set(), 0).sentence_pool().size() == 0)
             assert (position_class_.from_set(set(), 2).size() == 0)
-            assert (position_class_.from_set(set(), 2).sentence_pool() == 2)
+            assert (position_class_.from_set(set(), 2).sentence_pool().size() == 2)
 
             assert (position_class_.from_set({1, 2}, 2).as_set() == {1, 2})
             assert (position_class_.from_set({1, 2}, 2).size() == 2)
-            assert (position_class_.from_set({1, 2}, 2).sentence_pool() == 2)
+            assert (position_class_.from_set({1, 2}, 2).sentence_pool().size() == 2)
 
             assert (position_class_.from_set({1, 2}, 3).as_set() == {1, 2})
             assert (position_class_.from_set({1, 2}, 3).size() == 2)
-            assert (position_class_.from_set({1, 2}, 3).sentence_pool() == 3)
+            assert (position_class_.from_set({1, 2}, 3).sentence_pool().size() == 3)
 
             # testing `intersection`
             # todo: @Andreas - Discuss - alternatively, we could throw a RuntimeError/-Warning
@@ -247,7 +247,7 @@ class TestRemodel:
 
             assert (position_class_.intersection({get_position(set(), 2, impl)}).as_set() == set())
             assert (position_class_.intersection({get_position(set(), 2, impl)}).size() == 0)
-            assert (position_class_.intersection({get_position(set(), 2, impl)}).sentence_pool() == 2)
+            assert (position_class_.intersection({get_position(set(), 2, impl)}).sentence_pool().size() == 2)
 
             assert (position_class_.intersection({get_position(set(), 0, impl)}).size() == 0)
 
@@ -264,7 +264,7 @@ class TestRemodel:
 
             assert (position_class_.union({get_position(set(), 2, impl)}).as_set() == set())
             assert (position_class_.union({get_position(set(), 2, impl)}).size() == 0)
-            assert (position_class_.union({get_position(set(), 2, impl)}).sentence_pool() == 2)
+            assert (position_class_.union({get_position(set(), 2, impl)}).sentence_pool().size() == 2)
             assert (position_class_.union({get_position(set(), 0, impl)}).size() == 0)
 
             for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {2, 3}, 3):

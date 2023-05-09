@@ -53,7 +53,7 @@ class Position(ABC):
     # not change the behaviour of this function.
     def __eq__(self, other):
         if isinstance(other, Position):
-            return self.as_set() == other.as_set() and self.sentence_pool() == other.sentence_pool()
+            return self.as_set() == other.as_set() and self.sentence_pool().size() == other.sentence_pool().size()
         else:
             return False
 
@@ -63,7 +63,7 @@ class Position(ABC):
         if not self.__hash:
             # we take as base 5 in order to specify the sentencepool in the int-representation
             # 1 represents suspension, 2 belief, 3 disbelief, 4 belief and disbelief
-            arr = np.ones(self.sentence_pool(), dtype=np.float32)
+            arr = np.ones(self.sentence_pool().size(), dtype=np.float32)
             for s in self.as_set():
                 if s < 0:
                     arr[abs(s) - 1] += 2
@@ -76,14 +76,16 @@ class Position(ABC):
 
         return self.__hash
 
-    # ToDo: Perhaps we should harmonise the behaviour of this function with DialecticalStructure.sentence_pool and/
-    #  rename the function.
     @abstractmethod
-    def sentence_pool(self) -> int:
-        """Size of sentence pool.
+    def sentence_pool(self) -> Position:
+        """Returns the sentences (without negations) of a position's sentence pool.
 
-        :returns: the size of the unnegated sentence pool.
+        Returns from :math:`S = \\{ s_1, s_2, \\dots, s_N, \\neg s_1, \\neg s_2, \\dots, \\neg s_N \\}`
+        only :math:`\\{ s_1, s_2, \\dots, s_N\\}`
+
+        :return: "Half" of the full sentence pool :math:`S` as :code:`Position` (sentences without their negation).
         """
+        pass
 
     @abstractmethod
     def domain(self) -> Position:
@@ -346,8 +348,8 @@ class DialecticalStructure(ABC):
         pass
 
     @abstractmethod
-    def sentence_pool(self) -> Position:  # unnegated
-        """sentence pool.
+    def sentence_pool(self) -> Position:
+        """Returns the sentences (without negations) of a dialetical structure's sentence pool.
 
         Returns from :math:`S = \\{ s_1, s_2, \\dots, s_N, \\neg s_1, \\neg s_2, \\dots, \\neg s_N \\}`
         only :math:`\\{ s_1, s_2, \\dots, s_N\\}`
