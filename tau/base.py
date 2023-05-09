@@ -63,7 +63,6 @@ class Position(ABC):
         if not self.__hash:
             # we take as base 5 in order to specify the sentencepool in the int-representation
             # 1 represents suspension, 2 belief, 3 disbelief, 4 belief and disbelief
-            # Todo: Take the faster numba implementation (?)
             arr = np.ones(self.sentence_pool(), dtype=np.float32)
             for s in self.as_set():
                 if s < 0:
