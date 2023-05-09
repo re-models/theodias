@@ -11,11 +11,12 @@ import pickle
 from pysat.solvers import Glucose3, Minisat22
 from pysat.formula import CNF
 import math
-from typing import List, Iterator
+from typing import List, Iterator, Set
 from random import randint, choices, choice, sample
 import importlib
 from json import JSONEncoder, dumps, dump, loads, load
 import numpy as np
+from deprecated import deprecated
 
 # todo:
 def is_satisfiable(args: List[List[int]], principles: List[int] = None):
@@ -225,7 +226,7 @@ def __dec2ternary(pos, n_sentences):
     return [0 for i in range(n_sentences - len(digits))] + digits[::-1]
 
 
-def __ternary2set(pos_ternary_list, n_sentences):
+def __ternary2set(pos_ternary_list, n_sentences) -> Set[int]:
     return {i if pos_ternary_list[-i] == 1 else -i for i in range(1, n_sentences + 1) if pos_ternary_list[-i] != 0}
 
 
@@ -251,9 +252,33 @@ def load_dialectical_structure(DIR, fileName):
     return dialectical_structure
 
 
-# todo: exclude return of same positions
 # todo: parameter for fixed sentence size
-def random_position_as_set(n_sentences, allow_empty_position=False):
+def random_positions(n_sentences: int, k: int = 1, allow_empty_position: bool = False) -> List[Set[int]]:
+    """Generation of random positions.
+
+    Generates random minimally consistent positions in their set-representation.
+
+    :param int n_sentences: Size of the sentence-pool (without negations).
+    :param int k: Sample size.
+    :param bool allow_empty_position: Iff :code:`True` an empty position might be returned.
+    :return: A list of random positions is integer sets.
+    :rtype: List[Set[int]]
+    :raises ValueError: if k exceeds the number of minimally consistent positions given
+        :code:`n_sentences`.
+    """
+    # number of minimally consistent positions
+    n_minimally_consistent_pos = 3 ** n_sentences
+    # choose random position (by its int/decimal-representation)
+    if allow_empty_position:
+        positions = sample(range(n_minimally_consistent_pos), k = k)
+    else:
+        positions = sample(range(1, n_minimally_consistent_pos), k = k)
+    # convert the pos to its ternary representation and then to its set representation
+    return [__ternary2set(__dec2ternary(pos, n_sentences), n_sentences) for
+            pos in positions]
+
+@deprecated(reason="This method is deprecated. Use 'random_positions()' instead.")
+def random_position_as_set(n_sentences, allow_empty_position=False) -> Set[int]:
     """ Generates a random minimally consistent position in its set-representation.
 
     Args:
@@ -478,18 +503,18 @@ def random_dialectical_structures(n_dialectical_structure,
         ds_class_ = getattr(importlib.import_module(module_name), class_name)
         yield ds_class_.from_arguments(args, n_sentences)
 
-def random_positions(n_positions, n_sentences,
-                     position_module_name='rethon.model',
-                     position_class_name='StandardPosition') -> Iterator[Position]:
-    """List of random positions.
-
-    Convenience method that uses :py:func:`random_position_as_set` to generate a list of positions. The implementing
-    class can be specified via arguments.
-    """
-    positions_as_set = [random_position_as_set(n_sentences, allow_empty_position=False) for i in range(n_positions)]
-    for pos in positions_as_set:
-        pos_class_ = getattr(importlib.import_module(position_module_name), position_class_name)
-        yield pos_class_.from_set(pos, n_sentences)
+# def random_positions(n_positions, n_sentences,
+#                      position_module_name='rethon.model',
+#                      position_class_name='StandardPosition') -> Iterator[Position]:
+#     """List of random positions.
+#
+#     Convenience method that uses :py:func:`random_position_as_set` to generate a list of positions. The implementing
+#     class can be specified via arguments.
+#     """
+#     positions_as_set = [random_position_as_set(n_sentences, allow_empty_position=False) for i in range(n_positions)]
+#     for pos in positions_as_set:
+#         pos_class_ = getattr(importlib.import_module(position_module_name), position_class_name)
+#         yield pos_class_.from_set(pos, n_sentences)
 
 
 class TauJSONEncoder(JSONEncoder):
@@ -515,6 +540,7 @@ class TauJSONEncoder(JSONEncoder):
 
         if isinstance(o, DialecticalStructure):
             json_dict = {'arguments': o.get_arguments(),
+                         'tau_name': o.get_name(),
                          'n_unnegated_sentence_pool': o.sentence_pool().size()
                          }
             if self.serialize_implementation:
@@ -563,7 +589,12 @@ def tau_decoder(json_obj,
         else:
             ds_class_ = getattr(importlib.import_module(dialectical_structure_module),
                                 dialectical_structure_class)
-        return ds_class_.from_arguments(json_obj['arguments'], json_obj['n_unnegated_sentence_pool'])
+        if 'tau_name' in json_obj:
+            tau_name = json_obj['tau_name']
+        else:
+            tau_name = None
+        return ds_class_.from_arguments(json_obj['arguments'], json_obj['n_unnegated_sentence_pool'],
+                                        tau_name)
 
     return json_obj
 

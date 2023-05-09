@@ -168,10 +168,11 @@ class SetBasedPosition(Position):
 # Todo (@Basti): Add class docstring.
 class DAGSetBasedDialecticalStructure(DialecticalStructure):
 
-    def __init__(self, n: int, initial_arguments: List[List[int]] = None):
+    def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
         self.arguments = []
         self.n = n  # number of unnegated sentences in sentence pool used to iterate through positions
         self.__sentence_pool = [i for i in range(-n, n + 1) if not i == 0]
+        self.name = name
 
         # initialise here in the case the ds is empty
         self.cnf = CNF()
@@ -183,8 +184,15 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         #self.__update()
 
     @staticmethod
-    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int ) -> DialecticalStructure:
-        return DAGSetBasedDialecticalStructure(n_unnegated_sentence_pool, arguments)
+    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
+                       name: str = None ) -> DialecticalStructure:
+        return DAGSetBasedDialecticalStructure(n_unnegated_sentence_pool, arguments, name)
+
+    def get_name(self) -> str:
+        return self.name
+
+    def set_name(self, name: str):
+        self.name = name
 
     @staticmethod
     def __argument_to_disjunction(argument: List[int]):

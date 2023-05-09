@@ -77,6 +77,8 @@ class Position(ABC):
 
         return self.__hash
 
+    # ToDo: Perhaps we should harmonise the behaviour of this function with DialecticalStructure.sentence_pool and/
+    #  rename the function.
     @abstractmethod
     def sentence_pool(self) -> int:
         """Size of sentence pool.
@@ -239,6 +241,8 @@ class Position(ABC):
         """
         pass
 
+    # ToDo: This is unfortunate. Since the method is static the use has to decide which implementation
+    #  to use. Perhaps better as a non-static method?
     @staticmethod
     @abstractmethod
     def union(positions: Set[Position]) -> Position:
@@ -248,6 +252,8 @@ class Position(ABC):
         """
         pass
 
+    # ToDo: This is unfortunate. Since the method is static the use has to decide which implementation
+    #  to use. Perhaps better as a non-static method?
     @staticmethod
     @abstractmethod
     def intersection(positions: Set[Position]) -> Position:
@@ -283,7 +289,8 @@ class DialecticalStructure(ABC):
 
     @staticmethod
     @abstractmethod
-    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int) -> DialecticalStructure:
+    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
+                       name : str = None) -> DialecticalStructure:
         """Instanciating a :class:`DialecticalStructure` from a list of int lists.
 
         :return: :class:`DialecticalStructure`
@@ -314,6 +321,14 @@ class DialecticalStructure(ABC):
 
         :return: The arguments as a list of integer lists. The last element of each inner list represents the conclusion, the others the premises.
         """
+        pass
+
+    @abstractmethod
+    def get_name(self) -> str:
+        pass
+
+    @abstractmethod
+    def set_name(self, name: str):
         pass
 
     '''

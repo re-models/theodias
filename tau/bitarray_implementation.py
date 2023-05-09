@@ -283,11 +283,12 @@ class BitarrayPosition(Position):
 # Todo (@Andreas): Add class docstring.
 class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
-    def __init__(self, n: int, initial_arguments: List[List[int]] = None):
+    def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
         self.arguments_cnf = set()
         self.arguments = []
         self.n = n      # number of unnegated sentences in sentence pool used to iterate through positions
         self.__sp = BitarrayPosition(bitarray('1') * 2 * n)   # full sentence pool
+        self.name = name
 
         # prepare storage for results of costly functions
         # ToDo: Which of the following may be made private?
@@ -314,8 +315,15 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
             self.__update()
 
     @staticmethod
-    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int) -> DialecticalStructure:
-        return DAGBitarrayDialecticalStructure(n_unnegated_sentence_pool, arguments)
+    def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
+                       name: str = None) -> DialecticalStructure:
+        return DAGBitarrayDialecticalStructure(n_unnegated_sentence_pool, arguments, name)
+
+    def get_name(self) -> str:
+        return self.name
+
+    def set_name(self, name: str):
+        self.name = name
 
     def to_bitarray_position(self, position: Position) -> BitarrayPosition:
         """This auxiliary method converts a position from another implemenation to a BitarrayPosition."""
