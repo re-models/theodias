@@ -3,6 +3,13 @@ from numba import jit, types, typed
 from typing import List, Tuple
 
 @jit(nopython=True)
+def create_hash(pos: np.ndarray):
+    s = 0
+    for i in range(len(pos)):
+        s += (pos[i]+1) * 5 ** i       # +1 to include suspended elements
+    return s
+
+@jit(nopython=True)
 def gray(N:types.int8, K:types.int8):
 
     n = np.empty(K+1, dtype=types.int8)

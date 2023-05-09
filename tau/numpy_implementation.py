@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .base import Position, DialecticalStructure
-from .numba_tau import direct_sub_arrays, gray
+from .numba_tau import direct_sub_arrays, gray, create_hash
 
 from bitarray import bitarray
 from itertools import product
@@ -19,7 +19,7 @@ class NumpyPosition(Position):
     def __init__(self, pos: np.ndarray):
 
         self.__np_array = pos
-        #self.__hash = None
+        self.__hash = None
         self.__size = None
         self.n_unnegated_sentence_pool = len(pos)
         super(NumpyPosition, self).__init__()
@@ -29,14 +29,11 @@ class NumpyPosition(Position):
         return str(self.as_set())
 
     # hashing enables to form sets of Positions
-    # Todo: @Andi: to discuss - I suggest to use a hash that yields equal values for different implementation and
-    # depends on the sentence pool. The suggestion in the superclass is one possibility. (If we agree the hash function
-    # we can use a fast implementation (or at least you can override it here with a fast implementation.)
     def __hash__(self):
-        #if not self.__hash:
-        #    self.__hash = hash(to_int(self.__np_array))
-        #return self.__hash
-        return super(NumpyPosition, self).__hash__()
+        if not self.__hash:
+            self.__hash = hash(create_hash(self.__np_array))
+        return self.__hash
+
 
     def __eq__(self, other) -> bool:
         if isinstance(other, NumpyPosition):
