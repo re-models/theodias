@@ -142,7 +142,7 @@ class NumpyPosition(Position):
         if n == -1:
             # by default, create set of all subpositions:
             res = set()
-            for i in range(len(self.__np_array)):
+            for i in range(len(self.__np_array)+1):
                 res.update(self.subpositions(i, only_consistent_subpositions))
 
             return iter(res)

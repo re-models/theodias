@@ -182,11 +182,10 @@ class TestRemodel:
                     {frozenset()})
             assert ({frozenset(subpos.as_set()) for subpos in get_position({2, -2}, 2, impl).subpositions()} ==
                     {frozenset({2}), frozenset({-2}), frozenset()})
-            # Todo: @Andreas: works for n = 3. Should work for n = 2 too, right?
             assert ({frozenset(subpos.as_set()) for subpos in get_position({2, -2}, 3, impl).subpositions(only_consistent_subpositions=False)} ==
                     {frozenset({2, -2}), frozenset({2}), frozenset({-2}), frozenset()})
-            #assert ({frozenset(subpos.as_set()) for subpos in get_position({2, -2}, 2, impl).subpositions(only_consistent_subpositions=False)} ==
-            #        {frozenset({2, -2}), frozenset({2}), frozenset({-2}), frozenset()})
+            assert ({frozenset(subpos.as_set()) for subpos in get_position({2, -2}, 2, impl).subpositions(only_consistent_subpositions=False)} ==
+                    {frozenset({2, -2}), frozenset({2}), frozenset({-2}), frozenset()})
             assert ({frozenset(subpos.as_set()) for subpos in get_position({2, -2, 3}, 3, impl).subpositions(n=2)} ==
                     {frozenset({2, 3}), frozenset({-2, 3})})
             assert ({frozenset(subpos.as_set()) for subpos in get_position({2, -2, 3}, 3, impl).subpositions(n=2, only_consistent_subpositions=False)} ==
