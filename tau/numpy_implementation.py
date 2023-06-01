@@ -97,12 +97,26 @@ class NumpyPosition(Position):
 
     @staticmethod
     def to_numpy_position(position: Position) -> NumpyPosition:
+        """Convert an implemented instance of :py:class:`Position` to an \
+        instance of :py:class:`NumpyPosition`.
+        """
+
         if isinstance(position, NumpyPosition):
             return position
         return NumpyPosition.from_set(position.as_set(), position.sentence_pool().size())
 
     @staticmethod
     def as_np_array(position: Position) -> np.ndarray:
+        """Position as numpy array.
+
+        :param position: An instance of :py:class:`Position`
+
+        :returns: A numpy array of length :math:`n` (size of the sentence pool \
+        associated with the position). An entry at index :math:`i` corresponds \
+        to the standing of :math:`s_{i+1}` according to the following \
+        conventions: :code:`1`: acceptance, :code:`2`: rejection, \
+        :code:`3`: acceptance and rejection, :code:`0`: abstention
+        """
         if isinstance(position, NumpyPosition):
             return position.__np_array
         else:
@@ -333,9 +347,17 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return DAGNumpyDialecticalStructure(n_unnegated_sentence_pool, arguments, name)
 
     def get_name(self) -> str:
+        """Get the name of the dialectical structure.
+
+        :returns: The name of the dialectical structure as a string (default: \
+        :code:`None`)
+        """
+
         return self.name
 
     def set_name(self, name: str):
+        """Set the name of the dialectical structure."""
+
         self.name = name
 
     def add_argument(self, argument: List[int]) -> DialecticalStructure:
@@ -649,15 +671,16 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return None
 
 
-# Todo (@Andreas): Add class docstring.
 class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
     """Implementing :py:class:`DialecticalStructure` on the basis of
     :py:class:`NumpyPosition` and binary decision diagrams (BDD).
     """
-    
+
     name: Optional[str]
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
+        """Initialize an instance of :py:class:`BDDNumpyDialecticalStructure`."""
+
         self.__updated = False
         self.__full_sentence_pool = NumpyPosition(np.array([3 for i in range(n)]))
         super().__init__(n, initial_arguments, name)
@@ -699,7 +722,9 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         u = u[:-3]
         return u
 
-    def pos_to_expr(self, position: NumpyPosition):
+    def _pos_to_expr(self, position: NumpyPosition):
+        """Convert a position to an expression suitable for bdd."""
+        
         expr = ''
         for s in position.as_set():
             if s < 0:
@@ -744,7 +769,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
             models = list(self.bdd.pick_iter(self.dia_expr, care_vars=[]))
         else:
             # convert position to bdd expression
-            v = self.bdd.add_expr(self.pos_to_expr(position))
+            v = self.bdd.add_expr(self._pos_to_expr(position))
 
             # models: extensions of position with variblses occuring along the recursive traversal of the BDD
             models = list(self.bdd.pick_iter(self.dia_expr & v, care_vars=[]))
@@ -861,13 +886,13 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         if not position or position.size() == 0:
             return self.bdd.count(self.dia_expr, nvars=self.n)
         else:
-            v = self.bdd.add_expr(self.pos_to_expr(position))
+            v = self.bdd.add_expr(self._pos_to_expr(position))
             return self.bdd.count(self.dia_expr & v, nvars=self.n)
 
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
 
-        v1 = self.bdd.add_expr(self.pos_to_expr(position1))
-        v2 = self.bdd.add_expr(self.pos_to_expr(position2))
+        v1 = self.bdd.add_expr(self._pos_to_expr(position1))
+        v2 = self.bdd.add_expr(self._pos_to_expr(position2))
 
         a = self.bdd.count(self.dia_expr & v1 & v2, nvars=self.n)
         b = self.bdd.count(self.dia_expr & v2, nvars=self.n)
