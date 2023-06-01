@@ -153,8 +153,8 @@ class NumpyPosition(Position):
     def is_minimally_consistent(self) -> bool:
         return 3 not in self.__np_array
 
-    def are_minimally_compatible(self, position1: Position) -> bool:
-        return self.union([self, position1]).is_minimally_consistent()
+    def are_minimally_compatible(self, position: Position) -> bool:
+        return self.union([self, position]).is_minimally_consistent()
 
     def is_subposition(self: Position, pos2: Position) -> bool:
         return self.as_set().issubset(pos2.as_set())
@@ -306,20 +306,19 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         self.__sp = NumpyPosition(np.ones(n))   # full sentence pool
 
         # prepare storage for results of costly functions
-        # ToDo: Which of the following may be made private?
-        self.cons_comp_pos = set()
-        self.consistent_parents = {}
-        self.complete_consistent_extensions = {}
-        self.closures = {}
-        self.min_cons_pos = set()
+        self.__cons_comp_pos = set()
+        self.__consistent_parents = {}
+        self.__complete_consistent_extensions = {}
+        self.__closures = {}
+        self.__min_cons_pos = set()
 
         ###
-        self.consistent_extensions = {}
-        self.dict_n_complete_extensions = {}
-        self.n_extensions = {}
+        self.__consistent_extensions = {}
+        self.__dict_n_complete_extensions = {}
+        self.__n_extensions = {}
 
         # update status
-        self.n_updates = 0
+        self.__n_updates = 0
         self.__updated = False
         if initial_arguments:
             for arg in initial_arguments:
@@ -397,7 +396,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         # check update status of dialectical structure
         self._update()
 
-        return NumpyPosition.to_numpy_position(position) in self.complete_consistent_extensions
+        return NumpyPosition.to_numpy_position(position) in self.__complete_consistent_extensions
 
     def are_compatible(self, position1: Position, position2: Position, ) -> bool:
         # check update status of dialectical structure
@@ -413,13 +412,13 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
         else:
             # do they have a complete and consistent extension in common?
-            return any(self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position1)].intersection(
-                self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position2)]))
+            return any(self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position1)].intersection(
+                self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position2)]))
 
     def minimally_consistent_positions(self) -> Iterator[Position]:
 
-        if self.min_cons_pos:
-            return iter(self.min_cons_pos)
+        if self.__min_cons_pos:
+            return iter(self.__min_cons_pos)
         else:
             # create the set of all positions
             min_consistent_positions = set()
@@ -427,7 +426,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             for pos in gray(3, self.n):
                 min_consistent_positions.add(NumpyPosition(pos.copy()))
 
-            self.min_cons_pos = min_consistent_positions
+            self.__min_cons_pos = min_consistent_positions
             return iter(min_consistent_positions)
 
     def consistent_positions(self) -> Iterator[Position]:
@@ -436,30 +435,28 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
         # note that the complete_parent_graph and direct_parent_graph have the
         # same keys
-        return iter(self.complete_consistent_extensions)
+        return iter(self.__complete_consistent_extensions)
 
     def consistent_complete_positions(self) -> Iterator[Position]:
         # self.__update()
-        if not self.cons_comp_pos:
+        if not self.__cons_comp_pos:
             all_complete_positions = [NumpyPosition(np.array(e))
                                       for e in product([1, 2], repeat=self.n)]
 
             # filter positions that do not satisfy all arguments:
-            self.cons_comp_pos = set(
+            self.__cons_comp_pos = set(
                     [pos for pos in all_complete_positions
                      if all(self._satisfies(arg, pos) for arg in self.arguments_cnf)])
 
-            return iter(self.cons_comp_pos)
+            return iter(self.__cons_comp_pos)
 
         else:
             # check update status of dialectical structure
             # self.check_update()
 
-            return iter(self.cons_comp_pos)
+            return iter(self.__cons_comp_pos)
 
-    '''
-    Dialectic entailment and dialectic closure of consistent positions
-    '''
+    # Dialectic entailment and dialectic closure of consistent positions
 
     def entails(self, position1: Position, position2: Position) -> bool:
         # check update status of dialectical structure
@@ -471,12 +468,12 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             return False
 
         # catch complete positions (else-statements)
-        if self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position1)]:
+        if self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position1)]:
             pos1_extensions = self._complete_extensions(position1)
         else:
             pos1_extensions = {NumpyPosition.to_numpy_position(position1)}
 
-        if self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position2)]:
+        if self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position2)]:
             pos2_extensions = self._complete_extensions(position2)
         else:
             pos2_extensions = {NumpyPosition.to_numpy_position(position2)}
@@ -485,7 +482,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
     def closure(self, position: Position) -> Position:
         if self.is_consistent(position):
-            return self.closures[NumpyPosition.to_numpy_position(position)]
+            return self.__closures[NumpyPosition.to_numpy_position(position)]
         # ex falso quodlibet
         else:
             return self.__sp.domain()
@@ -551,15 +548,15 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         if not position.is_minimally_consistent():
             return set()
         # complete positions have no parents but extend themselves
-        elif len(self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position)]) == 0:
+        elif len(self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position)]) == 0:
             return {position}
         else:
-            return self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position)]
+            return self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position)]
 
     def n_complete_extensions(self, position: Position = None) -> int:
         self._update()
         if not position or position.size() == 0:
-            return len(self.cons_comp_pos)
+            return len(self.__cons_comp_pos)
         else:
             return len(self._complete_extensions(position))
 
@@ -578,18 +575,17 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         """
 
         if not self.__updated:
-            # ToDo: Which ones are really important to keep and which ones can be set private?
-            self.complete_consistent_extensions = {}
-            self.consistent_extensions = {}
-            self.consistent_parents = {}
+            self.__complete_consistent_extensions = {}
+            self.__consistent_extensions = {}
+            self.__consistent_parents = {}
 
-            self.dict_n_complete_extensions = {}
-            self.n_extensions = {}
-            self.closures = {}
+            self.__dict_n_complete_extensions = {}
+            self.__n_extensions = {}
+            self.__closures = {}
 
             # Minimally consistency is not affected by structural updates,
             # but it is created if it does not already exist.
-            if not self.min_cons_pos:
+            if not self.__min_cons_pos:
                 self.minimally_consistent_positions()
 
             # starting point (gamma_n): consistent complete positions
@@ -597,12 +593,12 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
             for pos in current_gamma:
                 # complete positions have no parents
-                self.complete_consistent_extensions[pos] = {pos}
-                self.consistent_parents[pos] = set()
-                self.consistent_extensions[pos] = {pos}
-                self.dict_n_complete_extensions[pos] = 1
-                self.closures[pos] = pos
-                self.n_extensions[pos] = 1
+                self.__complete_consistent_extensions[pos] = {pos}
+                self.__consistent_parents[pos] = set()
+                self.__consistent_extensions[pos] = {pos}
+                self.__dict_n_complete_extensions[pos] = 1
+                self.__closures[pos] = pos
+                self.__n_extensions[pos] = 1
 
             new_gamma = set()
             # iterate backwards over length of subpositions
@@ -612,20 +608,20 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
                     for sub_pos in position.direct_subpositions():
 
                         # add parent to dictionary
-                        if sub_pos not in self.complete_consistent_extensions.keys():
-                            self.complete_consistent_extensions[sub_pos] = \
-                                set(self.complete_consistent_extensions[position])
-                            self.consistent_parents[sub_pos] = {position}
-                            self.consistent_extensions[sub_pos] = {sub_pos}
-                            self.consistent_extensions[sub_pos].update(self.consistent_extensions[position])
+                        if sub_pos not in self.__complete_consistent_extensions.keys():
+                            self.__complete_consistent_extensions[sub_pos] = \
+                                set(self.__complete_consistent_extensions[position])
+                            self.__consistent_parents[sub_pos] = {position}
+                            self.__consistent_extensions[sub_pos] = {sub_pos}
+                            self.__consistent_extensions[sub_pos].update(self.__consistent_extensions[position])
 
                             # self.closures[sub_pos] = self.closures[position]
 
                         else:
-                            self.consistent_parents[sub_pos].add(position)
-                            self.consistent_extensions[sub_pos].update(self.consistent_extensions[position])
-                            self.complete_consistent_extensions[sub_pos].update(
-                                set(self.complete_consistent_extensions[position]))
+                            self.__consistent_parents[sub_pos].add(position)
+                            self.__consistent_extensions[sub_pos].update(self.__consistent_extensions[position])
+                            self.__complete_consistent_extensions[sub_pos].update(
+                                set(self.__complete_consistent_extensions[position]))
 
                             # self.closures[sub_pos] &= self.closures[position]
 
@@ -636,13 +632,13 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
                     # Gregor's Condition
 
                     # Gregor's Condition
-                    for par in self.consistent_parents[pos]:
-                        if len(self.complete_consistent_extensions[pos]) == \
-                                len(self.complete_consistent_extensions[par]):
-                            self.closures[pos] = self.closures[par]
+                    for par in self.__consistent_parents[pos]:
+                        if len(self.__complete_consistent_extensions[pos]) == \
+                                len(self.__complete_consistent_extensions[par]):
+                            self.__closures[pos] = self.__closures[par]
                             break
-                    if pos not in self.closures:
-                        self.closures[pos] = pos
+                    if pos not in self.__closures:
+                        self.__closures[pos] = pos
 
                 current_gamma = new_gamma
                 new_gamma = set()
@@ -652,9 +648,13 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
         return None
 
+
 # Todo (@Andreas): Add class docstring.
 class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
-
+    """Implementing :py:class:`DialecticalStructure` on the basis of
+    :py:class:`NumpyPosition` and binary decision diagrams (BDD).
+    """
+    
     name: Optional[str]
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
@@ -737,8 +737,8 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
     def closure(self, position: Position) -> Position:
 
         # the position's closure has been calculated before
-        if position in self.closures:
-            return self.closures[position]
+        if position in self.__closures:
+            return self.__closures[position]
 
         if position.size() == 0:    # empty position
             models = list(self.bdd.pick_iter(self.dia_expr, care_vars=[]))
@@ -759,7 +759,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         closure = NumpyPosition.from_set(closure, self.n)
 
         # store closure for later reuse
-        self.closures[position] = closure
+        self.__closures[position] = closure
 
         return closure
 
