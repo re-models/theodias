@@ -1,4 +1,3 @@
-# Todo (@Andreas): Add module docstring.
 """
 Implementing abstract base classes on the basis of numpy arrays.
 """
@@ -17,7 +16,6 @@ from dd.autoref import BDD
 from collections import deque
 
 
-# Todo (@Andreas): Add class docstring.
 class NumpyPosition(Position):
     """Implements :py:class:`Position` on the basis of Numpy arrays."""
 
@@ -215,7 +213,6 @@ class NumpyPosition(Position):
         except IndexError:
             return False
 
-    # ToDo: Discuss: Is this what we want?
     @staticmethod
     def union(positions: Set[Position]) -> Position:
         if not positions:
@@ -724,7 +721,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
     def _pos_to_expr(self, position: NumpyPosition):
         """Convert a position to an expression suitable for bdd."""
-        
+
         expr = ''
         for s in position.as_set():
             if s < 0:
