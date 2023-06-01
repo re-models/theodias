@@ -253,14 +253,14 @@ class Position(ABC):
         """
         pass
 
-    # ToDo: This is unfortunate. Since the method is static the use has to decide which implementation
+    # ToDo: This is unfortunate. Since the method is static the user has to decide which implementation
     #  to use. Perhaps better as a non-static method?
     @staticmethod
     @abstractmethod
     def intersection(positions: Set[Position]) -> Position:
-        """set-theoretic intersection
+        """Intersect postions set-theoretically.
 
-        :return: The set-theoretic intersection of the given set of :code:`position`s.
+        :return: The set-theoretic intersection of the given set of :code:`positions`.
         """
         pass
 
@@ -326,10 +326,13 @@ class DialecticalStructure(ABC):
 
     @abstractmethod
     def get_name(self) -> str:
+
+
         pass
 
     @abstractmethod
     def set_name(self, name: str):
+        """Set the name of the dialectical structure."""
         pass
 
     '''
@@ -409,14 +412,14 @@ class DialecticalStructure(ABC):
 
         This iterator will include the empty position.
 
-        :return: A python iterator over all minimally consistent positions.
+        :return: An iterator over all minimally consistent positions.
         """
 
     @abstractmethod
     def consistent_complete_positions(self) -> Iterator[Position]:
         """ Iterator over all dialectically consistent and complete positions.
 
-        :return: A python iterator over all dialectically consistent and complete positions.
+        :return: An iterator over all dialectically consistent and complete positions.
         """
         pass
 
