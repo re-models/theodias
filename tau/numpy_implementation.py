@@ -1,4 +1,7 @@
 # Todo (@Andreas): Add module docstring.
+"""
+Implementing abstract base classes on the basis of numpy arrays.
+"""
 
 from __future__ import annotations
 
@@ -13,11 +16,31 @@ from typing import List, Iterator, Set, Optional
 from dd.autoref import BDD
 from collections import deque
 
+
 # Todo (@Andreas): Add class docstring.
 class NumpyPosition(Position):
+    """Implements :py:class:`Position` on the basis of Numpy arrays."""
 
     def __init__(self, pos: np.ndarray):
+        """Instantiates a :py:class:`NumpyPosition` from a numpy array.
 
+        A sentence :math:`s_{i}` of a position :math:`\\mathcal{A}` (over a
+        sentence pool with :math:`n` unnegated sentences) corresponds to an
+        entry at index :math:`i-1` in a numpy array of length :math:`n`.
+        :code:`1` represents acceptance (:math:`s_{i}\\in\\mathcal{A}`),
+        :code:`2` stands for rejection (:math:`\\neg s_{i}\\in\\mathcal{A}`), and
+        :code:`3` denotes acceptance and rejection (flat contradiction). Absent
+        sentences correspond to :code:`0`. For example, for a sentence pool of 7
+        unnegated sentences,
+        :math:`\\mathcal{A} = \\lbrace s_{1}, \\neg s_{2}, s_{6} \\rbrace` correponds
+        to :code:`numpy.array([1, 2, 0, 0, 0, 1, 0])`, which can be handed over
+        to :py:class:`NumpyPosition`.
+
+        .. note::
+            It is more comfortable to instantiate :py:class:`NumpyPosition`
+            with :py:class:`NumpyPosition.from_set`
+
+        """
         self.__np_array = pos
         self.__hash = None
         self.__size = None
@@ -33,7 +56,6 @@ class NumpyPosition(Position):
         if not self.__hash:
             self.__hash = hash(create_hash(self.__np_array))
         return self.__hash
-
 
     def __eq__(self, other) -> bool:
         if isinstance(other, NumpyPosition):
@@ -91,7 +113,6 @@ class NumpyPosition(Position):
                 elif s > 0:
                     arr[s - 1] += 1
             return arr
-
 
     def as_ternary(self) -> int:
         if self.is_minimally_consistent():
@@ -157,8 +178,9 @@ class NumpyPosition(Position):
             return iter(subpositions)
 
     def direct_subpositions(self) -> Iterator[Position]:
-        """Creates subpositions of position that have exactly one element less than position.
-        Used for efficiency in update method."""
+        """Iterate over subpositions that have exactly one element less than the
+        position itself.
+        """
 
         return iter([NumpyPosition(arr) for arr in direct_sub_arrays(self.__np_array, len(self.__np_array))])
 
@@ -247,16 +269,34 @@ class NumpyPosition(Position):
                         queue.append((neighbour, level + 1, changes_left - 1))
 
     def neighbours(self, depth: int) -> Iterator[Position]:
-        """Generates all neighbours of `position` that can be reached by at most
-        `depth` many adjustments of individual sentences. The number of neighbours is
-        sum(k=0, d, (n over k)*2^k), where n is the number of unnegated sentences and d is
-        the depth of the neighbourhood (the position is itself included). """
+        """Iterate over the neighbours of the position.
+
+        :param depth: Depth of the neighbourhood, i.e. positions that can be \
+        reached by at most :code:`depth` many adjustments of individual sentences.\
+        The number of neighbours is :math:`\\sum_{k=0}^{d} {n \\choose k} \\cdot 2^k`,\
+        where :math:`n` is the number of unnegated sentences in the sentence pool,\
+        and :math:`d` is the depth of the neighbourhood, including the position itself.
+
+        :returns: An iterator over positions in the neighbourhood of the position,\
+        including the position itself.
+        """
 
         for neighbour in NumpyPosition.np_neighbours(self, depth):
             yield NumpyPosition(neighbour)
 
-# Todo (@Andreas): Add class docstring.
+
 class DAGNumpyDialecticalStructure(DialecticalStructure):
+    """Implementing :py:class:`DialecticalStructure` on the basis of
+    :py:class:`NumpyPosition` and directed acyclic graphs (DAG).
+
+    .. note::
+        This class calculates and stores information about *all* positions in a \
+        dialectical structure. The number of positions grows exponentially in \
+        the number of sentences in the sentence pool (:math:`3^{n}`). \
+        Consequently, it is not suitable for larger sentence pool sizes, for \
+        which :py:class:`BDDNumpyDialecticalStructure` is recommended.
+
+    """
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
         self.arguments_cnf = set()
@@ -325,31 +365,33 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return self
 
     def get_arguments(self) -> List[List[int]]:
-        # remove tautological arguments (which are an artefact of this implementation)
+        # remove tautological arguments (which are an artifact of this implementation)
         arguments = self.arguments.copy()
         for s in range(1, self.sentence_pool().size()+1):
             if [s,s] in arguments:
                 arguments.remove([s, s])
         return arguments
 
-    '''
-    Sentence-pool, domain and completeness
-    '''
+    # Sentence-pool, domain and completeness
 
     def is_complete(self, position: Position) -> bool:
         return self.__sp.domain() == position.domain()
 
     def sentence_pool(self) -> Position:
-        """Returns the unnegated half of sentence pool"""
-
         return self.__sp
 
-    '''
-    Dialectic consistency & compatibility
-    '''
+    # Dialectic consistency & compatibility
 
-    def satisfies(self, argument: Position, position: Position) -> bool:
-        return bool(np.count_nonzero(NumpyPosition.as_np_array(argument) & NumpyPosition.as_np_array(position)))
+    def _satisfies(self, argument: Position, position: Position) -> bool:
+
+        """Check whether a complete `position` satisfies `argument`, which is also
+        given as a position (negated premises + conclusion). Satisfiability amounts
+        to checking whether bitwise AND operation on the numpy arrays associated with
+        the positions is non-zero at least once.
+        """
+
+        return bool(np.count_nonzero(NumpyPosition.as_np_array(argument)
+                                     & NumpyPosition.as_np_array(position)))
 
     def is_consistent(self, position: Position) -> bool:
         # check update status of dialectical structure
@@ -405,7 +447,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             # filter positions that do not satisfy all arguments:
             self.cons_comp_pos = set(
                     [pos for pos in all_complete_positions
-                     if all(self.satisfies(arg, pos) for arg in self.arguments_cnf)])
+                     if all(self._satisfies(arg, pos) for arg in self.arguments_cnf)])
 
             return iter(self.cons_comp_pos)
 
@@ -430,12 +472,12 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
         # catch complete positions (else-statements)
         if self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position1)]:
-            pos1_extensions = self.complete_extensions(position1)
+            pos1_extensions = self._complete_extensions(position1)
         else:
             pos1_extensions = {NumpyPosition.to_numpy_position(position1)}
 
         if self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position2)]:
-            pos2_extensions = self.complete_extensions(position2)
+            pos2_extensions = self._complete_extensions(position2)
         else:
             pos2_extensions = {NumpyPosition.to_numpy_position(position2)}
 
@@ -499,8 +541,8 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return iter(res)
 
     # Auxiliary method to retrieve complete extension from the graph
-    def complete_extensions(self, position: Position) -> Set[Position]:
-        """Returns complete extensions of position by retrieving corresponding
+    def _complete_extensions(self, position: Position) -> Set[Position]:
+        """Returns complete extensions of `position` by retrieving corresponding
          node in the graph that stores complete extensions."""
 
         # check update status of dialectical structure
@@ -514,28 +556,27 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         else:
             return self.complete_consistent_extensions[NumpyPosition.to_numpy_position(position)]
 
-    # sigma
     def n_complete_extensions(self, position: Position = None) -> int:
         self._update()
         if not position or position.size() == 0:
             return len(self.cons_comp_pos)
         else:
-            return len(self.complete_extensions(position))
+            return len(self._complete_extensions(position))
 
-    # conditional doj
+    # conditional degree of justification
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
 
-        return len(self.complete_extensions(position1).intersection(
-            self.complete_extensions(position2)))/self.n_complete_extensions(position2)
+        return len(self._complete_extensions(position1).intersection(
+            self._complete_extensions(position2))) / self.n_complete_extensions(position2)
 
     def _update(self) -> None:
         """Checks whether the dialectical structure is up to date,
         which may not be the case after new arguments have been added after its
-        initialisation.
-        If the structure is outdated, this method resets and recreates stored
-        objects (e.g. DAG, closure).
-        All methods that require an updated structure to work properly, call this method."""
-        #logging.info("in update von np")
+        initialisation. If the structure is outdated, this method resets and
+        recreates stored objects (e.g. DAG, closure). All methods that require
+        an updated structure to work properly, call this method.
+        """
+
         if not self.__updated:
             # ToDo: Which ones are really important to keep and which ones can be set private?
             self.complete_consistent_extensions = {}
