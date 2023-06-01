@@ -249,7 +249,7 @@ class Position(ABC):
     def union(positions: Set[Position]) -> Position:
         """set-theoretic union
 
-        :return: The set-theoretic union of the given set of :code:`position`s.
+        :return: The set-theoretic union of the given set of :code:`positions`.
         """
         pass
 
