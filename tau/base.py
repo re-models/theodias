@@ -326,13 +326,18 @@ class DialecticalStructure(ABC):
 
     @abstractmethod
     def get_name(self) -> str:
+        """Get the name of the dialectical structure.
 
+        :returns: The name of the dialectical structure as a string (default: \
+        :code:`None`)
+        """
 
         pass
 
     @abstractmethod
     def set_name(self, name: str):
         """Set the name of the dialectical structure."""
+
         pass
 
     '''
