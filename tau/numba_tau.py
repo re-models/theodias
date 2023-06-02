@@ -1,6 +1,9 @@
+"""Auxiliary methods to speed up the handling of numpy arrays with numba."""
+
 import numpy as np
 from numba import jit, types, typed
 from typing import List, Tuple
+
 
 @jit(nopython=True)
 def create_hash(pos: np.ndarray):
