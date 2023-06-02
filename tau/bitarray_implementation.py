@@ -1,4 +1,6 @@
-# Todo (@Andreas): Add module docstring.
+"""
+Implementing abstract base classes on the basis of bitarrays.
+"""
 
 from .base import Position
 from .base import DialecticalStructure
@@ -13,21 +15,37 @@ import logging
 
 
 class BitarrayPosition(Position):
-    """using bitarrays to represent positions and their methods
-
-    A pair of bits represents a sentence:
-    The first bit represents acceptance and the second bit rejection
-    Suspension of a sentence corresponds to both bits being False/0
-    (Minimal or flat) contradiction is present if both bits are True/1
-
-    A BitarrayPosition may be created by a bitarray,
-    e.g. BitarrayPosition(bitarray('10001001')), or by a set
-    of integer-represented sentences and the number of unnegated sentences in the
-    sentencepool, e.g. BitarrayPosition({1, 3, -4}, n_unnegated_sentence_pool = 4))
+    """Implementing :py:class:`Position` on the basis of bitarrays.
     """
 
     def __init__(self, ba: Union[bitarray, Set[int]], n_unnegated_sentence_pool: int = None):
-        """initialized by a bitarray of a string of zeros and ones"""
+        """Instantiates a :py:class:`NumpyPosition` from a numpy array.
+
+        A pair of bits, which can take the values :code:`True/1` or \
+        :code:`False/0`,  represents a sentence in a position. \
+        The first bit represents acceptance and the second bit rejection. \
+        Suspension of a sentence corresponds to both bits being :code:`False/0`, \
+        (minimal or flat) contradiction obtains when both bits are \
+        :code:`False/0`.
+
+        A position is represented by an array of bits. The status of sentence \
+        :math:`s_{i}` (:math:`i=1,\\dots,n`) corresponds to the bits at indices \
+        :math:`2 \\cdot (i - 1)` and :math:`2 \\cdot (i - 1) + 1`
+
+        For example, for a sentence pool of 7 unnegated sentences, \
+        :math:`\\mathcal{A} = \\lbrace s_{1}, \\neg s_{2}, s_{6} \\rbrace` \
+        correponds to :code:`bitarray('10010000001000')`, which can be handed \
+        over to :py:class:`BitarrayPosition`.
+
+        .. note::
+            A BitarrayPosition may be created by a bitarray,
+            e.g. :code:`BitarrayPosition(bitarray('10001001'))`, or more comfortably, by a set
+            of integer-represented sentences and the number of unnegated sentences in the
+            sentencepool, e.g. :code:`BitarrayPosition({1, 3, -4}, n_unnegated_sentence_pool=4)`
+            or :code:`BitarrayPosition.from_set({1, 3, -4}, 4)`.
+
+        """
+
         if type(ba) == bitarray:
             self.__bitarray = ba
             self.n_unnegated_sentence_pool = int(len(ba)/2)
@@ -127,8 +145,8 @@ class BitarrayPosition(Position):
     def is_minimally_consistent(self) -> bool:
         return not any(self.__bitarray[0::2] & self.__bitarray[1::2])
 
-    def are_minimally_compatible(self, position1: Position) -> bool:
-        return self.union([self, position1]).is_minimally_consistent()
+    def are_minimally_compatible(self, position: Position) -> bool:
+        return self.union([self, position]).is_minimally_consistent()
 
     def is_subposition(self: Position, pos2: Position) -> bool:
         try:
@@ -196,12 +214,14 @@ class BitarrayPosition(Position):
 
             return iter(subpositions)
 
-    def direct_subpositions(self) -> Iterator[Position]:
-        """Creates subpositions of position that have exactly one element less than postion.
-        Used for efficiency in update method."""
-        # ToDo: Move to update method? Make it private?
-        # ToDo: To be used inside method `subpositions` for more efficiency?
-        # ToDo: catch minimally inconsistent positions!
+    def __direct_subpositions(self) -> Iterator[Position]:
+        """Creates subpositions of position that have exactly one element less
+        than the position."""
+
+        if not self.is_minimally_consistent():
+            raise ValueError("Cannot determine neighbours of a minimally "
+                             "inconsistent position.")
+
         res = []
         # 1/2 number of bits in bitarray
         n = int(len(self.__bitarray)/2)
@@ -255,8 +275,7 @@ class BitarrayPosition(Position):
     @staticmethod
     def intersection(positions: Set[Position]) -> Position:
 
-        # ToDo: discuss intersection of empty sets
-        # bad fix for empty set of positions
+        # quick fix for empty set of positions
         if not positions:
             return BitarrayPosition(bitarray('0'))
 
@@ -282,31 +301,41 @@ class BitarrayPosition(Position):
         for neighbour in NumpyPosition.np_neighbours(self, depth):
             yield BitarrayPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool().size())
 
-# Todo (@Andreas): Add class docstring.
+
 class DAGBitarrayDialecticalStructure(DialecticalStructure):
+    """Implementing :py:class:`DialecticalStructure` on the basis of
+        :py:class:`BitarrayPosition` and directed acyclic graphs (DAG).
+
+        .. note::
+            This class calculates and stores information about *all* positions in a \
+            dialectical structure. The number of positions grows exponentially in \
+            the number of sentences in the sentence pool (:math:`3^{n}`). \
+            Consequently, it is not suitable for larger sentence pool sizes, for \
+            which :py:class:`BDDNumpyDialecticalStructure` is recommended.
+
+        """
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
-        self.arguments_cnf = set()
-        self.arguments = []
-        self.n = n      # number of unnegated sentences in sentence pool used to iterate through positions
+        self.__arguments_cnf = set()
+        self.__arguments = []
+        self.__n = n      # number of unnegated sentences in sentence pool used to iterate through positions
         self.__sp = BitarrayPosition(bitarray('1') * 2 * n)   # full sentence pool
         self.name = name
 
         # prepare storage for results of costly functions
-        # ToDo: Which of the following may be made private?
-        self.cons_comp_pos = set()
-        self.consistent_parents = {}
-        self.complete_consistent_extensions = {}
-        self.closures = {}
-        self.min_cons_pos = set()
+        self.__cons_comp_pos = set()
+        self.__consistent_parents = {}
+        self.__complete_consistent_extensions = {}
+        self.__closures = {}
+        self.__min_cons_pos = set()
 
         ###
-        self.consistent_extensions = {}
-        self.dict_n_complete_extensions = {}
-        self.n_extensions = {}
+        self.__consistent_extensions = {}
+        self.__dict_n_complete_extensions = {}
+        self.__n_extensions = {}
 
         # update status
-        self.n_updates = 0
+        self.__n_updates = 0
         self.__updated = False
 
         if initial_arguments:
@@ -328,11 +357,11 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         self.name = name
 
     def to_bitarray_position(self, position: Position) -> BitarrayPosition:
-        """This auxiliary method converts a position from another implemenation to a BitarrayPosition."""
+        """Convert a position to an instance of :py:class:`BitarrayPosition`."""
         if isinstance(position, BitarrayPosition):
             return position
         elif position == bitarray():   # catch empty position
-            return BitarrayPosition(2 * self.n * bitarray('0'))
+            return BitarrayPosition(2 * self.__n * bitarray('0'))
         else:
             return BitarrayPosition(position.as_bitarray())
 
@@ -340,7 +369,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         # arguments are represented as a single position (of its negated premises + its conclusion)
         # as it stands, the original arguments are not retrievable from this representation
 
-        arg = bitarray('0')*2*self.n
+        arg = bitarray('0')*2*self.__n
 
         # negated premises
         for i in argument[:-1]:
@@ -356,8 +385,8 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         else:
             arg[2 * (j - 1)] = True
 
-        self.arguments_cnf.add(BitarrayPosition(arg))
-        self.arguments.append(argument)
+        self.__arguments_cnf.add(BitarrayPosition(arg))
+        self.__arguments.append(argument)
         # If new arguments are added to a dialectical structure, already existing
         # objects such as the DAG or the closures may need to be recreated. The need
         # for an update is indicated by setting its update status to False.
@@ -372,25 +401,19 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         return self
 
     def get_arguments(self) -> List[List[int]]:
-        return self.arguments
+        return self.__arguments
 
-    '''
-    Sentence-pool, domain and completeness
-    '''
+    # Sentence-pool, domain and completeness
 
     def is_complete(self, position: Position) -> bool:
         return self.__sp == position.domain()
 
     def sentence_pool(self) -> Position:
-        """Returns the unnegated half of sentence pool"""
+        return BitarrayPosition(bitarray('10') * self.__n)
 
-        return BitarrayPosition(bitarray('10')*self.n)
+    # Dialectical consistency and compatibility
 
-    '''
-    Dialectic consistency & compatibility
-    '''
-
-    def satisfies(self, argument: Position, position: Position) -> bool:
+    def _satisfies(self, argument: Position, position: Position) -> bool:
         try:
             return any(argument.as_bitarray() & position.as_bitarray())
         except ValueError:
@@ -402,9 +425,9 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         # check update status of dialectical structure
         self.__update()
 
-        # position is converted to a BitarrayPosition to ensure compatability with other implementations
+        # position is converted to a BitarrayPosition to ensure compatibility with other implementations
 
-        return self.to_bitarray_position(position) in self.complete_consistent_extensions.keys()
+        return self.to_bitarray_position(position) in self.__complete_consistent_extensions.keys()
 
     def are_compatible(self, position1: Position, position2: Position, ) -> bool:
         # check update status of dialectical structure
@@ -419,7 +442,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
             return False
         # case: both positions are minimally consistent
         else:
-            return any(self.complete_consistent_extensions[position1].intersection(self.complete_consistent_extensions[position2]))
+            return any(self.__complete_consistent_extensions[position1].intersection(self.__complete_consistent_extensions[position2]))
 
     def minimally_consistent_positions(self) -> Iterator[Position]:
         # auxiliary function to convert a number from base 10 to
@@ -433,8 +456,8 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
                 number, r = divmod(number, 3)
                 nums.append(str(r))
             ter = ''.join(nums)
-            if len(ter) < self.n:
-                ter = ter + ''.join(['0' for _ in range(self.n - len(ter))])
+            if len(ter) < self.__n:
+                ter = ter + ''.join(['0' for _ in range(self.__n - len(ter))])
             res = ''
             # convert ternary to bitarray string
             for b in ter:
@@ -452,13 +475,13 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
         # create the set of all positions excluding empty position
         min_consistent_positions = set()
-        for i in range(1, 3 ** self.n):
+        for i in range(1, 3 ** self.__n):
             min_consistent_positions.add(number_to_position(i))
 
         # add empty position
-        min_consistent_positions.add(BitarrayPosition(bitarray('0'*2*self.n)))
+        min_consistent_positions.add(BitarrayPosition(bitarray('0' * 2 * self.__n)))
 
-        self.min_cons_pos = min_consistent_positions
+        self.__min_cons_pos = min_consistent_positions
         return iter(min_consistent_positions)
 
     def consistent_positions(self) -> Iterator[Position]:
@@ -467,26 +490,26 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
         # note that the complete_parent_graph and direct_parent_graph have the
         # same keys
-        return iter(self.complete_consistent_extensions.keys())
+        return iter(self.__complete_consistent_extensions.keys())
 
     def consistent_complete_positions(self) -> Iterator[Position]:
         # self.__update()
-        if not self.cons_comp_pos:
+        if not self.__cons_comp_pos:
             all_complete_positions = [BitarrayPosition(bitarray(''.join(e)))
-                                      for e in product(['10', '01'], repeat=self.n)]
+                                      for e in product(['10', '01'], repeat=self.__n)]
 
             # filter positions that do not satisfy all arguments:
-            self.cons_comp_pos = set(
+            self.__cons_comp_pos = set(
                     [pos for pos in all_complete_positions
-                     if all(self.satisfies(arg, pos) for arg in self.arguments_cnf)])
+                     if all(self._satisfies(arg, pos) for arg in self.__arguments_cnf)])
 
-            return iter(self.cons_comp_pos)
+            return iter(self.__cons_comp_pos)
 
         else:
             # check update status of dialectical structure
             # self.check_update()
 
-            return iter(self.cons_comp_pos)
+            return iter(self.__cons_comp_pos)
 
     '''
     Dialectic entailment and dialectic closure of consistent positions
@@ -506,12 +529,12 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
             return False
 
         # catch complete positions (else-statements)
-        if self.complete_consistent_extensions[position1]:
+        if self.__complete_consistent_extensions[position1]:
             pos1_extensions = self.complete_extensions(position1)
         else:
             pos1_extensions = {position1}
 
-        if self.complete_consistent_extensions[position2]:
+        if self.__complete_consistent_extensions[position2]:
             pos2_extensions = self.complete_extensions(position2)
         else:
             pos2_extensions = {position2}
@@ -521,9 +544,9 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
     def closure(self, position: Position) -> Position:
         if self.is_consistent(position):
             if position.size() == 0:
-                return BitarrayPosition.intersection(self.cons_comp_pos)
+                return BitarrayPosition.intersection(self.__cons_comp_pos)
             else:
-                return self.closures[self.to_bitarray_position(position)]
+                return self.__closures[self.to_bitarray_position(position)]
         # ex falso quodlibet
         else:
             return self.__sp
@@ -541,8 +564,8 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
     def axioms(self, position: Position, source: Iterator[Position] = None) -> Iterator[Position]:
         if not self.is_consistent(position):
             logging.error(position)
-            logging.error(self.complete_consistent_extensions)
-            logging.error(self.n_updates)
+            logging.error(self.__complete_consistent_extensions)
+            logging.error(self.__n_updates)
             raise ValueError("An inconsistent Position cannot be axiomatized!")
 
         res = set()
@@ -588,16 +611,16 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         if not position.is_minimally_consistent():
             return set()
         # complete positions have no parents but extend themselves
-        elif len(self.complete_consistent_extensions[self.to_bitarray_position(position)]) == 0:
+        elif len(self.__complete_consistent_extensions[self.to_bitarray_position(position)]) == 0:
             return {position}
         else:
-            return self.complete_consistent_extensions[self.to_bitarray_position(position)]
+            return self.__complete_consistent_extensions[self.to_bitarray_position(position)]
 
     # sigma
     def n_complete_extensions(self, position: Position = None) -> int:
         self.__update()
         if not position or position.size() == 0:
-            return len(self.cons_comp_pos)
+            return len(self.__cons_comp_pos)
         else:
             return len(self.complete_extensions(position))
 
@@ -616,18 +639,17 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         All methods that require an updated structure to work properly, call this method."""
 
         if not self.__updated:
-            # ToDo: Which ones are really important to keep and which ones can be set private?
-            self.complete_consistent_extensions = {}
-            self.consistent_extensions = {}
-            self.consistent_parents = {}
+            self.__complete_consistent_extensions = {}
+            self.__consistent_extensions = {}
+            self.__consistent_parents = {}
 
-            self.dict_n_complete_extensions = {}
-            self.n_extensions = {}
-            self.closures = {}
+            self.__dict_n_complete_extensions = {}
+            self.__n_extensions = {}
+            self.__closures = {}
 
             # Minimally consistency is not affected by structural updates,
             # but it is created if it does not already exist.
-            if not self.min_cons_pos:
+            if not self.__min_cons_pos:
                 self.minimally_consistent_positions()
 
             # starting point (gamma_n): consistent complete positions
@@ -635,31 +657,31 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
             for pos in current_gamma:
                 # complete positions have no parents
-                self.complete_consistent_extensions[pos] = {pos}
-                self.consistent_parents[pos] = set()
-                self.consistent_extensions[pos] = {pos}
-                self.dict_n_complete_extensions[pos] = 1
-                self.closures[pos] = pos
-                self.n_extensions[pos] = 1
+                self.__complete_consistent_extensions[pos] = {pos}
+                self.__consistent_parents[pos] = set()
+                self.__consistent_extensions[pos] = {pos}
+                self.__dict_n_complete_extensions[pos] = 1
+                self.__closures[pos] = pos
+                self.__n_extensions[pos] = 1
 
             new_gamma = set()
             # iterate backwards over length of subpositions
-            for i in reversed(range(0, self.n)):
+            for i in reversed(range(0, self.__n)):
                 for position in current_gamma:
                     #for sub_pos in position.subpositions(i, only_consistent_subpositions=True):
-                    for sub_pos in position.direct_subpositions():
+                    for sub_pos in position._BitarrayPosition__direct_subpositions():
 
                         # add parent to dictionary
-                        if sub_pos not in self.complete_consistent_extensions.keys():
-                            self.complete_consistent_extensions[sub_pos] = set(self.complete_consistent_extensions[position])
-                            self.consistent_parents[sub_pos] = {position}
-                            self.consistent_extensions[sub_pos] = {sub_pos}
-                            self.consistent_extensions[sub_pos].update(self.consistent_extensions[position])
+                        if sub_pos not in self.__complete_consistent_extensions.keys():
+                            self.__complete_consistent_extensions[sub_pos] = set(self.__complete_consistent_extensions[position])
+                            self.__consistent_parents[sub_pos] = {position}
+                            self.__consistent_extensions[sub_pos] = {sub_pos}
+                            self.__consistent_extensions[sub_pos].update(self.__consistent_extensions[position])
                         else:
-                            self.consistent_parents[sub_pos].add(position)
-                            self.consistent_extensions[sub_pos].update(self.consistent_extensions[position])
-                            self.complete_consistent_extensions[sub_pos].update(
-                                set(self.complete_consistent_extensions[position]))
+                            self.__consistent_parents[sub_pos].add(position)
+                            self.__consistent_extensions[sub_pos].update(self.__consistent_extensions[position])
+                            self.__complete_consistent_extensions[sub_pos].update(
+                                set(self.__complete_consistent_extensions[position]))
 
                         new_gamma.add(sub_pos)
 
@@ -667,14 +689,14 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
                     # Gregor's Condition
 
-                    if any(len(self.complete_consistent_extensions[pos]) == len(self.complete_consistent_extensions[par])
-                            for par in self.consistent_parents[pos]):
+                    if any(len(self.__complete_consistent_extensions[pos]) == len(self.__complete_consistent_extensions[par])
+                            for par in self.__consistent_parents[pos]):
 
-                        self.closures[pos] = self.closures[next(par for par in self.consistent_parents[pos]
-                                                    if len(self.complete_consistent_extensions[pos]) == len(self.complete_consistent_extensions[par]))]
+                        self.__closures[pos] = self.__closures[next(par for par in self.__consistent_parents[pos]
+                                                                    if len(self.__complete_consistent_extensions[pos]) == len(self.__complete_consistent_extensions[par]))]
 
                     else:
-                        self.closures[pos] = pos
+                        self.__closures[pos] = pos
 
                 current_gamma = new_gamma
                 new_gamma = set()
