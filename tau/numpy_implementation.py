@@ -344,17 +344,9 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return DAGNumpyDialecticalStructure(n_unnegated_sentence_pool, arguments, name)
 
     def get_name(self) -> str:
-        """Get the name of the dialectical structure.
-
-        :returns: The name of the dialectical structure as a string (default: \
-        :code:`None`)
-        """
-
         return self.name
 
     def set_name(self, name: str):
-        """Set the name of the dialectical structure."""
-
         self.name = name
 
     def add_argument(self, argument: List[int]) -> DialecticalStructure:
