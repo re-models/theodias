@@ -9,10 +9,8 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Set, Iterator, List, TypedDict, final
 import numpy as np
-import logging
 from bitarray import bitarray
 
-log = logging.getLogger()
 
 
 class Position(ABC):
