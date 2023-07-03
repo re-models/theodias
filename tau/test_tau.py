@@ -92,12 +92,9 @@ def sentences_to_bitarray(sentences, n_unnegated_sentence_pool=None):
 
 # The actual tests
 
-class TestRemodel:
-    #logging.basicConfig(filename='/home/sebastian/python_unit_testing.log',
-    #                    filemode='a',
-    #                    level=logging.INFO)
+class TestTau:
 
-    log = logging.getLogger("Tau unit testing ")
+    log = logging.getLogger(__name__)
 
     # the following tests describe the expected behaviour for all implementations that
     # inherit `remodeldescription.basics.Position`
