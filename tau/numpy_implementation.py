@@ -320,7 +320,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         self.__cons_comp_pos = set()
         self.__consistent_parents = {}
         self.__complete_consistent_extensions = {}
-        self.__closures = {}
+        self._closures = {}
         self.__min_cons_pos = set()
 
         ###
@@ -493,7 +493,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
     def closure(self, position: Position) -> Position:
         if self.is_consistent(position):
-            return self.__closures[NumpyPosition.to_numpy_position(position)]
+            return self._closures[NumpyPosition.to_numpy_position(position)]
         # ex falso quodlibet
         else:
             return self.__sp.domain()
@@ -592,7 +592,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
             self.__dict_n_complete_extensions = {}
             self.__n_extensions = {}
-            self.__closures = {}
+            self._closures = {}
 
             # Minimally consistency is not affected by structural updates,
             # but it is created if it does not already exist.
@@ -608,7 +608,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
                 self.__consistent_parents[pos] = set()
                 self.__consistent_extensions[pos] = {pos}
                 self.__dict_n_complete_extensions[pos] = 1
-                self.__closures[pos] = pos
+                self._closures[pos] = pos
                 self.__n_extensions[pos] = 1
 
             new_gamma = set()
@@ -646,10 +646,10 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
                     for par in self.__consistent_parents[pos]:
                         if len(self.__complete_consistent_extensions[pos]) == \
                                 len(self.__complete_consistent_extensions[par]):
-                            self.__closures[pos] = self.__closures[par]
+                            self._closures[pos] = self._closures[par]
                             break
-                    if pos not in self.__closures:
-                        self.__closures[pos] = pos
+                    if pos not in self._closures:
+                        self._closures[pos] = pos
 
                 current_gamma = new_gamma
                 new_gamma = set()
@@ -751,8 +751,8 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
     def closure(self, position: Position) -> Position:
 
         # the position's closure has been calculated before
-        if position in self.__closures:
-            return self.__closures[position]
+        if position in self._closures:
+            return self._closures[position]
 
         if position.size() == 0:    # empty position
             models = list(self.bdd.pick_iter(self.dia_expr, care_vars=[]))
@@ -773,7 +773,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         closure = NumpyPosition.from_set(closure, self.n)
 
         # store closure for later reuse
-        self.__closures[position] = closure
+        self._closures[position] = closure
 
         return closure
 
