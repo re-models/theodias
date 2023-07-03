@@ -12,9 +12,6 @@ from itertools import chain, combinations
 from pysat.formula import CNF
 from pysat.solvers import Minisat22
 import numpy as np
-import logging
-
-#logging.basicConfig(filename='setbased_implementation2.log', level=logging.INFO)
 
 # Todo (@Basti): Add class docstring.
 class SetBasedPosition(Position):
