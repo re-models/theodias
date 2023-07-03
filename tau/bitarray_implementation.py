@@ -11,8 +11,8 @@ from typing import Set, Iterator, List, Union
 from itertools import combinations, product
 
 import logging
-#logging.basicConfig(filename='bitarray_implementation.log', level=logging.INFO)
 
+logger = logging.getLogger('tau')
 
 class BitarrayPosition(Position):
     """Implementing :py:class:`Position` on the basis of bitarrays.
@@ -152,7 +152,7 @@ class BitarrayPosition(Position):
         try:
             self.as_bitarray() ^ pos2.as_bitarray()
         except ValueError:
-            logging.error("is supposition: bitwise comparison of " + str(self.as_bitarray()) + " and "
+            logger.error("is supposition: bitwise comparison of " + str(self.as_bitarray()) + " and "
                                   + str(pos2.as_bitarray()) + " failed due to different sizes.")
             raise
         else:
@@ -264,7 +264,7 @@ class BitarrayPosition(Position):
                 try:
                     ba |= pos.as_bitarray()
                 except ValueError:
-                    logging.error("Union: bitwise comparison of " + str(ba) + " and "
+                    logger.error("Union: bitwise comparison of " + str(ba) + " and "
                                   + str(pos.as_bitarray()) + " failed due to different sizes.")
 
                     # reraise error to interrupt program
@@ -289,7 +289,7 @@ class BitarrayPosition(Position):
                 try:
                     ba &= pos.as_bitarray()
                 except ValueError:
-                    logging.error("Intersection: bitwise comparison of " + str(ba) + " and "
+                    logger.error("Intersection: bitwise comparison of " + str(ba) + " and "
                                   + str(pos.as_bitarray()) + " failed due to different sizes.")
 
                     # reraise error to interrupt program
@@ -417,7 +417,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         try:
             return any(argument.as_bitarray() & position.as_bitarray())
         except ValueError:
-            logging.error("satisfies: bitwise comparison of " + str(argument)
+            logger.error("satisfies: bitwise comparison of " + str(argument)
                           + ", " + str(position) + " and " + " failed due to different sizes.")
             raise
 
@@ -563,9 +563,9 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
     def axioms(self, position: Position, source: Iterator[Position] = None) -> Iterator[Position]:
         if not self.is_consistent(position):
-            logging.error(position)
-            logging.error(self.__complete_consistent_extensions)
-            logging.error(self.__n_updates)
+            logger.error(position)
+            logger.error(self.__complete_consistent_extensions)
+            logger.error(self.__n_updates)
             raise ValueError("An inconsistent Position cannot be axiomatized!")
 
         res = set()
