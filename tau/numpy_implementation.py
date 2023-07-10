@@ -530,7 +530,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
                 res.add(pos)
 
         if not res:
-            return None     # iter([position])
+            return []
 
         return iter(res)
 
@@ -876,7 +876,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
                 res.add(pos)
         # if nothing from the source entails position, return None
         if not res:
-            return None # iter([position])
+            return []
 
         return iter(res)
 

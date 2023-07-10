@@ -582,7 +582,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
                 res.add(pos)
 
         if not res:
-            return None
+            return []
 
         return iter(res)
 

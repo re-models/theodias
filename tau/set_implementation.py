@@ -405,7 +405,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                     not any(self.entails(subpos, position) for subpos in pos.subpositions() if subpos != pos):
                 axioms.add(pos)
         if not axioms:
-            return None
+            return []
         return iter(axioms)
 
     def minimal_positions(self) -> Iterator[Position]:

@@ -488,17 +488,17 @@ class TestTau:
                                       [get_position({3}, 3, impl),
                                        get_position({-2}, 3, impl)])) == {SetBasedPosition({3}, 3),
                                                                          SetBasedPosition({-2}, 3)}
-                # returns None if there is no axiomatic base in `sources`
-                # Here, {3,2} entails {-1} but is not (globally) minimal (Todo: @Andreas - Discuss)
+                # returns [] if there is no axiomatic base in `sources`
+                # Here, {3,2} entails {-1} but is not (globally) minimal
                 assert dia.axioms(get_position({-1}, 3, impl),
-                                      [get_position({3,2}, 3, impl)]) == None
+                                      [get_position({3,2}, 3, impl)]) == []
                 assert dia.axioms(get_position({-1}, 3, impl),
-                                  [get_position({2}, 3, impl)]) == None
+                                  [get_position({2}, 3, impl)]) == []
                 assert dia.axioms(get_position({-1}, 3, impl),
-                                  [get_position(set(), 3, impl)]) == None
+                                  [get_position(set(), 3, impl)]) == []
                 # Inconsistent position that has a smaller base (which is not in source)
                 assert dia.axioms(get_position({-1}, 3, impl),
-                                      [get_position({-2, 2}, 3, impl)]) == None
+                                      [get_position({-2, 2}, 3, impl)]) == []
                 # Inconsistent position in source which is minimal (ex falso quodlibet)
                 assert set(dia.axioms(get_position({1}, 3, impl),
                                       [get_position({-2,2}, 3, impl)])) == {SetBasedPosition({-2, 2}, 3)}
