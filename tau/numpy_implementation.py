@@ -139,10 +139,10 @@ class NumpyPosition(Position):
         pos = set()
         for i in range(len(arr)):
             if arr[i] in {1, 2}:
-                pos.add((i+1) * ((-1) ** (arr[i]-1)))
+                pos.add((i + 1) * ((-1) ** (arr[i] - 1)))
             elif arr[i] == 3:
-                pos.add(i+1)
-                pos.add(-(i+1))
+                pos.add(i + 1)
+                pos.add(-(i + 1))
 
         # convert elements from np.int32 to int for JSON serializability
         pos = set(int(s) for s in pos)
@@ -154,9 +154,9 @@ class NumpyPosition(Position):
         arr = np.zeros(n)
         for s in position:
             if s < 0:
-                arr[abs(s)-1] += 2
+                arr[abs(s) - 1] += 2
             elif s > 0:
-                arr[s-1] += 1
+                arr[s - 1] += 1
         return NumpyPosition(arr)
 
     def as_list(self) -> List[int]:
@@ -175,7 +175,7 @@ class NumpyPosition(Position):
         if n == -1:
             # by default, create set of all subpositions:
             res = set()
-            for i in range(len(self.__np_array)+1):
+            for i in range(len(self.__np_array) + 1):
                 res.update(self.subpositions(i, only_consistent_subpositions))
 
             return iter(res)
@@ -198,18 +198,18 @@ class NumpyPosition(Position):
 
     def is_accepting(self, sentence: int) -> bool:
 
-        if not self.size():   # self is the empty position
+        if not self.size():  # self is the empty position
             return False
 
-        if sentence < 0:    # rejected sentence
-            return self.__np_array[abs(sentence)-1] == 2
+        if sentence < 0:  # rejected sentence
+            return self.__np_array[abs(sentence) - 1] == 2
 
-        else:   # accepted sentence
-            return self.__np_array[abs(sentence)-1] == 1
+        else:  # accepted sentence
+            return self.__np_array[abs(sentence) - 1] == 1
 
     def is_in_domain(self, sentence: int) -> bool:
         try:
-            return self.__np_array[abs(sentence)-1] != 0
+            return self.__np_array[abs(sentence) - 1] != 0
         except IndexError:
             return False
 
@@ -227,7 +227,7 @@ class NumpyPosition(Position):
 
             for i in range(n):
                 if (any(1.0 == pos[i] for pos in position_list)
-                   and any(2.0 == pos[i] for pos in position_list)):
+                        and any(2.0 == pos[i] for pos in position_list)):
                     union[i] = 3
                 else:
                     union[i] = max(pos[i] for pos in position_list)
@@ -250,7 +250,6 @@ class NumpyPosition(Position):
                 if all(position_list[0][i] == pos[i] for pos in position_list[1:]):
                     intersection[i] = position_list[0][i]
             return NumpyPosition(intersection)
-
 
     # ToDo: Perhaps only temporarily a public static method (at the moment used by other Position classes to
     # quick and dirty implement `neighbours`).
@@ -313,8 +312,8 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         self.arguments_cnf = set()
         self.arguments = []
         self.name = name
-        self.n = n      # number of unnegated sentences in sentence pool used to iterate through positions
-        self.__sp = NumpyPosition(np.ones(n))   # full sentence pool
+        self.n = n  # number of unnegated sentences in sentence pool used to iterate through positions
+        self.__sp = NumpyPosition(np.ones(n))  # full sentence pool
 
         # prepare storage for results of costly functions
         self.__cons_comp_pos = set()
@@ -355,9 +354,9 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
         pos = np.zeros(self.n, dtype=int)
         for s in argument[:-1]:
-            pos[abs(s)-1] = 1 if s < 0 else 2
+            pos[abs(s) - 1] = 1 if s < 0 else 2
 
-        pos[abs(argument[-1])-1] = 1 if argument[-1] > 0 else 2
+        pos[abs(argument[-1]) - 1] = 1 if argument[-1] > 0 else 2
 
         self.arguments_cnf.add(NumpyPosition(pos))
         self.arguments.append(argument)
@@ -377,8 +376,8 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
     def get_arguments(self) -> List[List[int]]:
         # remove tautological arguments (which are an artifact of this implementation)
         arguments = self.arguments.copy()
-        for s in range(1, self.sentence_pool().size()+1):
-            if [s,s] in arguments:
+        for s in range(1, self.sentence_pool().size() + 1):
+            if [s, s] in arguments:
                 arguments.remove([s, s])
         return arguments
 
@@ -456,8 +455,8 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
             # filter positions that do not satisfy all arguments:
             self.__cons_comp_pos = set(
-                    [pos for pos in all_complete_positions
-                     if all(self._satisfies(arg, pos) for arg in self.arguments_cnf)])
+                [pos for pos in all_complete_positions
+                 if all(self._satisfies(arg, pos) for arg in self.arguments_cnf)])
 
             return iter(self.__cons_comp_pos)
 
@@ -526,7 +525,6 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         for pos in source:
             if (self.entails(pos, position)
                     and not any(self.entails(subpos, position) for subpos in pos.subpositions() if subpos != pos)):
-
                 res.add(pos)
 
         if not res:
@@ -675,7 +673,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         super().__init__(n, initial_arguments, name)
 
         # add trivial arguments to catch sentences that are not used in any argument
-        for s in range(1, n+1):
+        for s in range(1, n + 1):
             self.arguments.append([s, s])
 
     @staticmethod
@@ -767,7 +765,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         if position in self._closures:
             return self._closures[position]
 
-        if position.size() == 0:    # empty position
+        if position.size() == 0:  # empty position
             models = list(self.bdd.pick_iter(self.dia_expr, care_vars=[]))
         else:
             # convert position to bdd expression
@@ -807,9 +805,9 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         else:
             pos_union = NumpyPosition.union({position1, position2})
             return self.closure(pos_union) != self.__full_sentence_pool
-            #if not self.closure(pos_union):
+            # if not self.closure(pos_union):
             #    return False
-            #return True
+            # return True
 
     def minimally_consistent_positions(self) -> Iterator[Position]:
         for position in gray(3, self.n):
@@ -822,7 +820,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         for neighbour in empty_pos.neighbours(self.n):
             if self.is_consistent(neighbour):
                 yield neighbour
-        #raise NotImplementedError("Cannot iterate over all consistent positions.")
+        # raise NotImplementedError("Cannot iterate over all consistent positions.")
 
     def consistent_complete_positions(self) -> Iterator[Position]:
         self._update()
@@ -838,7 +836,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         # check update status of dialectical structure
         self._update()
 
-        if not self.is_consistent(position1):     # ex falso quodlibet
+        if not self.is_consistent(position1):  # ex falso quodlibet
             return True
         elif not self.is_consistent(position2):
             return False
@@ -865,14 +863,13 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         # here: default to all dialectically consistetn neighbours (full range). That is risky for large sentence pools.
         # ToDo: Discuss.
         if not source:
-            #raise NotImplementedError("Cannot iterate over all consistent positions.")
-            #source = position.neighbours(self.n) (we should exclude dial. inconsistent neighbours)
+            # raise NotImplementedError("Cannot iterate over all consistent positions.")
+            # source = position.neighbours(self.n) (we should exclude dial. inconsistent neighbours)
             source = self.consistent_positions()
         #  collect inclusion minimal positions from *source*, which entail *position*
         for pos in source:
             if (self.entails(pos, position)
                     and not any(self.entails(subpos, position) for subpos in pos.subpositions() if subpos != pos)):
-
                 res.add(pos)
         # if nothing from the source entails position, return None
         if not res:
@@ -880,7 +877,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
         return iter(res)
 
-    #def minimal_positions(self) -> Iterator[Position]:
+    # def minimal_positions(self) -> Iterator[Position]:
     #    raise NotImplementedError("Cannot iterate over all consistent positions.")
 
     def n_complete_extensions(self, position: Position = None) -> int:
@@ -899,5 +896,4 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         a = self.bdd.count(self.dia_expr & v1 & v2, nvars=self.n)
         b = self.bdd.count(self.dia_expr & v2, nvars=self.n)
 
-        return a/b
-
+        return a / b
