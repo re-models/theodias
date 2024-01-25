@@ -21,6 +21,17 @@ setup(
                  "Operating System :: OS Independent"],
     python_requires='>=3.8',
     # Todo: Check requirements
-    install_requires=['bitarray', 'py-aiger-cnf>=2.0.0', 'pypblib>=0.0.3', 'python-sat', 'numpy', 'numba',
-                      'dd', 'Deprecated', 'pandas'],
+    install_requires=['bitarray',
+                      'py-aiger-cnf>=2.0.0',
+                      'pypblib>=0.0.3',
+                      'python-sat',
+                      # we stumbled over raised errors on initializing numpy (in connection with numba)
+                      # see: https://stackoverflow.com/questions/75190844/how-to-resolve-systemerror-initialization-of-internal-failed-without-raising-a
+                      # and: https://github.com/numba/numba/issues/8615#issuecomment-1434358853
+                      # ToDO: In subsequent releases, we should get rid of this constraint.
+                      'numpy<=1.24.0',
+                      'numba',
+                      'dd',
+                      'Deprecated',
+                      'pandas'],
 )
