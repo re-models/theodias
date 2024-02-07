@@ -298,9 +298,10 @@ def random_position_as_set(n_sentences, allow_empty_position=False) -> Set[int]:
     # convert the pos to its ternary representation and then to its set representation
     return __ternary2set(__dec2ternary(pos, n_sentences), n_sentences)
 
-# todo: rename
 def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principles=0,
-                            variation=True, connected=True, use_all_sentences = False,
+                            variation=True,
+                            n_premises_weights=None,
+                            connected=True, use_all_sentences = False,
                             max_loops = 1000) -> List[List[int]]:
     """Returns a list of arguments represented as integer lists.
 
@@ -318,6 +319,9 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
         n_principles (int): The number of principles, i.e. sentences that may occur in arguments as premises only.
         variation (bool): If true (default), the number of premises per argument is chosen randomly.
             Otherwise it is constantly n_max_premises.
+        n_premises_weights (list of floats): If :code:`None` (default) the distribution of randomly choosing the number of
+            premises in an argument is uniform. Otherwise the given weights will be used to choose a number of premises
+            between 1 and :code:`n_max_premises`.
         connected (bool): If true (default), the arguments are related
             (either by attack or support) to at least one other argument in the structure.
         use_all_sentences (bool): If true, the algorithm returns only dialectical structures that include each sentence
@@ -335,7 +339,6 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
     # occurs at least once if there are sufficiently many arguments and/or premises per argument
 
     unused_sentences = set(range(1, n_sentences + 1))
-
     # principles are sentences that are to appear only as premises in arguments, never as conclusions:
 
     principles = set(s for s in range(1, n_principles+1))
@@ -359,10 +362,14 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
     # auxiliary method to create arguments, ensuring that it
     # a) is not quesition-begging (conclusion is also a premise)
     # e) is not attack-reflexive (conclusion is negation of a premise)
-    def get_argument2():
+    def get_argument2(n_premises_weights):
         # number of premises
+        if n_premises_weights is None:
+            n_premises_weights = list(np.repeat(1, n_max_premises))
+
         if variation:
-            n_prem = randint(1, n_max_premises)
+            n_prem = choices(list(range(1,n_max_premises+1)), k=1, weights=n_premises_weights)[0]
+            #n_prem = randint(1, n_max_premises)
         else:
             n_prem = n_max_premises
 
@@ -419,7 +426,7 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
     loop_counter = 0
     while len(args) < n_arguments:
 
-        new_arg = get_argument2()
+        new_arg = get_argument2(n_premises_weights)
 
         # add first argument anyway
         if not args:
@@ -467,17 +474,20 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
 
 # todo: rename
 def create_random_argument_list(n_arguments_min: int, n_arguments_max: int,
-                                n_sentences: int, n_premises_max: int) -> List[List[int]]:
+                                n_sentences: int, n_premises_max: int,
+                                n_premises_weights=None,
+                                ) -> List[List[int]]:
     """A random list of arguments.
 
-    A convenience function that uses :py:func:`create_random_arguments2` to create a random list of arguments.
+    A convenience function that uses :py:func:`create_random_arguments` to create a random list of arguments.
     Instead of specifying a fixed number of desired arguments the number of arguments will be a random
     number between `n_arguments_min` and ` n_arguments_max`.
 
     """
     n_arguments = randint(n_arguments_min, n_arguments_max)
     args = create_random_arguments(n_sentences=n_sentences, n_arguments=n_arguments,
-                                   n_max_premises=n_premises_max, max_loops=1000)
+                                   n_max_premises=n_premises_max, max_loops=1000,
+                                   n_premises_weights=n_premises_weights)
 
     return args
 
