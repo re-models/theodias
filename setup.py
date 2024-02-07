@@ -12,15 +12,12 @@ setup(
     description="A python implementation of the theory of dialectical structures.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    # Todo: Add url
-    url="",
+    url="https://github.com/re-models/theodias",
     packages=find_packages(),
-    # Todo: Add License
     classifiers=["Programming Language :: Python :: 3.8",
-                 "License :: MIT License",
+                 "License :: OSI Approved :: MIT License",
                  "Operating System :: OS Independent"],
     python_requires='>=3.8',
-    # Todo: Check requirements
     install_requires=['bitarray',
                       'py-aiger-cnf>=2.0.0',
                       'pypblib>=0.0.3',
