@@ -20,27 +20,27 @@ from .base import Position
 # Use **`pytest tests.py -k 'position'`** to test only test cases in 'tests.py' (i.e. functions having
 # the string 'test' in their name) that have (additionally) the string 'position' in their name.
 
-model_implementations = [{'module_name': 'tau',
+model_implementations = [{'module_name': 'theodias',
                           'position_class_name':'StandardPosition',
                           'dialectical_structure_class_name': 'DAGDialecticalStructure'
                           },
-                          # {'module_name': 'tau',
+                          # {'module_name': 'theodias',
                           #  'position_class_name':'StandardPosition',
                           #  'dialectical_structure_class_name': 'BDDDialecticalStructure',
                           #  },
-                         {'module_name': 'tau',
+                         {'module_name': 'theodias',
                           'position_class_name':'SetBasedPosition',
                           'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
                           },
-                         {'module_name': 'tau',
+                         {'module_name': 'theodias',
                           'position_class_name': 'NumpyPosition',
                           'dialectical_structure_class_name': 'DAGNumpyDialecticalStructure'
                           },
-                          {'module_name': 'tau',
+                          {'module_name': 'theodias',
                            'position_class_name': 'NumpyPosition',
                            'dialectical_structure_class_name': 'BDDNumpyDialecticalStructure',
                           },
-                          {'module_name': 'tau',
+                          {'module_name': 'theodias',
                            'position_class_name': 'BitarrayPosition',
                            'dialectical_structure_class_name': 'DAGBitarrayDialecticalStructure'
                           }
@@ -92,7 +92,7 @@ def sentences_to_bitarray(sentences, n_unnegated_sentence_pool=None):
 
 # The actual tests
 
-class TestTau:
+class Testtheodias:
 
     log = logging.getLogger(__name__)
 
