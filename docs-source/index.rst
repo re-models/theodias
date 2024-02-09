@@ -1,8 +1,8 @@
 .. _tau-docs-label:
 
 
-tau
-====
+Theodias
+========
 
 
 A Python package for dialectical structures.
