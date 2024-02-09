@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Utility Methods &#8212; Theodias Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-docs/api-util';</script>
+    <script src="../_static/custom-icon.js?v=40bda21d"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Set Based Implementation" href="api-setbased-implementation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Theodias Docs  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="api.html">
+                        API documentation
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/re-models/theodias" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/theodias/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="api.html">
+                        API documentation
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/re-models/theodias" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/theodias/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api-abstract.html">Abstract Base Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-numpy-implementation.html">Numpy Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-bitarray-implementation.html">Bitarray Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-setbased-implementation.html">Set Based Implementation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Utility Methods</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api.html" class="nav-link">API Documentation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Utility Methods</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-theodias.util">
+<span id="utility-methods"></span><h1>Utility Methods<a class="headerlink" href="#module-theodias.util" title="Link to this heading">#</a></h1>
+<p>A collection of convenient helper-functions.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="theodias.util.TauJSONEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">TauJSONEncoder</span></span><a class="headerlink" href="#theodias.util.TauJSONEncoder" title="Link to this definition">#</a></dt>
+<dd><p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.util.TauJSONEncoder.default" title="theodias.util.TauJSONEncoder.default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default</span></code></a>(o)</p></td>
+<td><p>An implementation of <code class="xref py py-func docutils literal notranslate"><span class="pre">JSONEncoder.default()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">encode</span></code>(o)</p></td>
+<td><p>Return a JSON string representation of a Python data structure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterencode</span></code>(o[, _one_shot])</p></td>
+<td><p>Encode the given object and yield each string representation as available.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="theodias.util.TauJSONEncoder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serialize_implementation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.TauJSONEncoder.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Constructor for JSONEncoder, with sensible defaults.</p>
+<p>If skipkeys is false, then it is a TypeError to attempt
+encoding of keys that are not str, int, float or None.  If
+skipkeys is True, such items are simply skipped.</p>
+<p>If ensure_ascii is true, the output is guaranteed to be str
+objects with all incoming non-ASCII characters escaped.  If
+ensure_ascii is false, the output can contain non-ASCII characters.</p>
+<p>If check_circular is true, then lists, dicts, and custom encoded
+objects will be checked for circular references during encoding to
+prevent an infinite recursion (which would cause an RecursionError).
+Otherwise, no such check takes place.</p>
+<p>If allow_nan is true, then NaN, Infinity, and -Infinity will be
+encoded as such.  This behavior is not JSON specification compliant,
+but is consistent with most JavaScript based encoders and decoders.
+Otherwise, it will be a ValueError to encode such floats.</p>
+<p>If sort_keys is true, then the output of dictionaries will be
+sorted by key; this is useful for regression tests to ensure
+that JSON serializations can be compared on a day-to-day basis.</p>
+<p>If indent is a non-negative integer, then JSON array
+elements and object members will be pretty-printed with that
+indent level.  An indent level of 0 will only insert newlines.
+None is the most compact representation.</p>
+<p>If specified, separators should be an (item_separator, key_separator)
+tuple.  The default is (’, ‘, ‘: ‘) if <em>indent</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code> and
+(‘,’, ‘: ‘) otherwise.  To get the most compact JSON representation,
+you should specify (‘,’, ‘:’) to eliminate whitespace.</p>
+<p>If specified, default is a function that gets called for objects
+that can’t otherwise be serialized.  It should return a JSON encodable
+version of the object or raise a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="theodias.util.TauJSONEncoder.default">
+<span class="sig-name descname"><span class="pre">default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.TauJSONEncoder.default" title="Link to this definition">#</a></dt>
+<dd><p>An implementation of <code class="xref py py-func docutils literal notranslate"><span class="pre">JSONEncoder.default()</span></code>.</p>
+<p>This implementation handles the serialization of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> instances.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.arg_to_cnf">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">arg_to_cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.arg_to_cnf" title="Link to this definition">#</a></dt>
+<dd><p>Converts list representation of an argument to a cnf-position-like list
+of negated premises + non-negated conclusion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arg</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.args2cnf">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">args2cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentence_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.args2cnf" title="Link to this definition">#</a></dt>
+<dd><p>Converting argument list to <code class="code docutils literal notranslate"><span class="pre">pysat.formula.CNF</span></code></p>
+<p>This method converts a list of arguments into a conjunctive normal form.
+Sentences <span class="math notranslate nohighlight">\(p\)</span> that are not used in arguments will be added in a tautological manner (i.e.,
+<span class="math notranslate nohighlight">\(p\vee\neg p\)</span>)
+to the CNF formula.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNF</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>n_sentence_pool</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.create_random_argument_list">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">create_random_argument_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_arguments_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.create_random_argument_list" title="Link to this definition">#</a></dt>
+<dd><p>A random list of arguments.</p>
+<p>A convenience function that uses <a class="reference internal" href="#theodias.util.create_random_arguments" title="theodias.util.create_random_arguments"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_random_arguments()</span></code></a> to create a random list of arguments.
+Instead of specifying a fixed number of desired arguments the number of arguments will be a random
+number between <cite>n_arguments_min</cite> and ` n_arguments_max`.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>n_arguments_min</strong> (<em>int</em>) – </p></li>
+<li><p><strong>n_arguments_max</strong> (<em>int</em>) – </p></li>
+<li><p><strong>n_sentences</strong> (<em>int</em>) – </p></li>
+<li><p><strong>n_premises_max</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.create_random_arguments">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">create_random_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_max_premises</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_all_sentences</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_loops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.create_random_arguments" title="Link to this definition">#</a></dt>
+<dd><p>Returns a list of arguments represented as integer lists.</p>
+<p>The dialectical structure given by the returned arguments is satisfiable
+(i.e. there is at least one complete and dialectically consistent position).
+Furthermore, the arguments avoid begging the question, repeating premises,
+flat contradictions among premises and with the conclusion, and using the same
+premises for different conclusions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>n_sentences</strong> (<em>int</em>) – Number of non-negated sentences of the sentence pool.
+Every sentence (or its negation) occurs at least once in an argument.</p></li>
+<li><p><strong>n_arguments</strong> (<em>int</em>) – Number of generated arguments.</p></li>
+<li><p><strong>n_max_premises</strong> (<em>int</em>) – Maximal number of premises per argument.</p></li>
+<li><p><strong>n_principles</strong> (<em>int</em>) – The number of principles, i.e. sentences that may occur in arguments as premises only.</p></li>
+<li><p><strong>variation</strong> (<em>bool</em>) – If true (default), the number of premises per argument is chosen randomly.
+Otherwise it is constantly n_max_premises.</p></li>
+<li><p><strong>n_premises_weights</strong> (<em>list</em><em> of </em><em>floats</em>) – If <code class="code docutils literal notranslate"><span class="pre">None</span></code> (default) the distribution of randomly choosing the number of
+premises in an argument is uniform. Otherwise the given weights will be used to choose a number of premises
+between 1 and <code class="code docutils literal notranslate"><span class="pre">n_max_premises</span></code>.</p></li>
+<li><p><strong>connected</strong> (<em>bool</em>) – If true (default), the arguments are related
+(either by attack or support) to at least one other argument in the structure.</p></li>
+<li><p><strong>use_all_sentences</strong> (<em>bool</em>) – If true, the algorithm returns only dialectical structures that include each sentence
+,or its negation respectively, in the arguments. If the algorithm is not able to generate such a structure
+in the limits given by <code class="code docutils literal notranslate"><span class="pre">max_loops</span></code>, a RuntimeWarning is thrown.</p></li>
+<li><p><strong>max_loops</strong> (<em>int</em>) – Breaks possibly endless loops. Number of arguments that tested
+whether they fit into the dialectical structure. If the algorithm takes longer a RuntimeWarning is thrown.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of argument as integer lists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.get_principles">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">get_principles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.get_principles" title="Link to this definition">#</a></dt>
+<dd><p>”
+Returns a list of tuples of the form <code class="code docutils literal notranslate"><span class="pre">(principle,</span> <span class="pre">multiplicity)</span></code> with <code class="code docutils literal notranslate"><span class="pre">multiplicity</span></code>
+indicating the multiplicity of the principle.
+A sentence counts as a principle iff it occurs in at least one argument as premise and it or its negation
+does not occur as a conclusion in an argument. The multiplicity counts in how many argument the sentence occurs
+as premise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.inferential_density">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">inferential_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dialectical_structure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.inferential_density" title="Link to this definition">#</a></dt>
+<dd><p>Inferential density of a dialectical structure :math:` au`.</p>
+<p>As defined by Betz (2013, Debate Dynamics, p. 44): <span class="math notranslate nohighlight">\(D(\tau) = \frac{n-log_{2}(\sigma)}{n}\)</span>,
+where <span class="math notranslate nohighlight">\(\sigma(\tau)\)</span> is the number of complete and dialectically consistent positions
+of :math:`  au`.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.is_satisfiable">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">is_satisfiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.is_satisfiable" title="Link to this definition">#</a></dt>
+<dd><p>Fast method of checking for satisfiability (using xxx).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>principles</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.load_dialectical_structure">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">load_dialectical_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DIR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.load_dialectical_structure" title="Link to this definition">#</a></dt>
+<dd><p>ToDo: doc</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.number_of_complete_consistent_positions">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">number_of_complete_consistent_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_unnegated_sentence_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.number_of_complete_consistent_positions" title="Link to this definition">#</a></dt>
+<dd><p>Fast method to calculate the number of complete consistent positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>args</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>n_unnegated_sentence_pool</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.random_dialectical_structures">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">random_dialectical_structures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_dialectical_structure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rethon.model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DAGDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.random_dialectical_structures" title="Link to this definition">#</a></dt>
+<dd><p>A random list of dialectical structures.</p>
+<p>A convenience function that uses <a class="reference internal" href="#theodias.util.create_random_argument_list" title="theodias.util.create_random_argument_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_random_argument_list()</span></code></a> to create an instance of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">basics.DialecticalStructure</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure" title="theodias.base.DialecticalStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A random dialectical structure. The implementing class can be specified via the method’s arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.random_position_as_set">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">random_position_as_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.random_position_as_set" title="Link to this definition">#</a></dt>
+<dd><p>Generates a random minimally consistent position in its set-representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>n_sentences</strong> (<em>int</em>) – Size of the sentence-pool (without negations).</p></li>
+<li><p><strong>allow_empty_position</strong> (<em>bool</em>) – Iff <code class="code docutils literal notranslate"><span class="pre">True</span></code> an empty position might be returned.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A set of integer representing the position.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.random_positions">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">random_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.random_positions" title="Link to this definition">#</a></dt>
+<dd><p>Generation of random positions.</p>
+<p>Generates random minimally consistent positions in their set-representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_sentences</strong> (<em>int</em>) – Size of the sentence-pool (without negations).</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Sample size.</p></li>
+<li><p><strong>allow_empty_position</strong> (<em>bool</em>) – Iff <code class="code docutils literal notranslate"><span class="pre">True</span></code> an empty position might be returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of random positions is integer sets.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Set[int]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if k exceeds the number of minimally consistent positions given
+<code class="code docutils literal notranslate"><span class="pre">n_sentences</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.save_dialectical_structure">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">save_dialectical_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DIR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.save_dialectical_structure" title="Link to this definition">#</a></dt>
+<dd><p>ToDo: doc</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.tau_decoder">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BitarrayPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BitarrayDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_decoder" title="Link to this definition">#</a></dt>
+<dd><p>Object hook for <code class="xref py py-func docutils literal notranslate"><span class="pre">json.loads()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">json.load()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>use_json_specified_type</strong> – If <code class="code docutils literal notranslate"><span class="pre">True</span></code> the method uses the implementation details
+(modulename and classname) that are specified in the json string, if there are any. Otherwise,
+the method uses implementation details as specified the other given parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.tau_dump">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">re_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls=&lt;class</span> <span class="pre">'theodias.util.TauJSONEncoder'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize_implementation=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_dump" title="Link to this definition">#</a></dt>
+<dd><p>Saving an object as JSON-String in a file.</p>
+<p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dump()</span></code> with <a class="reference internal" href="#theodias.util.TauJSONEncoder" title="theodias.util.TauJSONEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TauJSONEncoder</span></code></a> as
+its default encoder, which will handle the JSON serialization of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> instances.</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs will be given to <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serialize_implementation</strong> – If <code class="code docutils literal notranslate"><span class="pre">True</span></code> implementation details (modulename and classname) will
+be serialized.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The object as a JSON string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.tau_dumps">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_dumps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">re_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls=&lt;class</span> <span class="pre">'theodias.util.TauJSONEncoder'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize_implementation=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_dumps" title="Link to this definition">#</a></dt>
+<dd><p>Getting an object as JSON-String.</p>
+<p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code> with <a class="reference internal" href="#theodias.util.TauJSONEncoder" title="theodias.util.TauJSONEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TauJSONEncoder</span></code></a> as
+its default encoder, which will handle the JSON serialization of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code>.</p>
+<p><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs will be given to <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serialize_implementation</strong> – If <code class="code docutils literal notranslate"><span class="pre">True</span></code> implementation details (modulename and classname) will
+be serialized.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The object as a JSON string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.tau_load">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NumpyPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BDDNumpyDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_load" title="Link to this definition">#</a></dt>
+<dd><p>Loading an object from a JSON file.</p>
+<p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.load()</span></code> and uses <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a> as object hook
+to handle the instantiation of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> objects. Desired
+implementation details can be given by parameter values (see <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Per default positions will be instantiated as <code class="xref py py-class docutils literal notranslate"><span class="pre">NumpyPosition</span></code> and dialectical structures
+as <code class="xref py py-class docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure</span></code> (to avoid long instantiation times).</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.tau_loads">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NumpyPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BDDNumpyDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_loads" title="Link to this definition">#</a></dt>
+<dd><p>Loading an object from a JSON string.</p>
+<p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.loads()</span></code> and uses <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a> as object hook
+to handle the instantiation of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> objects. Desired
+implementation details can be given by parameter values (see <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Per default positions will be instantiated as <code class="xref py py-class docutils literal notranslate"><span class="pre">NumpyPosition</span></code> and dialectical structures
+as <code class="xref py py-class docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure</span></code> (to avoid long instantiation times).</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.write_as_dot">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">write_as_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equal_rank_for_principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.write_as_dot" title="Link to this definition">#</a></dt>
+<dd><p>ToDo: doc</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="theodias.util.write_as_tex">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">write_as_tex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.write_as_tex" title="Link to this definition">#</a></dt>
+<dd><p>ToDo: doca</p>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.TauJSONEncoder"><code class="docutils literal notranslate"><span class="pre">TauJSONEncoder</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.TauJSONEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">TauJSONEncoder.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.TauJSONEncoder.default"><code class="docutils literal notranslate"><span class="pre">TauJSONEncoder.default()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.arg_to_cnf"><code class="docutils literal notranslate"><span class="pre">arg_to_cnf()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.args2cnf"><code class="docutils literal notranslate"><span class="pre">args2cnf()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.create_random_argument_list"><code class="docutils literal notranslate"><span class="pre">create_random_argument_list()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.create_random_arguments"><code class="docutils literal notranslate"><span class="pre">create_random_arguments()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.get_principles"><code class="docutils literal notranslate"><span class="pre">get_principles()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.inferential_density"><code class="docutils literal notranslate"><span class="pre">inferential_density()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.is_satisfiable"><code class="docutils literal notranslate"><span class="pre">is_satisfiable()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.load_dialectical_structure"><code class="docutils literal notranslate"><span class="pre">load_dialectical_structure()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.number_of_complete_consistent_positions"><code class="docutils literal notranslate"><span class="pre">number_of_complete_consistent_positions()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.random_dialectical_structures"><code class="docutils literal notranslate"><span class="pre">random_dialectical_structures()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.random_position_as_set"><code class="docutils literal notranslate"><span class="pre">random_position_as_set()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.random_positions"><code class="docutils literal notranslate"><span class="pre">random_positions()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.save_dialectical_structure"><code class="docutils literal notranslate"><span class="pre">save_dialectical_structure()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_decoder"><code class="docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_dump"><code class="docutils literal notranslate"><span class="pre">tau_dump()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_dumps"><code class="docutils literal notranslate"><span class="pre">tau_dumps()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_load"><code class="docutils literal notranslate"><span class="pre">tau_load()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_loads"><code class="docutils literal notranslate"><span class="pre">tau_loads()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.write_as_dot"><code class="docutils literal notranslate"><span class="pre">write_as_dot()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.write_as_tex"><code class="docutils literal notranslate"><span class="pre">write_as_tex()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/api-docs/api-util.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

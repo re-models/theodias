@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API Documentation &#8212; Theodias Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-docs/api';</script>
+    <script src="../_static/custom-icon.js?v=40bda21d"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Abstract Base Classes" href="api-abstract.html" />
+    <link rel="prev" title="Visualising Dialectical Structures" href="../tutorials/visualisation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Theodias Docs  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        API documentation
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/re-models/theodias" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/theodias/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        API documentation
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/re-models/theodias" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/theodias/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api-abstract.html">Abstract Base Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-numpy-implementation.html">Numpy Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-bitarray-implementation.html">Bitarray Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-setbased-implementation.html">Set Based Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-util.html">Utility Methods</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">API Documentation</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="api-documentation">
+<span id="tau-api-docs-label"></span><h1>API Documentation<a class="headerlink" href="#api-documentation" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api-abstract.html">Abstract Base Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-abstract.html#position">Position</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-abstract.html#theodias.Position"><code class="docutils literal notranslate"><span class="pre">Position</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.__init__"><code class="docutils literal notranslate"><span class="pre">Position.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.are_minimally_compatible"><code class="docutils literal notranslate"><span class="pre">Position.are_minimally_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.as_bitarray"><code class="docutils literal notranslate"><span class="pre">Position.as_bitarray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.as_list"><code class="docutils literal notranslate"><span class="pre">Position.as_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.as_set"><code class="docutils literal notranslate"><span class="pre">Position.as_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.as_ternary"><code class="docutils literal notranslate"><span class="pre">Position.as_ternary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.domain"><code class="docutils literal notranslate"><span class="pre">Position.domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.from_set"><code class="docutils literal notranslate"><span class="pre">Position.from_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.intersection"><code class="docutils literal notranslate"><span class="pre">Position.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.is_accepting"><code class="docutils literal notranslate"><span class="pre">Position.is_accepting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.is_in_domain"><code class="docutils literal notranslate"><span class="pre">Position.is_in_domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.is_minimally_consistent"><code class="docutils literal notranslate"><span class="pre">Position.is_minimally_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.is_subposition"><code class="docutils literal notranslate"><span class="pre">Position.is_subposition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.neighbours"><code class="docutils literal notranslate"><span class="pre">Position.neighbours()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.sentence_pool"><code class="docutils literal notranslate"><span class="pre">Position.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.size"><code class="docutils literal notranslate"><span class="pre">Position.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.subpositions"><code class="docutils literal notranslate"><span class="pre">Position.subpositions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.Position.union"><code class="docutils literal notranslate"><span class="pre">Position.union()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-abstract.html#dialecticalstructure">DialecticalStructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.add_argument"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.add_argument()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.add_arguments"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.add_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.are_compatible"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.are_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.axioms"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.axioms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.closed_positions"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.closed_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.closure"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.closure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.consistent_complete_positions"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.consistent_complete_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.consistent_positions"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.degree_of_justification"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.degree_of_justification()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.entails"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.entails()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.from_arguments"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.from_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.get_arguments"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.get_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.get_name"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.is_closed"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.is_closed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.is_complete"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.is_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.is_consistent"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.is_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.is_minimal"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.is_minimal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.minimal_positions"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.minimal_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.minimally_consistent_positions"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.minimally_consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.n_complete_extensions"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.n_complete_extensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.sentence_pool"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure.set_name"><code class="docutils literal notranslate"><span class="pre">DialecticalStructure.set_name()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-numpy-implementation.html">Numpy Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-numpy-implementation.html#numpyposition">NumpyPosition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition"><code class="docutils literal notranslate"><span class="pre">NumpyPosition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.__init__"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.are_minimally_compatible"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.are_minimally_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.as_bitarray"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.as_bitarray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.as_list"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.as_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.as_np_array"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.as_np_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.as_set"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.as_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.as_ternary"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.as_ternary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.direct_subpositions"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.direct_subpositions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.domain"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.from_set"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.from_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.intersection"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.is_accepting"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.is_accepting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.is_in_domain"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.is_in_domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.is_minimally_consistent"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.is_minimally_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.is_subposition"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.is_subposition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.neighbours"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.neighbours()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.np_neighbours"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.np_neighbours()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.sentence_pool"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.size"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.subpositions"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.subpositions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.to_numpy_position"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.to_numpy_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition.union"><code class="docutils literal notranslate"><span class="pre">NumpyPosition.union()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-numpy-implementation.html#dagnumpydialecticalstructure">DAGNumpyDialecticalStructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.__init__"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.add_argument"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.add_argument()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.add_arguments"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.add_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.are_compatible"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.are_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.axioms"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.axioms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.closed_positions"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.closed_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.closure"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.closure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.consistent_complete_positions"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.consistent_complete_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.degree_of_justification"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.degree_of_justification()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.entails"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.entails()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.from_arguments"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.from_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.get_arguments"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.get_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.get_name"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.is_closed"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.is_closed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.is_complete"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.is_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.is_consistent"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.is_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.is_minimal"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.is_minimal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.minimal_positions"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.minimal_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.minimally_consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.minimally_consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.n_complete_extensions"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.n_complete_extensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.sentence_pool"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.set_name"><code class="docutils literal notranslate"><span class="pre">DAGNumpyDialecticalStructure.set_name()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-numpy-implementation.html#bddnumpydialecticalstructure">BDDNumpyDialecticalStructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.__init__"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.are_compatible"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.are_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.axioms"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.axioms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.closure"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.closure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.consistent_complete_positions"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.consistent_complete_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.consistent_positions"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.degree_of_justification"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.degree_of_justification()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.entails"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.entails()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.from_arguments"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.from_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.get_name"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.is_consistent"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.is_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.minimally_consistent_positions"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.minimally_consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.n_complete_extensions"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.n_complete_extensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.name"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.set_name"><code class="docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure.set_name()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-bitarray-implementation.html">Bitarray Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-bitarray-implementation.html#bitarrayposition">BitarrayPosition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.__init__"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.are_minimally_compatible"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.are_minimally_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.as_bitarray"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_bitarray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.as_list"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.as_set"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.as_ternary"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_ternary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.domain"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.from_set"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.from_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.intersection"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.is_accepting"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_accepting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.is_in_domain"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_in_domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.is_minimally_consistent"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_minimally_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.is_subposition"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_subposition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.neighbours"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.neighbours()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.sentence_pool"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.size"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.subpositions"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.subpositions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.BitarrayPosition.union"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.union()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-bitarray-implementation.html#dagbitarraydialecticalstructure">DAGBitarrayDialecticalStructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.__init__"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.add_argument"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.add_argument()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.add_arguments"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.add_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.are_compatible"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.are_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.axioms"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.axioms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.closed_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.closed_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.closure"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.closure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.complete_extensions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.complete_extensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.consistent_complete_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.degree_of_justification"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.degree_of_justification()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.entails"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.entails()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.from_arguments"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.from_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.get_arguments"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.get_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.get_name"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.is_closed"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.is_closed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.is_complete"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.is_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.is_consistent"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.is_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.is_minimal"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.is_minimal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.minimal_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.minimal_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.minimally_consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.minimally_consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.n_complete_extensions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.n_complete_extensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.sentence_pool"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.set_name"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.set_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.to_bitarray_position"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.to_bitarray_position()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-setbased-implementation.html">Set Based Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-setbased-implementation.html#setbasedposition">SetBasedPosition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.__init__"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.are_minimally_compatible"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.are_minimally_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.as_bitarray"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.as_bitarray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.as_list"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.as_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.as_set"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.as_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.as_setbased_position"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.as_setbased_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.as_ternary"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.as_ternary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.difference"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.difference()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.domain"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.from_set"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.from_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.intersection"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.is_accepting"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.is_accepting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.is_in_domain"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.is_in_domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.is_minimally_consistent"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.is_minimally_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.is_subposition"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.is_subposition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.neighbours"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.neighbours()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.sentence_pool"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.size"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.subpositions"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.subpositions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.SetBasedPosition.union"><code class="docutils literal notranslate"><span class="pre">SetBasedPosition.union()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-setbased-implementation.html#dagsetbaseddialecticalstructure">DAGSetBasedDialecticalStructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.__init__"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.add_argument"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.add_argument()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.add_arguments"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.add_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.are_compatible"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.are_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.axioms"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.axioms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.closed_positions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.closed_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.closure"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.closure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.complete_minimally_consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.complete_minimally_consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.compute_complete_consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.compute_complete_consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.consistent_complete_positions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.consistent_complete_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.degree_of_justification"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.degree_of_justification()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.entails"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.entails()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.from_arguments"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.from_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.get_arguments"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.get_arguments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.get_name"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.is_closed"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.is_closed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.is_complete"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.is_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.is_consistent"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.is_consistent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.is_minimal"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.is_minimal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.minimal_positions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.minimal_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.minimally_consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.minimally_consistent_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.n_complete_extensions"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.n_complete_extensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.sentence_pool"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.sentence_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.set_name"><code class="docutils literal notranslate"><span class="pre">DAGSetBasedDialecticalStructure.set_name()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-util.html">Utility Methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.TauJSONEncoder"><code class="docutils literal notranslate"><span class="pre">TauJSONEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-util.html#theodias.util.TauJSONEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">TauJSONEncoder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-util.html#theodias.util.TauJSONEncoder.default"><code class="docutils literal notranslate"><span class="pre">TauJSONEncoder.default()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.arg_to_cnf"><code class="docutils literal notranslate"><span class="pre">arg_to_cnf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.args2cnf"><code class="docutils literal notranslate"><span class="pre">args2cnf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.create_random_argument_list"><code class="docutils literal notranslate"><span class="pre">create_random_argument_list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.create_random_arguments"><code class="docutils literal notranslate"><span class="pre">create_random_arguments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.get_principles"><code class="docutils literal notranslate"><span class="pre">get_principles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.inferential_density"><code class="docutils literal notranslate"><span class="pre">inferential_density()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.is_satisfiable"><code class="docutils literal notranslate"><span class="pre">is_satisfiable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.load_dialectical_structure"><code class="docutils literal notranslate"><span class="pre">load_dialectical_structure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.number_of_complete_consistent_positions"><code class="docutils literal notranslate"><span class="pre">number_of_complete_consistent_positions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.random_dialectical_structures"><code class="docutils literal notranslate"><span class="pre">random_dialectical_structures()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.random_position_as_set"><code class="docutils literal notranslate"><span class="pre">random_position_as_set()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.random_positions"><code class="docutils literal notranslate"><span class="pre">random_positions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.save_dialectical_structure"><code class="docutils literal notranslate"><span class="pre">save_dialectical_structure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.tau_decoder"><code class="docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.tau_dump"><code class="docutils literal notranslate"><span class="pre">tau_dump()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.tau_dumps"><code class="docutils literal notranslate"><span class="pre">tau_dumps()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.tau_load"><code class="docutils literal notranslate"><span class="pre">tau_load()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.tau_loads"><code class="docutils literal notranslate"><span class="pre">tau_loads()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.write_as_dot"><code class="docutils literal notranslate"><span class="pre">write_as_dot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-util.html#theodias.util.write_as_tex"><code class="docutils literal notranslate"><span class="pre">write_as_tex()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/api-docs/api.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

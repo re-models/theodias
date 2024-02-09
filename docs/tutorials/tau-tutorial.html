@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction of using the tau package &#8212; Theodias Docs  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/tau-tutorial';</script>
+    <script src="../_static/custom-icon.js?v=40bda21d"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Visualising Dialectical Structures" href="visualisation.html" />
+    <link rel="prev" title="Tau Tutorials" href="tau-tutorials.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Theodias Docs  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="tau-tutorials.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api-docs/api.html">
+                        API documentation
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/re-models/theodias" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/theodias/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="tau-tutorials.html">
+                        Tutorials
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api-docs/api.html">
+                        API documentation
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/re-models/theodias" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/theodias/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-custom fa-pypi fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tau Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualisation.html">Visualisation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="tau-tutorials.html" class="nav-link">Tau Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Introduction...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Introduction-of-using-the-tau-package">
+<h1>Introduction of using the <code class="docutils literal notranslate"><span class="pre">tau</span></code> package<a class="headerlink" href="#Introduction-of-using-the-tau-package" title="Link to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">tau</span></code> package provides different classes and methods to apply the theory of dialectical structures (as introduced in <a class="reference external" href="https://doi.org/10.5771/9783465136293">Betz (2010)</a> and <a class="reference external" href="https://www.springer.com/de/book/9789400745988">Betz (2013)</a>).</p>
+<p>The provided functionalities are described by two abstract classes. Implementations of <code class="docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> can be used to create, manipulate and calculate properties of dialectical structures. Implementations of <code class="docutils literal notranslate"><span class="pre">Position</span></code> represent positions on a sentence pool.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">tau</span></code> package includes different implementations of these abstract classes, which differ w.r.t. their runtime performance:</p>
+<ul class="simple">
+<li><p><em>DAG (directed acyclic graphs) based dialectical structures:</em> All important properties of the stucture are calculated and stored during instantiation. This implementation is fast for small sentence pools (<span class="math notranslate nohighlight">\(n&lt;15\)</span>).</p>
+<ul>
+<li><p>We recommend to use the following standard implementation: <code class="docutils literal notranslate"><span class="pre">DAGDialecticalStructure</span></code>.</p></li>
+</ul>
+</li>
+<li><p><em>BDD (binary decision diagramm) based dialectical structures:</em> Important properties of the structure are calculated by using binary decision trees. This representation is comparably fast for most properties of the graph even if the sentence pool is larger (<span class="math notranslate nohighlight">\(n&gt;10\)</span>). However, for larger sentence pools it will become more difficult to calculate all dialectically consistent positions, axiomatic bases (without a confining source) and minimal positions. (see the API-DOCs for further details
+(LINK NEEDED).</p>
+<ul>
+<li><p>We recommend to use the following standard implementation: <code class="docutils literal notranslate"><span class="pre">BDDDialecticalStructure</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<p><em>Source:</em> You can download this notebook from <a class="reference external" href="https://github.com/debatelab/re-docs/blob/master/source/tau-docs/tutorials/tau-tutorial.ipynb">here</a>.</p>
+<section id="Instantiation-of-dialectical-structures-and-positions">
+<h2>Instantiation of dialectical structures and positions<a class="headerlink" href="#Instantiation-of-dialectical-structures-and-positions" title="Link to this heading">#</a></h2>
+<p>A dialectical structure is a tupel <span class="math notranslate nohighlight">\(\left&lt;S,A\right&gt;\)</span> of a sentence pool <span class="math notranslate nohighlight">\(S = \{ s_1, s_2, \dots, s_n, \neg s_1, \neg s_2, \dots, \neg s_n \}\)</span> and a set <span class="math notranslate nohighlight">\(A\)</span> of arguments.</p>
+<p>An argument <span class="math notranslate nohighlight">\(a=(P_a, c_a)\)</span> is defined as a pair consisting of premises <span class="math notranslate nohighlight">\(P_a \subset S\)</span> and a conclusion <span class="math notranslate nohighlight">\(c_a \in S\)</span>.</p>
+<p>A dialectical structure is instantiated by specifying the size <span class="math notranslate nohighlight">\(n\)</span> of the sentence pool and a list of arguments, in which sententences are represented numerals. The minus sign is used to indicate the negation of a sentence. For instance, the list <code class="docutils literal notranslate"><span class="pre">[1,3,-4]</span></code> represents an argument with the premsises <span class="math notranslate nohighlight">\(P_a=\{s_1,s_3\}\)</span> and the conclusion <span class="math notranslate nohighlight">\(\neg s_4\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">DAGDialecticalStructure</span>
+
+<span class="c1"># size of the sentencepool</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="c1"># a list of arguments</span>
+<span class="n">arguments</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+<span class="c1"># instantiation of a dialectical structure tau</span>
+<span class="n">tau</span> <span class="o">=</span> <span class="n">DAGDialecticalStructure</span><span class="o">.</span><span class="n">from_arguments</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>A position is a binary belief state that is represented by a subset <span class="math notranslate nohighlight">\(\mathcal{A}\subset S\)</span> over the. The internal representation depends on the implementation. However, independent of their implementation, positions can be instantiated by specifying the set of sentences the agent believes:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">StandardPosition</span>
+
+<span class="c1"># believing s_3, s_4 and s_5</span>
+<span class="n">belief_state_a</span> <span class="o">=</span> <span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">},</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># believing s_2 and believing that s_4 is false</span>
+<span class="n">belief_state_b</span> <span class="o">=</span> <span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">},</span> <span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">tau</span></code> package provides several methods to manipulate dialectical structures and to determine properties of positions with regard to a given dialectical structure. For instance:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># implications of a believed sentences w.r.t. the</span>
+<span class="c1"># inferential relationships encoded in tau</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Implications of </span><span class="si">{</span><span class="n">belief_state_a</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">tau</span><span class="o">.</span><span class="n">closure</span><span class="p">(</span><span class="n">belief_state_a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Implications of </span><span class="si">{</span><span class="n">belief_state_b</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">tau</span><span class="o">.</span><span class="n">closure</span><span class="p">(</span><span class="n">belief_state_b</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># checking whether a position is consistent w.r.t. tau</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is </span><span class="si">{</span><span class="n">belief_state_a</span><span class="si">}</span><span class="s2"> consistent? </span><span class="si">{</span><span class="n">tau</span><span class="o">.</span><span class="n">is_consistent</span><span class="p">(</span><span class="n">belief_state_a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is </span><span class="si">{</span><span class="n">belief_state_b</span><span class="si">}</span><span class="s2"> consistent? </span><span class="si">{</span><span class="n">tau</span><span class="o">.</span><span class="n">is_consistent</span><span class="p">(</span><span class="n">belief_state_b</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># checking whether two positions are consistent with each other (w.r.t tau)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Are </span><span class="si">{</span><span class="n">belief_state_a</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">belief_state_b</span><span class="si">}</span><span class="s2"> consistent with each other?&quot;</span> <span class="o">+</span>
+      <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">tau</span><span class="o">.</span><span class="n">are_compatible</span><span class="p">(</span><span class="n">belief_state_a</span><span class="p">,</span><span class="n">belief_state_b</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Implications of {3, 4, 5}: {3, 4, 5, -2}
+Implications of {2, -4}: {2, 5, 6, 7, -4, -1}
+Is {3, 4, 5} consistent? True
+Is {2, -4} consistent? True
+Are {3, 4, 5} and {2, -4} consistent with each other? False
+</pre></div></div>
+</div>
+</section>
+<section id="Export-to-JSON">
+<h2>Export to JSON<a class="headerlink" href="#Export-to-JSON" title="Link to this heading">#</a></h2>
+<section id="Serializing-tau-objects">
+<h3>Serializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects<a class="headerlink" href="#Serializing-tau-objects" title="Link to this heading">#</a></h3>
+<p>You can serialize <code class="docutils literal notranslate"><span class="pre">tau</span></code> positions and dialectical structures and any compounds thereof, as long as the <code class="docutils literal notranslate"><span class="pre">json</span></code> python module can handle them (e.g., lists, dictionaries).</p>
+<p>For instance, the following code will serialize a position:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">StandardPosition</span>
+<span class="kn">from</span> <span class="nn">tau.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span><span class="p">,</span> <span class="n">tau_dump</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">path</span>
+
+<span class="c1"># serializing a position as JSON String</span>
+<span class="n">pos_json_str</span> <span class="o">=</span> <span class="n">tau_dumps</span><span class="p">(</span><span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span><span class="mi">4</span><span class="p">),</span>
+                         <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pos_json_str</span><span class="p">)</span>
+
+<span class="c1"># serializing a list of positions</span>
+<span class="n">pos_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span><span class="mi">4</span><span class="p">),</span>
+            <span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span><span class="mi">4</span><span class="p">),</span>
+            <span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">(</span><span class="nb">set</span><span class="p">(),</span><span class="mi">0</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tau_dumps</span><span class="p">(</span><span class="n">pos_list</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># serializing a list of position into a file</span>
+<span class="n">output_file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span><span class="s1">&#39;positions.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">output_file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+    <span class="n">tau_dump</span><span class="p">(</span><span class="n">pos_list</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#34;n_unnegated_sentence_pool&#34;: 4,
+    &#34;position&#34;: [
+        1,
+        2
+    ]
+}
+[
+    {
+        &#34;n_unnegated_sentence_pool&#34;: 4,
+        &#34;position&#34;: [
+            1,
+            2
+        ]
+    },
+    {
+        &#34;n_unnegated_sentence_pool&#34;: 4,
+        &#34;position&#34;: [
+            1,
+            3
+        ]
+    },
+    {
+        &#34;n_unnegated_sentence_pool&#34;: 0,
+        &#34;position&#34;: []
+    }
+]
+</pre></div></div>
+</div>
+<p>If important, you can save the implementation details (module and class name), which can be considered later to deserialize the objects:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">SetBasedPosition</span>
+<span class="kn">from</span> <span class="nn">tau.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span>
+
+<span class="c1"># serializing a position as JSON String</span>
+<span class="n">pos_json_str</span> <span class="o">=</span> <span class="n">tau_dumps</span><span class="p">(</span><span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span><span class="mi">4</span><span class="p">),</span>
+                         <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                         <span class="n">serialize_implementation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pos_json_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{
+    &#34;n_unnegated_sentence_pool&#34;: 4,
+    &#34;position&#34;: [
+        1,
+        2
+    ],
+    &#34;module_name&#34;: &#34;tau.bitarray_implementation&#34;,
+    &#34;class_name&#34;: &#34;BitarrayPosition&#34;
+}
+</pre></div></div>
+</div>
+</section>
+<section id="Deserializing-tau-objects">
+<h3>Deserializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects<a class="headerlink" href="#Deserializing-tau-objects" title="Link to this heading">#</a></h3>
+<p>The deserialization of objects is similarly simple. The implementation details can either be taken from the json file or can be explicitly given via parameters.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">SetBasedPosition</span><span class="p">,</span> <span class="n">BitarrayPosition</span>
+<span class="kn">from</span> <span class="nn">tau.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span><span class="p">,</span> <span class="n">tau_loads</span><span class="p">,</span> <span class="n">tau_load</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">path</span>
+
+<span class="c1"># serializing a position as JSON String</span>
+<span class="n">pos_json_str</span> <span class="o">=</span> <span class="n">tau_dumps</span><span class="p">(</span><span class="n">SetBasedPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span><span class="mi">4</span><span class="p">),</span>
+                         <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                         <span class="n">serialize_implementation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># deserializing it</span>
+<span class="n">position</span> <span class="o">=</span> <span class="n">tau_loads</span><span class="p">(</span><span class="n">pos_json_str</span><span class="p">,</span> <span class="n">use_json_specified_type</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2"> of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># deserializing it and using another implementation</span>
+<span class="n">position</span> <span class="o">=</span> <span class="n">tau_loads</span><span class="p">(</span><span class="n">pos_json_str</span><span class="p">,</span>
+                     <span class="n">position_module</span> <span class="o">=</span> <span class="s1">&#39;tau&#39;</span><span class="p">,</span>
+                     <span class="n">position_class</span> <span class="o">=</span> <span class="s1">&#39;BitarrayPosition&#39;</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2"> of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># deserializing tau objects from a file</span>
+<span class="n">input_file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span><span class="s1">&#39;positions.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">input_file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_file</span><span class="p">:</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">tau_load</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{1, 2} of type &lt;class &#39;tau.set_implementation.SetBasedPosition&#39;&gt;
+{1, 2} of type &lt;class &#39;tau.bitarray_implementation.BitarrayPosition&#39;&gt;
+[{1, 2}, {1, 3}, set()]
+</pre></div></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Instantiation-of-dialectical-structures-and-positions">Instantiation of dialectical structures and positions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Export-to-JSON">Export to JSON</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Serializing-tau-objects">Serializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Deserializing-tau-objects">Deserializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/tutorials/tau-tutorial.ipynb.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
