@@ -251,6 +251,10 @@ class NumpyPosition(Position):
                     intersection[i] = position_list[0][i]
             return NumpyPosition(intersection)
 
+    def difference(self, other: Position) -> Position:
+        return NumpyPosition.from_set(self.as_set().difference(other.as_set()),
+                                other.sentence_pool().size())
+
     # ToDo: Perhaps only temporarily a public static method (at the moment used by other Position classes to
     # quick and dirty implement `neighbours`).
     @staticmethod

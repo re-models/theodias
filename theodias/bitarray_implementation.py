@@ -14,12 +14,13 @@ import logging
 
 logger = logging.getLogger('tau')
 
+
 class BitarrayPosition(Position):
     """Implementing :py:class:`Position` on the basis of bitarrays.
     """
 
     def __init__(self, ba: Union[bitarray, Set[int]], n_unnegated_sentence_pool: int = None):
-        """Instantiates a :py:class:`NumpyPosition` from a numpy array.
+        """Instantiates a :py:class:`BitarrayPosition` from a bitarray or a set of ints.
 
         A pair of bits, which can take the values :code:`True/1` or \
         :code:`False/0`,  represents a sentence in a position. \
@@ -83,7 +84,6 @@ class BitarrayPosition(Position):
             return self.as_bitarray() == other.as_bitarray()
         else:
             return False
-
 
     @staticmethod
     def from_set(position: Set[int], n_unnegated_sentence_pool: int) -> Position:
@@ -157,37 +157,6 @@ class BitarrayPosition(Position):
             raise
         else:
             return not any(self.as_bitarray() & (self.as_bitarray() ^ pos2.as_bitarray()))
-
-    """
-    def subpositions(self, n: int = -1, only_consistent_subpositions: bool = True) -> Iterator[Position]:
-
-        if n == -1:
-            # by default, create set of all subpositions:
-            res = set()
-            for i in range(len(self.__bitarray) + 1):
-                res.update(self.subpositions(i, only_consistent_subpositions))
-
-            return iter(res)
-
-        else:
-            # all masks for subpositions
-            if only_consistent_subpositions and self.is_minimally_consistent():
-                submasks = [bitarray(''.join(e)) for e in product(['00', '11'], repeat=int(len(self.__bitarray) / 2))]
-            else:
-                submasks = [bitarray(''.join(e)) for e in product(['0', '1'], repeat=int(len(self.__bitarray)))]
-
-            subpositions = set()
-            for subm in submasks:
-                ba = self.__bitarray & subm  # values of new bitarray
-                # count non-suspended sentences and exclude positions that are too small
-                if ba.count() == n:
-                    new_supposition = BitarrayPosition(ba)
-                    if only_consistent_subpositions and new_supposition.is_minimally_consistent():
-                        subpositions.add(BitarrayPosition(ba))
-                    elif not only_consistent_subpositions:
-                        subpositions.add(BitarrayPosition(ba))
-            return iter(subpositions)
-    """
 
     def subpositions(self, n: int = -1, only_consistent_subpositions: bool = True) -> Iterator[Position]:
         """ Returns an iterator over subpositions of size n, with n being an optional
@@ -296,6 +265,10 @@ class BitarrayPosition(Position):
                     raise
 
         return BitarrayPosition(ba)
+
+    def difference(self, other: Position) -> Position:
+        return BitarrayPosition(self.as_set().difference(other.as_set()),
+                                other.sentence_pool().size())
 
     def neighbours(self, depth: int) -> Iterator[Position]:
         for neighbour in NumpyPosition.np_neighbours(self, depth):
