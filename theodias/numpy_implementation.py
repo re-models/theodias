@@ -165,7 +165,7 @@ class NumpyPosition(Position):
     def is_minimally_consistent(self) -> bool:
         return 3 not in self.__np_array
 
-    def are_minimally_compatible(self, position: Position) -> bool:
+    def is_minimally_compatible(self, position: Position) -> bool:
         return self.union([self, position]).is_minimally_consistent()
 
     def is_subposition(self: Position, pos2: Position) -> bool:

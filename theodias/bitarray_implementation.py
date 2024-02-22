@@ -145,7 +145,7 @@ class BitarrayPosition(Position):
     def is_minimally_consistent(self) -> bool:
         return not any(self.__bitarray[0::2] & self.__bitarray[1::2])
 
-    def are_minimally_compatible(self, position: Position) -> bool:
+    def is_minimally_compatible(self, position: Position) -> bool:
         return self.union([self, position]).is_minimally_consistent()
 
     def is_subposition(self: Position, pos2: Position) -> bool:

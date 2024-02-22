@@ -178,9 +178,8 @@ class Position(ABC):
 
     # minimal compatibility of position with pos1, i.e. there is s such that s in position
     # and non-s in pos1, or vice-versa
-    # ToDo: better 'is_minimally_compatible'?
     @abstractmethod
-    def are_minimally_compatible(self, position: Position) -> bool:
+    def is_minimally_compatible(self, position: Position) -> bool:
         """Checks for minimal compatibility with :code:`position`.
 
         Two positions :math:`\\mathcal{A}` and :math:`\\mathcal{A}'` are minimally compatible iff

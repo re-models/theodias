@@ -97,7 +97,7 @@ class SetBasedPosition(Position):
     def is_minimally_consistent(self) -> bool:
         return not any([-1 * element in self.__position for element in self.__position])
 
-    def are_minimally_compatible(self, position: Position) -> bool:
+    def is_minimally_compatible(self, position: Position) -> bool:
         return SetBasedPosition(self.as_set() | position.as_set(),
                                 max(self.sentence_pool().size(),
                                     position.sentence_pool().size())).is_minimally_consistent()

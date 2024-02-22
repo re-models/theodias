@@ -315,11 +315,11 @@ class Testtheodias:
 
         # test `are_minimally_compatible`
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {1, 2, 3}, 3):
-            assert (pos1.are_minimally_compatible(pos2) == True)
-            assert (pos2.are_minimally_compatible(pos1) == True)
+            assert (pos1.is_minimally_compatible(pos2) == True)
+            assert (pos2.is_minimally_compatible(pos1) == True)
         for pos1, pos2 in get_implementations_product_of_positions({1, -3}, {1, 2, 3}, 3):
-            assert (pos1.are_minimally_compatible(pos2) == False)
-            assert (pos2.are_minimally_compatible(pos1) == False)
+            assert (pos1.is_minimally_compatible(pos2) == False)
+            assert (pos2.is_minimally_compatible(pos1) == False)
 
         # test `is_subposition`
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {1, 2, 3}, 3):
