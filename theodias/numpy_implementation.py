@@ -750,19 +750,18 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
         self.__updated = True
 
-    # ToDo: This method logs a lot of WARNINGs from DD. Perhaps, we should implement it differently.
-    # So far, the logs have to be supressed by configuring the DD-logger via
-    # logging.getLogger('dd').setLevel(logging.ERROR)
-    # Andreas' input:
-    # "Die WARNINGs von dd.BDD (der Art "WARNING:dd.bdd:Missing bits:  support - care_vars =
-    # {'s5', 's2', 's6', 's1', 's4', 's3'}") entstehen in der BDDNumpyDialecticalStructure-Methode
-    # "closure" (aus rethon/numpy_implementation.py). Dort erhält ".bdd.pick.iter" eine leere Liste
-    # als "care_vars". In meiner Erinnerung hat sich das als sinnvolle Optimierung herausgestellt:
-    # Wenn wir als care_vars zum Beispiel alle Sätze des Satzpools angeben, verschwindet die Warnung,
-    # aber es werden viel mehr Modelle (für uns: vollständig und konsistente Positionen) zurückgegeben,
-    # die anschliessend miteinander geschnitten werden müssen.
-    # Ich sehe im Moment keine schnelle Lösung ausser das log-level von INFO auf ERROR zu setzen,
-    # aber vielleicht gibt es in der Methode "closure" ungeahntes Verbesserungspotential.
+    # Note: This method logs a lot of warnings from DD.
+    # So far, the logs have to be suppressed by setting the DD-logger in the
+    # rethon package at rethon\config\logging-config.json to ERROR level.
+
+    # "Warnings like "WARNING:dd.bdd:Missing bits:  support - care_vars =
+    # {'s5', 's2', 's6', 's1', 's4', 's3'}") result from the BDDNumpyDialecticalStructure method
+    # `closure`. Therein, `.bdd.pick.iter` receives an empty list as care_vars.
+    # This proved to be a useful optimisation:
+    # If we, for example, provided all sentences as care_vars, the warning would disappear.
+    # However, much more models (in our terminology: complete and consistent positions)
+    # would be returned, which have to be intersected afterwards in a costly fashion
+    # to arrive at dialectical closures.
     def closure(self, position: Position) -> Position:
 
         # the position's closure has been calculated before
