@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 from .base import Position, DialecticalStructure
-from .numpy_implementation import NumpyPosition
 
 from bitarray import bitarray
 from typing import Set, Iterator, List
@@ -12,6 +11,7 @@ from itertools import chain, combinations
 from pysat.formula import CNF
 from pysat.solvers import Minisat22
 import numpy as np
+from collections import deque
 
 # Todo (@Basti): Add class docstring.
 class SetBasedPosition(Position):
@@ -161,8 +161,37 @@ class SetBasedPosition(Position):
         return SetBasedPosition(self.as_set().difference(pos.as_set()), pos.sentence_pool().size())
 
     def neighbours(self, depth: int) -> Iterator[Position]:
-        for neighbour in NumpyPosition.np_neighbours(self, depth):
-            yield SetBasedPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool().size())
+
+        position_array = [0] * self.sentence_pool().size()
+
+        for s in self.as_set():
+            if s > 0:
+                position_array[abs(s) - 1] = 1
+            elif s < 0:
+                position_array[abs(s) - 1] = 2
+
+        queue = deque()
+        queue.append((position_array, 0, depth))
+
+        while queue:
+            vertex, level, changes_left = queue.popleft()
+
+            if not changes_left or level == len(vertex):
+
+                neighbour_set = set((i + 1) * (-1) ** (vertex[i] - 1)
+                                    for i in range(len(vertex)) if vertex[i] != 0)
+
+                yield SetBasedPosition(neighbour_set, self.sentence_pool().size())
+
+            if changes_left and level < len(vertex):
+
+                for v in [0, 1, 2]:
+                    neighbour = vertex.copy()
+                    neighbour[level] = v
+                    if v == vertex[level]:  # nothing changed
+                        queue.append((neighbour, level + 1, changes_left))
+                    else:
+                        queue.append((neighbour, level + 1, changes_left - 1))
 
 # Todo (@Basti): Add class docstring.
 class DAGSetBasedDialecticalStructure(DialecticalStructure):

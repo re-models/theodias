@@ -4,11 +4,11 @@ Implementing abstract base classes on the basis of bitarrays.
 
 from .base import Position
 from .base import DialecticalStructure
-from .numpy_implementation import NumpyPosition
 
 from bitarray import bitarray
 from typing import Set, Iterator, List, Union
 from itertools import combinations, product
+from collections import deque
 
 import logging
 
@@ -27,7 +27,7 @@ class BitarrayPosition(Position):
         The first bit represents acceptance and the second bit rejection. \
         Suspension of a sentence corresponds to both bits being :code:`False/0`, \
         (minimal or flat) contradiction obtains when both bits are \
-        :code:`False/0`.
+        :code:`True/1`.
 
         A position is represented by an array of bits. The status of sentence \
         :math:`s_{i}` (:math:`i=1,\\dots,n`) corresponds to the bits at indices \
@@ -271,8 +271,42 @@ class BitarrayPosition(Position):
                                 other.sentence_pool().size())
 
     def neighbours(self, depth: int) -> Iterator[Position]:
-        for neighbour in NumpyPosition.np_neighbours(self, depth):
-            yield BitarrayPosition.from_set(NumpyPosition(neighbour).as_set(), self.sentence_pool().size())
+        position_array = [0] * self.sentence_pool().size()
+
+        for s in self.as_set():
+            if s > 0:
+                position_array[abs(s) - 1] = 1
+            elif s < 0:
+                position_array[abs(s) - 1] = 2
+
+        queue = deque()
+        queue.append((position_array, 0, depth))
+
+        while queue:
+            vertex, level, changes_left = queue.popleft()
+
+            if not changes_left or level == len(vertex):
+
+                bitstr = ''
+                for s in vertex:
+                    if s == 1:
+                        bitstr += '10'
+                    elif s == 2:
+                        bitstr += '01'
+                    else:
+                        bitstr += '00'
+
+                yield BitarrayPosition(bitarray(bitstr))
+
+            if changes_left and level < len(vertex):
+
+                for v in [0, 1, 2]:
+                    neighbour = vertex.copy()
+                    neighbour[level] = v
+                    if v == vertex[level]:  # nothing changed
+                        queue.append((neighbour, level + 1, changes_left))
+                    else:
+                        queue.append((neighbour, level + 1, changes_left - 1))
 
 
 class DAGBitarrayDialecticalStructure(DialecticalStructure):

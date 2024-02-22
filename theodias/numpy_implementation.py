@@ -255,33 +255,6 @@ class NumpyPosition(Position):
         return NumpyPosition.from_set(self.as_set().difference(other.as_set()),
                                 other.sentence_pool().size())
 
-    # ToDo: Perhaps only temporarily a public static method (at the moment used by other Position classes to
-    # quick and dirty implement `neighbours`).
-    @staticmethod
-    def np_neighbours(position: Position, depth: int) -> Iterator[np.ndarray]:
-        # generate variations of a position's Numpy array representation by changing at most depth elements
-        np_position = NumpyPosition.as_np_array(position)
-
-        queue = deque()
-        queue.append((np_position, 0, depth))
-
-        while queue:
-
-            vertex, level, changes_left = queue.popleft()
-
-            if not changes_left or level == len(vertex):
-                yield vertex
-
-            if changes_left and level < len(vertex):
-
-                for v in [0, 1, 2]:
-                    neighbour = vertex.copy()
-                    neighbour[level] = v
-                    if v == vertex[level]:  # nothing changed
-                        queue.append((neighbour, level + 1, changes_left))
-                    else:
-                        queue.append((neighbour, level + 1, changes_left - 1))
-
     def neighbours(self, depth: int) -> Iterator[Position]:
         """Iterate over the neighbours of the position.
 
@@ -295,8 +268,27 @@ class NumpyPosition(Position):
         including the position itself.
         """
 
-        for neighbour in NumpyPosition.np_neighbours(self, depth):
-            yield NumpyPosition(neighbour)
+        # generate variations of a position by changing at most depth elements
+        np_position = NumpyPosition.as_np_array(self)
+
+        queue = deque()
+        queue.append((np_position, 0, depth))
+
+        while queue:
+            vertex, level, changes_left = queue.popleft()
+
+            if not changes_left or level == len(vertex):
+                yield NumpyPosition(vertex)
+
+            if changes_left and level < len(vertex):
+
+                for v in [0, 1, 2]:
+                    neighbour = vertex.copy()
+                    neighbour[level] = v
+                    if v == vertex[level]:  # nothing changed
+                        queue.append((neighbour, level + 1, changes_left))
+                    else:
+                        queue.append((neighbour, level + 1, changes_left - 1))
 
 
 class DAGNumpyDialecticalStructure(DialecticalStructure):
