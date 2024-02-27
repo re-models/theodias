@@ -844,6 +844,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
         return position2.as_set().issubset(closure_pos1.as_set())
 
+    # ToDo (@Basti): Add own docstring with performance warning.
     def axioms(self, position: Position,
                source: Iterator[Position] = None) -> Iterator[Position]:
         position = NumpyPosition.to_numpy_position(position)
@@ -856,7 +857,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
         # old: if no source is provided, default to all consistent positions of dialectical structure
         # here: default to all dialectically consistetn neighbours (full range). That is risky for large sentence pools.
-        # ToDo: Discuss.
+        # ToDo (@Basti) Check documentation for performance wanring
         if not source:
             # raise NotImplementedError("Cannot iterate over all consistent positions.")
             # source = position.neighbours(self.n) (we should exclude dial. inconsistent neighbours)

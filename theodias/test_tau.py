@@ -237,7 +237,6 @@ class Testtheodias:
             assert (position_class_.from_set({1, 2}, 3).sentence_pool().size() == 3)
 
             # testing `intersection`
-            # todo: @Andreas - Discuss - alternatively, we could throw a RuntimeError/-Warning
             assert (position_class_.intersection({}).as_set() == set())
             assert (position_class_.intersection({}).size() == 0)
 

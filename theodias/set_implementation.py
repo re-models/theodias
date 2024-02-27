@@ -343,6 +343,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         return SetBasedPosition(np.arange(1, self.n + 1), self.n)
 
     # ToDo: How do we deal with positions that indicate a larger sentencepool?
+    # ToDo (check, @Basti): Should raise error for Setbased/Bitarry/Numpy Implementation. (add Unit Test)
     # Either throwing an error or leave it as it is (treating them as if the are inconsistent).
     # The first one what I would expect from the user point of view, but it is possibly costly.
     def is_consistent(self, position: Position) -> bool:
@@ -453,7 +454,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
     def is_complete(self, position: Position) -> bool:
         return position.domain().as_set() == set(self.__sentence_pool)
 
-    # ToDo: Is the cut of the complete consistent extensions of two positions A and B the same as set
+    # ToDo (@Basti): Is the cut of the complete consistent extensions of two positions A and B the same as set
     # of complete consistent extension of $A\cup B$?
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
         if not self.is_consistent(position2):

@@ -106,7 +106,7 @@ def args2cnf(arguments:List[List[int]], n_sentence_pool:int) -> CNF:
 
 def write_as_tex(directory, fileName, arg_list):
     """
-    ToDo: doca
+    ToDo (@Andreas): doca
     """
     with open(os.path.join(directory, fileName), "w") as fi:
         fi.write("\\documentclass[tikz,border=10pt]{standalone}\n")
@@ -144,7 +144,7 @@ def write_as_tex(directory, fileName, arg_list):
 
 def write_as_dot(directory, fileName, arg_list, equal_rank_for_principles = False):
     """
-    ToDo: doc
+    ToDo (@Andreas): doc
     """
     sentences = set([item for subl in arg_list for item in subl])
     # prop that occur more than once as premises or more than once as conclusions
@@ -232,7 +232,7 @@ def __ternary2set(pos_ternary_list, n_sentences) -> Set[int]:
 
 def save_dialectical_structure(DIR, fileName, dialectical_structure):
     """
-     ToDo: doc
+     ToDo (@Andreas): doc
      """
 
     with open(os.path.join(DIR, fileName), 'wb') as f:
@@ -243,7 +243,7 @@ def save_dialectical_structure(DIR, fileName, dialectical_structure):
 
 def load_dialectical_structure(DIR, fileName):
     """
-     ToDo: doc
+     ToDo (@Andreas): doc
      """
 
     with open(os.path.join(DIR, fileName), 'rb') as f:
@@ -252,7 +252,7 @@ def load_dialectical_structure(DIR, fileName):
     return dialectical_structure
 
 
-# todo: parameter for fixed sentence size
+# Todo (feature request - later): parameter for fixed sentence size
 def random_positions(n_sentences: int, k: int = 1, allow_empty_position: bool = False) -> List[Set[int]]:
     """Generation of random positions.
 
@@ -411,7 +411,7 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
             new_argument = weighted_sample_without_replacement(sentences, weights, k=n_prem) + [con]
 
         else:
-            # ToDo: needs refinement
+            # ToDo (@Basti - what is meant?): needs refinement
 
             # choose different sentences
             new_argument = sample(range(1, n_sentences+1), n_prem+1)
@@ -421,7 +421,6 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
 
         return new_argument
 
-    # ToDo-Question: It that what we want? (What do we want?)
     args = []
     loop_counter = 0
     while len(args) < n_arguments:
@@ -472,7 +471,6 @@ def create_random_arguments(n_sentences, n_arguments, n_max_premises, n_principl
     else:
         return args
 
-# todo: rename
 def create_random_argument_list(n_arguments_min: int, n_arguments_max: int,
                                 n_sentences: int, n_premises_max: int,
                                 n_premises_weights=None,

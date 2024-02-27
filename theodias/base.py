@@ -273,7 +273,6 @@ class Position(ABC):
         """
 
 
-# ToDo: Discuss - getter for arguments? / perhaps removing of arguments?
 class DialecticalStructure(ABC):
     """Class representing a dialectical structure.
 
@@ -473,9 +472,7 @@ class DialecticalStructure(ABC):
 
     # returns a list of minimal positions that entail *position*
     # Todo: fixed issue of there not being an axiomatic base in the source (now: returns None)
-    # Todo: discuss - There is still some ambiguity in the description here. Right now we are chosing only
-    # a position in source, if it is minimal. But should we perhaps confine the search for smaller positions to the
-    # sources themselves?
+    # ToDo: Add corresponding unit test
     @abstractmethod
     def axioms(self, position: Position, source: Iterator[Position] = None) -> Iterator[Position]:
         """Iterator over all axiomatic bases from source.
@@ -521,6 +518,9 @@ class DialecticalStructure(ABC):
     # sigma
     @abstractmethod
     # ToDo: ToDiscuss with Andi - If position in None the amount of all complete cons. positions should be returned.
+    #       Yes
+    # ToDo (@Basti): Check if there is a UnitTest (and ad to docstring)
+    # ToDO (@Basti): Expexted beh. with inconsistent positions: zero (Add unit test) (Add in docstring)
     def n_complete_extensions(self, position: Position) -> int:
         """Number of complete and consistent extension.
 
