@@ -194,7 +194,7 @@ class Position(ABC):
         """Checks for set-theoretic inclusion.
 
         The position :math:`\\mathcal{A}` is a subposition of :math:`\\mathcal{A}'` iff
-        :math:`\\mathcal{A} \\subset \\mathcal{A}'`.
+        :math:`\\mathcal{A} \\subseteq \\mathcal{A}'`.
 
         :returns: :code:`True` iff the position-instance is a subposition of :code:`position`
         """
@@ -239,25 +239,33 @@ class Position(ABC):
         """
         pass
 
-    # ToDo: This is unfortunate. Since the method is static the use has to decide which implementation
-    #  to use. Perhaps better as a non-static method?
-    @staticmethod
     @abstractmethod
-    def union(positions: Set[Position]) -> Position:
-        """set-theoretic union
+    def union(self, *positions: Position) -> Position:
+        """The set theoretic union of positions.
 
-        :return: The set-theoretic union of the given set of :code:`positions`.
+        :return: The set-theoretic union of the position with the given :code:`positions`. If no argument is provided,
+            the positions is returned.
+        :raises: a :code:`ValueError` if the sentence pools do not match.
         """
         pass
 
-    # ToDo: This is unfortunate. Since the method is static the user has to decide which implementation
-    #  to use. Perhaps better as a non-static method?
-    @staticmethod
     @abstractmethod
-    def intersection(positions: Set[Position]) -> Position:
-        """Intersect postions set-theoretically.
+    def intersection(self, *positions: Position) -> Position:
+        """The set theoretic intersection of positions.
 
-        :return: The set-theoretic intersection of the given set of :code:`positions`.
+        :return: The set-theoretic intersection of the position with the given :code:`positions`. If no argument
+            is provided, the empty position is returned.
+        :raises: a :code:`ValueError` if the sentence pools do not match.
+        """
+        pass
+
+    @abstractmethod
+    def difference(self, other: Position) -> Position:
+        """The set theoretic difference of two positions.
+
+        :return: The set-theoretic difference of the two positions (sentences that are in the position but not in
+            the other position).
+        :raises: a :code:`ValueError` if the sentence pools do not match.
         """
         pass
 
@@ -462,31 +470,28 @@ class DialecticalStructure(ABC):
 
     @abstractmethod
     def closed_positions(self) -> Iterator[Position]:
-        """Iterator over all dialectically closed positions.
+        """Iterator over all dialectically consistent and closed positions.
 
-        This iterator will include the empty position, if it is closed.
+        This iterator will include the empty position if it is closed.
 
-        :return: A python-iterator over all dialectically closed positions.
+        :return: A python-iterator over all dialectically consistent and closed positions.
         """
         pass
 
-    # returns a list of minimal positions that entail *position*
-    # Todo: fixed issue of there not being an axiomatic base in the source (now: returns None)
-    # ToDo: Add corresponding unit test
     @abstractmethod
     def axioms(self, position: Position, source: Iterator[Position] = None) -> Iterator[Position]:
         """Iterator over all axiomatic bases from source.
         The source defaults to all consistent positions if it is not provided.
 
-        A position :math:`\\mathcal{B}` is an axiomatic basis of another position :math:`\\mathcal{A}` iff
+        A position :math:`\\mathcal{B}` (:math:`\\in` :code:`source`) is an axiomatic basis of another
+        position :math:`\\mathcal{A}` iff
         :math:`\\mathcal{A}` is dialectically entailed by :math:`\\mathcal{B}` and there is no proper
         subset :math:`\\mathcal{C}` of :math:`\\mathcal{B}` such that :math:`\\mathcal{A}` is entailed by
         :math:`\\mathcal{C}`.
 
-        This method should throw a :code:`ValueError` if the given position is inconsistent.
-
-        :return: A python-iterator over all axiomatic bases of :code:`position` from :code:`source` and :code:`None` if
-                there is no axiomatic basis in the source.
+        :return: A (possibly empty) python-iterator over all axiomatic bases of :code:`position` from :code:`source`.
+                The iterator will be empty (:code:`[]`) if there is no axiomatic basis in the source.
+        :raises: A :code:`ValueError` if the given position is inconsistent.
         """
         pass
 
@@ -515,16 +520,13 @@ class DialecticalStructure(ABC):
     Counting extensions and DOJs 
     '''
 
-    # sigma
     @abstractmethod
-    # ToDo: ToDiscuss with Andi - If position in None the amount of all complete cons. positions should be returned.
-    #       Yes
-    # ToDo (@Basti): Check if there is a UnitTest (and ad to docstring)
-    # ToDO (@Basti): Expexted beh. with inconsistent positions: zero (Add unit test) (Add in docstring)
-    def n_complete_extensions(self, position: Position) -> int:
+    def n_complete_extensions(self, position: Position = None) -> int:
         """Number of complete and consistent extension.
 
-        :return: The number of complete and consistent positions that extend :code:`position`.
+        :return: The number of complete and consistent positions that extend :code:`position`. If none is given, the
+        function returns the number of all complete consistent extensions. If the given position is dialectically
+        inconsistent, there are no consistent extensions.
         """
         pass
 
