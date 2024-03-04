@@ -809,6 +809,18 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
             yield NumpyPosition(position.copy())
 
     def consistent_positions(self) -> Iterator[Position]:
+        """ Iterator over all dialectically consistent positions that extend :code:`position`.
+
+        This iterator will include the empty position.
+
+        .. note::
+
+            This function will be computationally costly for large sentence pools.
+
+
+        :return: A python iterator over all dialectically consistent positions that extend :code:`position`. If
+            no position is given, the function returns an iterator over all dialectically consistent positions.
+        """
         # check update status of dialectical structure
         self._update()
         empty_pos = NumpyPosition.from_set(set(), self.n)
