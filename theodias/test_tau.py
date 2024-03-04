@@ -13,6 +13,7 @@ import tarfile
 
 from .set_implementation import SetBasedPosition
 from .base import Position
+from .core import StandardPosition
 
 # simply call `pytest -vv` on the console from directory of this file to execute the test
 # or **`pytest -vv --log-cli-level INFO`** to show life logs (you simply use pytest logging mechanism, no need to
@@ -45,6 +46,11 @@ model_implementations = [{'module_name': 'theodias',
                            'dialectical_structure_class_name': 'DAGBitarrayDialecticalStructure'
                           }
                          ]
+model_implementations = [{'module_name': 'theodias',
+                                  'position_class_name': 'SetBasedPosition',
+                                  'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
+                                  }
+                                ]
 # Helper functions
 
 def get_dia(args: List[List[int]], n_unnegated_sentence_pool: int, impl):
@@ -212,8 +218,189 @@ class Testtheodias:
                                                                        SetBasedPosition.from_set({2}, 3),
                                                                        SetBasedPosition.from_set({-2}, 3)}
 
-    def test_position_static_methods(self):
+    def test_position_set_operations(self):
 
+        ################# TEST UNION #########################
+        self.log.info(f"Testing set theoretic functions.")
+
+        for impl in model_implementations:
+            position_class_ = getattr(importlib.import_module(impl['module_name']),
+                                      impl['position_class_name'])
+            # union of empty sets
+            assert position_class_.from_set(set(), 3).union(position_class_.from_set(set(), 3)).as_set() == set()
+            assert (position_class_.from_set(set(), 3) | position_class_.from_set(set(), 3)).as_set() == set()
+            # union of more than two positions
+            assert position_class_.from_set({1,2}, 3).union(position_class_.from_set({1,2,3}, 3),
+                                                            position_class_.from_set({1,2,3,4}, 3),
+                                                            position_class_.from_set({3,4,5}, 3)
+                                                            ) == position_class_.from_set({1,2,3,4,5}, 3)
+            assert position_class_.from_set({1, 2}, 3) | position_class_.from_set({1, 2, 3}, 3) | \
+                                                             position_class_.from_set({1, 2, 3, 4}, 3) | \
+                                                             position_class_.from_set({3, 4, 5}, 3) \
+                                                              == position_class_.from_set({1, 2, 3, 4, 5}, 3)
+            # union with domain/(half) sentence pool
+            pos = get_position({1, 2}, 3, impl)
+            assert pos.union(pos.domain()) == get_position({1, 2, -1, -2}, 3, impl)
+            assert pos | pos.domain() == get_position({1, 2, -1, -2}, 3, impl)
+
+            assert pos.union(pos.sentence_pool()) == get_position({1, 2, 3}, 3, impl)
+            assert pos.union(pos.sentence_pool()).domain() == get_position({1, 2, 3, -1, -2, -3}, 3, impl)
+
+            # union with "none" should be handled as union with empty set
+            assert pos.union() == pos
+            # union should not change the sentence pool
+            assert pos.union().sentence_pool() == pos.sentence_pool()
+            assert pos.union(pos).sentence_pool() == pos.sentence_pool()
+
+            # testing for different sentence-pool sizes: Should raise Error
+            with pytest.raises(ValueError):
+                pos.union(get_position({1, 2}, 4, impl))
+
+        # testing union (including mixing implementations)
+        for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {1, 2, 3}, 3):
+            assert pos1.union(pos2) == StandardPosition.from_set({1, 2, 3}, 3)
+            # operator like
+            assert pos1 | pos2 == StandardPosition.from_set({1, 2, 3}, 3)
+
+            # union with nothing should be handled as union with empty set
+            assert pos1.union() == pos1
+            assert pos1 | StandardPosition.from_set(set(), 3) == pos1
+
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {2, 3}, 3):
+            assert pos1.union(pos2).as_set() == {-1, 2, 3}
+            assert (pos1 | pos2).as_set() == {-1, 2, 3}
+            assert (pos1 | pos2) == StandardPosition.from_set({-1, 2, 3}, 3)
+
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, set(), 3):
+            assert pos1.union(pos2).as_set() == {-1, 2}
+            assert (pos1 | pos2).as_set() == {-1, 2}
+        # unions that result in minimally inconsistent positions (including mixing implementations)
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {1, 3}, 3):
+            assert pos1.union(pos2).as_set() == {-1, 2, 3, 1}
+            assert (pos1 | pos2).as_set() == {-1, 2, 3, 1}
+            assert (pos1 | pos2) == StandardPosition.from_set({-1, 2, 3, 1}, 3)
+
+
+        ################# TEST INTERSECTION #########################
+        for impl in model_implementations:
+            position_class_ = getattr(importlib.import_module(impl['module_name']),
+                                      impl['position_class_name'])
+            # intersection of empty sets
+            assert position_class_.from_set(set(), 3).intersection(position_class_.from_set(set(), 3)).as_set() == set()
+            assert (position_class_.from_set(set(), 3) & position_class_.from_set(set(), 3)).as_set() == set()
+            # intersection of more than two positions
+            assert position_class_.from_set({1, 2}, 3).intersection(position_class_.from_set({1, 2, 3}, 3),
+                                                             position_class_.from_set({1, 2, 3, 4}, 3),
+                                                             position_class_.from_set({2 ,3, 4, 5}, 3)
+                                                             ) == position_class_.from_set({2}, 3)
+            assert position_class_.from_set({1, 2}, 3) & position_class_.from_set({1, 2, 3}, 3) & \
+                   position_class_.from_set({1, 2, 3, 4}, 3) & \
+                   position_class_.from_set({2, 3, 4, 5}, 3) \
+                   == position_class_.from_set({2}, 3)
+            # intersection with domain/(half) sentence pool
+            pos = get_position({1, 2}, 3, impl)
+            assert pos.intersection(pos.domain()) == get_position({1, 2}, 3, impl)
+            assert pos & pos.domain() == get_position({1, 2}, 3, impl)
+
+            assert pos.intersection(pos.sentence_pool()) == get_position({1, 2}, 3, impl)
+            assert pos.intersection(pos.sentence_pool()).domain() == get_position({1, 2, -1, -2}, 3, impl)
+
+            assert pos.intersection(pos.sentence_pool().domain()) == get_position({1, 2,}, 3, impl)
+
+            n = 6
+            assert get_position({-3, 4, 5}, n, impl) & get_position({-3, -2}, n, impl) == get_position({-3}, n, impl)
+            assert get_position({-3, 4, 5}, n, impl) & get_position({-3, -2}, n, impl).domain() == get_position({-3}, n, impl)
+            assert get_position({-3, 4, 5}, n, impl) & get_position({3, -2}, n, impl).domain() == get_position({-3}, n, impl)
+
+            # intersection with "none" should be handled as intersection with empty set
+            assert pos.intersection().as_set() == set()
+            # intersection should not change the sentence pool
+            assert pos.intersection().sentence_pool() == pos.sentence_pool()
+            assert pos.intersection(pos).sentence_pool() == pos.sentence_pool()
+
+            # testing for different sentence-pool sizes: Should raise Error
+            with pytest.raises(ValueError):
+                pos.intersection(get_position({1, 2}, 4, impl))
+
+        # testing intersection (including mixing implementations)
+        for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {1, 2, 3}, 3):
+            assert pos1.intersection(pos2) == StandardPosition.from_set({1, 3}, 3)
+            # operator like
+            assert pos1 & pos2 == StandardPosition.from_set({1, 3}, 3)
+
+            # intersection with nothing should be handled as intersection with empty set
+            assert pos1.intersection() == StandardPosition.from_set(set(), 3)
+            assert pos1 & StandardPosition.from_set(set(), 3) == StandardPosition.from_set(set(), 3)
+
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {2, 3}, 3):
+            assert pos1.intersection(pos2).as_set() == {2}
+            assert (pos1 & pos2).as_set() == {2}
+            assert (pos1 & pos2) == StandardPosition.from_set({2}, 3)
+
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, set(), 3):
+            assert pos1.intersection(pos2).as_set() == set()
+            assert (pos1 & pos2).as_set() == set()
+        # intersections that result in minimally inconsistent positions (including mixing implementations)
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 1, 2}, {1, -1, 2, 3}, 3):
+            assert pos1.intersection(pos2).as_set() == {-1, 2, 1}
+            assert (pos1 & pos2).as_set() == {-1, 2, 1}
+            assert (pos1 & pos2) == StandardPosition.from_set({-1, 2, 1}, 3)
+        ################# TEST DIFFERENCE #########################
+        for impl in model_implementations:
+            position_class_ = getattr(importlib.import_module(impl['module_name']),
+                                      impl['position_class_name'])
+            # difference of empty sets
+            assert position_class_.from_set(set(), 3).difference(position_class_.from_set(set(), 3)).as_set() == set()
+            assert (position_class_.from_set(set(), 3) - position_class_.from_set(set(), 3)).as_set() == set()
+            # difference of more than two positions
+            assert position_class_.from_set({1, 2}, 3).difference(position_class_.from_set({2, 3}, 3)).difference(
+                                                             position_class_.from_set({3, 4}, 3)) == position_class_.from_set({1}, 3)
+            assert position_class_.from_set({1, 2}, 3) - position_class_.from_set({2, 3}, 3) - \
+                   position_class_.from_set({3, 4}, 3) == position_class_.from_set({1}, 3)
+            # difference with domain/(half) sentence pool
+            pos = get_position({1, 2}, 3, impl)
+            assert pos.difference(pos.domain()) == get_position(set(), 3, impl)
+            assert pos - pos.domain() == get_position(set(), 3, impl)
+
+            assert pos.difference(pos.sentence_pool()) == get_position(set(), 3, impl)
+            assert pos.difference(pos.sentence_pool()).domain() == get_position(set(), 3, impl)
+
+            assert pos.difference(pos.sentence_pool().domain()) == get_position(set(), 3, impl)
+
+            n = 6
+            assert get_position({-3, 4, 5}, n, impl) - get_position({-3, -2}, n, impl) == get_position({4,5}, n, impl)
+            assert get_position({-3, 4, 5}, n, impl) - get_position({-3, -2}, n, impl).domain() == get_position({4, 5}, n, impl)
+            assert get_position({-3, 4, 5}, n, impl) - get_position({3, -2}, n, impl).domain() == get_position({4, 5}, n, impl)
+
+            # difference should not change the sentence pool
+            assert pos.difference(pos).sentence_pool() == pos.sentence_pool()
+
+            # testing for different sentence-pool sizes: Should raise Error
+            with pytest.raises(ValueError):
+                pos.difference(get_position({1, 2}, 4, impl))
+
+        # testing difference (including mixing implementations)
+        for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {1, 2, 3}, 3):
+            assert pos1.difference(pos2) == StandardPosition.from_set(set(), 3)
+            # operator like
+            assert pos1 - pos2 == StandardPosition.from_set(set(), 3)
+
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {2, 3}, 3):
+            assert pos1.difference(pos2).as_set() == {-1}
+            assert (pos1 - pos2).as_set() == {-1}
+            assert (pos1 - pos2) == StandardPosition.from_set({-1}, 3)
+
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, set(), 3):
+            assert pos1.difference(pos2).as_set() == {-1, 2}
+            assert (pos1 - pos2).as_set() == {-1, 2}
+        # differences that result in minimally inconsistent positions (including mixing implementations)
+        for pos1, pos2 in get_implementations_product_of_positions({-1, 1, 2}, { 2, 3}, 3):
+            assert pos1.difference(pos2).as_set() == {-1, 1}
+            assert (pos1 - pos2).as_set() == {-1, 1}
+            assert (pos1 - pos2) == StandardPosition.from_set({-1, 1}, 3)
+
+
+    def test_position_static_methods(self):
 
         ## TESTING STATIC METHODS
 
@@ -235,39 +422,6 @@ class Testtheodias:
             assert (position_class_.from_set({1, 2}, 3).as_set() == {1, 2})
             assert (position_class_.from_set({1, 2}, 3).size() == 2)
             assert (position_class_.from_set({1, 2}, 3).sentence_pool().size() == 3)
-
-            # testing `intersection`
-            assert (position_class_.intersection({}).as_set() == set())
-            assert (position_class_.intersection({}).size() == 0)
-
-            assert (position_class_.intersection({get_position(set(), 2, impl)}).as_set() == set())
-            assert (position_class_.intersection({get_position(set(), 2, impl)}).size() == 0)
-            assert (position_class_.intersection({get_position(set(), 2, impl)}).sentence_pool().size() == 2)
-
-            assert (position_class_.intersection({get_position(set(), 0, impl)}).size() == 0)
-
-            for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {2, 3}, 3):
-                assert (position_class_.intersection({pos1, pos2}).as_set() == {2})
-            for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, set(), 3):
-                assert (position_class_.intersection({pos1, pos2}).as_set() == set())
-            for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {1, 3}, 3):
-                assert (position_class_.intersection({pos1, pos2}).as_set() == set())
-
-            # testing union
-            assert (position_class_.union({}).as_set() == set())
-            assert (position_class_.union({}).size() == 0)
-
-            assert (position_class_.union({get_position(set(), 2, impl)}).as_set() == set())
-            assert (position_class_.union({get_position(set(), 2, impl)}).size() == 0)
-            assert (position_class_.union({get_position(set(), 2, impl)}).sentence_pool().size() == 2)
-            assert (position_class_.union({get_position(set(), 0, impl)}).size() == 0)
-
-            for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {2, 3}, 3):
-                assert (position_class_.union({pos1, pos2}).as_set() == {-1, 2, 3})
-            for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, set(), 3):
-                assert (position_class_.union({pos1, pos2}).as_set() == {-1, 2})
-            for pos1, pos2 in get_implementations_product_of_positions({-1, 2}, {1, 3}, 3):
-                assert (position_class_.union({pos1, pos2}).as_set() == {-1, 2, 3, 1})
 
 
     # the following test checks also whether the different implementions of Position are consistent to each other,
@@ -302,7 +456,9 @@ class Testtheodias:
 
         for pos1, pos2 in get_implementations_product_of_positions(set(), set(), 3):
             assert hash(pos1) == hash(pos2)
+        # positions with mismatching sentence pool should not be considered the same
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {3, 1}, 3, 4):
+            assert pos1 != pos2
             assert hash(pos1) != hash(pos2)
         # testing `hash` indirectly (comparison of sets and tuples draw on comparing hashkeys)
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {3, 1}, 3):
@@ -311,6 +467,12 @@ class Testtheodias:
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {3, 1}, 3, 4):
             assert {pos1} != {pos2}
             assert (pos1,pos1) != (pos2,pos2)
+
+        # all other two-place methods should raise a ValueError if the sentence pools do not match
+        for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {3, 1}, 3, 4):
+            with pytest.raises(ValueError):
+                pos1.is_minimally_compatible(pos2)
+
 
         # test `are_minimally_compatible`
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {1, 2, 3}, 3):
@@ -322,6 +484,8 @@ class Testtheodias:
 
         # test `is_subposition`
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {1, 2, 3}, 3):
+            assert pos1.is_subposition(pos2)
+        for pos1, pos2 in get_implementations_product_of_positions({1, 2, 3}, {1, 2, 3}, 3):
             assert pos1.is_subposition(pos2)
         for pos1, pos2 in get_implementations_product_of_positions({1, -2, 3}, {1, 2, 3}, 3):
             assert pos1.is_subposition(pos2) == False
@@ -340,12 +504,21 @@ class Testtheodias:
             # DIALECTICAL STRUCTURES
             # simple dia
             dia = get_dia([[1, 2], [3, -2]], 3, dia_impl)
-            # dia with not argument
+            # simplest dia
+            simple_dia = get_dia([[1, 2]], 2, dia_impl)
+            # dia with no argument
             empty_dia = get_dia([], 3, dia_impl)
+            # dia with no argument
+            small_empty_dia = get_dia([], 2, dia_impl)
+
             # dia wit larger sentence pool than indicating by dialectical structure alone
             small_dia = get_dia([[1, 2], [2, 1]], 3, dia_impl)
             # dialectical structure with tautologies
             taut_dia = get_dia([[1, 2], [-1, 2], [1, 3]], 3, dia_impl)
+            # dia wit larger sentence pool than indicating by dialectical structure alone
+            small_dia = get_dia([[1, 2], [2, 1]], 3, dia_impl)
+            # dia with high inf. dens.
+            dense_dia = get_dia([[1, 2], [2, 1], [3, -2], [-2, 3]], 3, dia_impl)
 
             # TESTING PROPERTIES OF THE DIA
 
@@ -367,22 +540,112 @@ class Testtheodias:
             assert ({pos for pos in empty_dia.consistent_positions()} ==
                     {pos for pos in empty_dia.minimally_consistent_positions()})
 
+            # test `minimal_positions`
+            assert set(simple_dia.minimally_consistent_positions()) == {
+                SetBasedPosition({1}, 2),
+                SetBasedPosition({-1}, 2),
+                SetBasedPosition({2}, 2),
+                SetBasedPosition({-2}, 2),
+                SetBasedPosition({1, -2}, 2),
+                SetBasedPosition({1, 2}, 2),
+                SetBasedPosition({-1, 2}, 2),
+                SetBasedPosition({-1, -2}, 2),
+                SetBasedPosition(set(), 2)}
+            # test `complete_minimal_positions`
+            assert set(simple_dia.complete_minimally_consistent_positions()) == {
+                SetBasedPosition({1, -2}, 2),
+                SetBasedPosition({1, 2}, 2),
+                SetBasedPosition({-1, 2}, 2),
+                SetBasedPosition({-1, -2}, 2)}
+
+            # `consistent_positions` (should include the empty position)
+            assert set(small_empty_dia.consistent_positions()) == { SetBasedPosition({1}, 2),
+                SetBasedPosition({-1}, 2),
+                SetBasedPosition({2}, 2),
+                SetBasedPosition({-2}, 2),
+                SetBasedPosition({1, -2}, 2),
+                SetBasedPosition({1, 2}, 2),
+                SetBasedPosition({-1, 2}, 2),
+                SetBasedPosition({-1, -2}, 2),
+                SetBasedPosition(set(), 2)}
+            assert set(dense_dia.consistent_positions()) == {SetBasedPosition({1}, 3),
+                                                             SetBasedPosition({-1}, 3),
+                                                             SetBasedPosition({3, -2}, 3),
+                                                             SetBasedPosition({3, -1, -2}, 3),
+                                                             SetBasedPosition({1, 2}, 3),
+                                                             SetBasedPosition({2}, 3),
+                                                             SetBasedPosition({-2}, 3),
+                                                             SetBasedPosition({-1, -2}, 3),
+                                                             SetBasedPosition({-3}, 3),
+                                                             SetBasedPosition({1, -3}, 3),
+                                                             SetBasedPosition({2, -3}, 3),
+                                                             SetBasedPosition({1, 2, -3}, 3),
+                                                             SetBasedPosition({3}, 3),
+                                                             SetBasedPosition({3, -1}, 3),
+                                                             SetBasedPosition(set(), 3)}
+            # test `consistent_complete_positions`
+            assert set(small_empty_dia.consistent_complete_positions()) == {
+                                                                   SetBasedPosition({1, -2}, 2),
+                                                                   SetBasedPosition({1, 2}, 2),
+                                                                   SetBasedPosition({-1, 2}, 2),
+                                                                   SetBasedPosition({-1, -2}, 2)}
+            assert set(dense_dia.consistent_complete_positions()) == {
+                                                             SetBasedPosition({3, -1, -2}, 3),
+                                                             SetBasedPosition({1, 2, -3}, 3)}
+            # test `closed_positions`
+            assert set(small_empty_dia.closed_positions()) == {SetBasedPosition({1}, 2),
+                                                                   SetBasedPosition({-1}, 2),
+                                                                   SetBasedPosition({2}, 2),
+                                                                   SetBasedPosition({-2}, 2),
+                                                                   SetBasedPosition({1, -2}, 2),
+                                                                   SetBasedPosition({1, 2}, 2),
+                                                                   SetBasedPosition({-1, 2}, 2),
+                                                                   SetBasedPosition({-1, -2}, 2),
+                                                                   SetBasedPosition(set(), 2)}
+
+            assert set(dense_dia.closed_positions()) == {    SetBasedPosition({3, -1, -2}, 3),
+                                                             SetBasedPosition({1, 2, -3}, 3),
+                                                             SetBasedPosition(set(), 3)}
+
+    def test_dialectical_structure_sentence_pool_mismatch(self):
+        # all methods should throw a ValueError if there is a mismatch between the sentence pools
+        for impl in model_implementations:
+            self.log.info(f"Testing dia structure of type: {impl['dialectical_structure_class_name']}")
+            # simple dia
+            dia = get_dia([[1, 2], [3, -2]], 3, impl)
+
+            with pytest.raises(ValueError):
+                dia.is_consistent(get_position({1, 2}, 2, impl))
+            with pytest.raises(ValueError):
+                dia.is_complete(get_position({1, 2}, 2, impl))
+            with pytest.raises(ValueError):
+                dia.are_compatible(get_position({1, 2}, 2, impl), get_position({1, 2}, 3, impl))
+            with pytest.raises(ValueError):
+                dia.entails(get_position({1, 2}, 2, impl), get_position({1, 2}, 3, impl))
+            with pytest.raises(ValueError):
+                dia.closure(get_position({1, 2}, 2, impl))
+            with pytest.raises(ValueError):
+                dia.is_closed(get_position({1, 2}, 2, impl))
+            with pytest.raises(ValueError):
+                dia.is_minimal(get_position({1, 2}, 2, impl))
+            with pytest.raises(ValueError):
+                dia.axioms(get_position({1, 2}, 2, impl))
+            with pytest.raises(ValueError):
+                dia.n_complete_extensions(get_position({1, 2}, 2, impl))
+            with pytest.raises(ValueError):
+                dia.degree_of_justification(get_position({1, 2}, 2, impl), get_position({1, 2}, 3, impl))
 
     def test_dialectical_structure_monadic_methods(self):
-        # ToDo: test get_arguments
         for dia_impl in model_implementations:
             self.log.info(f"Testing dia structure of type: {dia_impl['dialectical_structure_class_name']}")
             # DIALECTICAL STRUCTURES
+
             # simple dia
             dia = get_dia([[1, 2], [3, -2]], 3, dia_impl)
             # dia with not argument
             empty_dia = get_dia([], 3, dia_impl)
-            # dia wit larger sentence pool than indicating by dialectical structure alone
-            small_dia = get_dia([[1,2], [2,1]], 3, dia_impl)
             # dialectical structure with tautologies
             taut_dia = get_dia([[1, 2], [-1, 2], [1,3]], 3, dia_impl)
-            # dia with high inf. dens.
-            dense_dia = get_dia([[1, 2], [2, 1], [3, -2], [-2, 3]], 3, dia_impl)
 
 
             # TESTING MONADIC FUNCTIONS
@@ -448,7 +711,6 @@ class Testtheodias:
 
 
                 # testing `n_complete_extension`
-                # ToDo: what about (minimally) inconsistent positions?
                 assert (dia.n_complete_extensions(get_position({1, 2}, 3, impl)) == 1)
                 assert (dia.n_complete_extensions(get_position({1, 2}, 3, impl)) == 1)
                 assert (dia.n_complete_extensions(get_position({1}, 3, impl)) == 1)
@@ -457,8 +719,15 @@ class Testtheodias:
                 assert (dia.n_complete_extensions(get_position({-1, -2, 3}, 3, impl)) == 1)
                 assert (dia.n_complete_extensions(get_position(set(), 3, impl)) ==
                         len([pos for pos in dia.consistent_complete_positions()]))
-                assert (dia.n_complete_extensions(get_position({-1,1}, 3, impl)) == 0)
+                # if no position is given, it should return the number of all complete consistent positions
+                assert (dia.n_complete_extensions() ==
+                        len([pos for pos in dia.consistent_complete_positions()]))
+                # if the given position is inconsistent, there shouldn't be any consistent extensions
+                assert (dia.n_complete_extensions(get_position({-1, 1}, 3, impl)) == 0)
+                assert (dia.n_complete_extensions(get_position({1, -2}, 3, impl)) == 0)
 
+
+                # if no position is given, it should return the number of all complete consistent positions
                 assert (empty_dia.n_complete_extensions() == 8)
                 assert (empty_dia.n_complete_extensions(get_position({1, 2}, 3, impl)) == 2)
                 assert (empty_dia.n_complete_extensions(get_position({-1}, 3, impl)) == 4)
@@ -484,17 +753,31 @@ class Testtheodias:
                 assert set(dia.axioms(get_position({-1}, 3, impl),
                                       [get_position({-1}, 3, impl)])) == {SetBasedPosition({-1}, 3)}
                 assert set(dia.axioms(get_position({-1}, 3, impl),
+                                      [get_position({-1}, 3, impl),
+                                       get_position({2}, 3, impl)])) == {SetBasedPosition({-1}, 3)}
+
+                assert set(dia.axioms(get_position({-1}, 3, impl),
                                       [get_position({3}, 3, impl),
                                        get_position({-2}, 3, impl)])) == {SetBasedPosition({3}, 3),
                                                                          SetBasedPosition({-2}, 3)}
+                # we (indirectly) check whether the return has duplicate values (which it shouldn't)
+                assert len(list(dia.axioms(get_position({-1}, 3, impl),
+                                      [get_position({3}, 3, impl),
+                                       get_position({-2}, 3, impl),
+                                       get_position({3}, 3, impl),
+                                       get_position({-2}, 3, impl)]))) == 2
                 # returns [] if there is no axiomatic base in `sources`
                 # Here, {3,2} entails {-1} but is not (globally) minimal
                 assert dia.axioms(get_position({-1}, 3, impl),
                                       [get_position({3,2}, 3, impl)]) == []
+                # Here, {-1,2} entails {-1} but is not (globally) minimal
+                assert dia.axioms(get_position({-1}, 3, impl),
+                                      [get_position({-1, 2}, 3, impl)]) == []
                 assert dia.axioms(get_position({-1}, 3, impl),
                                   [get_position({2}, 3, impl)]) == []
                 assert dia.axioms(get_position({-1}, 3, impl),
                                   [get_position(set(), 3, impl)]) == []
+
                 # Inconsistent position that has a smaller base (which is not in source)
                 assert dia.axioms(get_position({-1}, 3, impl),
                                       [get_position({-2, 2}, 3, impl)]) == []
@@ -510,28 +793,11 @@ class Testtheodias:
                 # An inconsistent Position cannot be axiomatized
                 with pytest.raises(ValueError):
                     dia.axioms(get_position({-1, 1}, 3, impl))
+                with pytest.raises(ValueError):
+                    dia.axioms(get_position({1, -2}, 3, impl))
 
 
-                # ToDo: test `minimal_positions`
-                # ToDo: test `closed_positions`
-                # ToDo: test `consistent_positions` (should include the empty position)
-                assert set(dense_dia.consistent_positions()) == {SetBasedPosition({1}, 3),
-                                                                 SetBasedPosition({-1}, 3),
-                                                                 SetBasedPosition({3, -2}, 3),
-                                                                 SetBasedPosition({3, -1, -2}, 3),
-                                                                 SetBasedPosition({1, 2}, 3),
-                                                                 SetBasedPosition({2}, 3),
-                                                                 SetBasedPosition({-2}, 3),
-                                                                 SetBasedPosition({-1, -2}, 3),
-                                                                 SetBasedPosition({-3}, 3),
-                                                                 SetBasedPosition({1, -3}, 3),
-                                                                 SetBasedPosition({2, -3}, 3),
-                                                                 SetBasedPosition({1, 2, -3}, 3),
-                                                                 SetBasedPosition({3}, 3),
-                                                                 SetBasedPosition({3, -1}, 3),
-                                                                 SetBasedPosition(set(),3)}
-                # ToDo: test `consistent_complete_positions`
-                # ToDo: test `degree_of_justification`
+
 
     def test_dialectical_structure_two_place_methods(self):
 
