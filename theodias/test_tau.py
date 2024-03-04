@@ -46,11 +46,11 @@ model_implementations = [{'module_name': 'theodias',
                            'dialectical_structure_class_name': 'DAGBitarrayDialecticalStructure'
                           }
                          ]
-model_implementations = [{'module_name': 'theodias',
-                                  'position_class_name': 'SetBasedPosition',
-                                  'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
-                                  }
-                                ]
+# model_implementations = [{'module_name': 'theodias',
+#                                   'position_class_name': 'SetBasedPosition',
+#                                   'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
+#                                   }
+#                                 ]
 # Helper functions
 
 def get_dia(args: List[List[int]], n_unnegated_sentence_pool: int, impl):
