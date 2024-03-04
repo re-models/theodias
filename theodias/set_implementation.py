@@ -38,6 +38,11 @@ class SetBasedPosition(Position):
     def __next__(self):
         return self.__position.__next__()
 
+    def __raise_value_error_if_sentence_pool_mismatch(self, position: Position):
+        if self.sentence_pool() != position.sentence_pool():
+            raise ValueError("The function you called expects positions to be based on the same sentence pool as",
+                             " the dialectical structure.")
+
     @staticmethod
     def from_set(position: Set[int], n_unnegated_sentence_pool: int) -> Position:
         return SetBasedPosition(position, n_unnegated_sentence_pool)
@@ -98,11 +103,13 @@ class SetBasedPosition(Position):
         return not any([-1 * element in self.__position for element in self.__position])
 
     def is_minimally_compatible(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         return SetBasedPosition(self.as_set() | position.as_set(),
                                 max(self.sentence_pool().size(),
                                     position.sentence_pool().size())).is_minimally_consistent()
 
     def is_subposition(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         return self.__position.issubset(position.as_set())
 
     def subpositions(self, n: int = -1, only_consistent_subpositions: bool = True) -> Iterator[Position]:
@@ -137,28 +144,51 @@ class SetBasedPosition(Position):
     def size(self) -> int:
         return len(self.__position)
 
-    @staticmethod
-    def union(positions: Set[Position]) -> Position:
+    def union(self, *positions: Position) -> Position:
         if not positions:
-            return SetBasedPosition(set(),0)
-        n_sentence_pool = max([pos.sentence_pool().size() for pos in positions])
-        ret = set()
+            return self
+        if len({self.sentence_pool().size()} | {pos.sentence_pool().size() for pos in positions}) != 1:
+            raise ValueError("Union of positions is restricted to positions with matching sentence pools.")
+        ret = self.as_set()
         for position in positions:
             ret = ret | position.as_set()
-        return SetBasedPosition(list(ret), n_sentence_pool)
+        return SetBasedPosition(list(ret), self.sentence_pool().size())
 
-    @staticmethod
-    def intersection(positions: Set[Position]) -> Position:
+    # operator version of union
+    def __or__(self, other):
+        if isinstance(other, Position):
+            return self.union(other)
+        else:
+            raise TypeError(f"{other} must be a theodias.Position.")
+
+    def intersection(self, *positions: Position) -> Position:
         if not positions:
-            return SetBasedPosition(set(),0)
-        n_sentence_pool = max([pos.sentence_pool().size() for pos in positions])
-        ret = positions.pop().as_set()
+            return SetBasedPosition(set(), self.sentence_pool().size())
+        if len({self.sentence_pool().size()} | {pos.sentence_pool().size() for pos in positions}) != 1:
+            raise ValueError("Intersection of positions is restricted to positions with matching sentence pools.")
+        ret = self.as_set()
         for position in positions:
             ret = ret & position.as_set()
-        return SetBasedPosition(list(ret), n_sentence_pool)
+        return SetBasedPosition(list(ret), self.sentence_pool().size())
 
-    def difference(self, pos: Position ) -> Position:
-        return SetBasedPosition(self.as_set().difference(pos.as_set()), pos.sentence_pool().size())
+    # operator version of intersection
+    def __and__(self, other):
+        if isinstance(other, Position):
+            return self.intersection(other)
+        else:
+            raise TypeError(f"{other} must be a theodias.Position.")
+
+    def difference(self, other: Position ) -> Position:
+        if self.sentence_pool().size() != other.sentence_pool().size():
+            raise ValueError("Difference of positions is restricted to positions with matching sentence pools.")
+        return SetBasedPosition(self.as_set().difference(other.as_set()), self.sentence_pool().size())
+
+    # operator version of difference
+    def __sub__(self, other):
+        if isinstance(other, Position):
+            return self.difference(other)
+        else:
+            raise TypeError(f"{other} must be a theodias.Position.")
 
     def neighbours(self, depth: int) -> Iterator[Position]:
 
@@ -245,7 +275,6 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         gamma = m.enum_models()
         return [SetBasedPosition(pos, self.n) for pos in gamma]
 
-    # todo: consider empty ds
     def __update(self):
         if self.__dirty:
             # ToDo: Which ones are really important to keep and which ones can be set private?
@@ -305,9 +334,6 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                     new_gamma = set()
             # case: no arguments
             else:
-                # dealing with complete_consistent_extensions:
-                # instead of filling the dictionary, we deal with empty graphs in the function that would
-                # otherwise use complete_consistent_extensions
                 for pos in self.minimally_consistent_positions():
                     self.closures[pos] = pos
                     self.dict_n_complete_extensions[pos] = 2**(self.n - pos.size())
@@ -315,10 +341,12 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                         self.n_extensions[pos] = 1
                     else:
                         self.n_extensions[pos] = 1 + 2**(self.n - pos.size())
-                    # todo
+                    # Todo (to decrease ram-usage?)
+                    # dealing with complete_consistent_extensions:
+                    # instead of filling the dictionary, we deal with empty graphs in the function that would
+                    # otherwise use complete_consistent_extensions
                     self.complete_consistent_extensions[pos] = {pos}
-
-                    # do we need them
+                    # do we need them?
                     self.__consistent_parents = {}
 
             self.__dirty = False
@@ -342,11 +370,17 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
     def sentence_pool(self) -> Position:
         return SetBasedPosition(np.arange(1, self.n + 1), self.n)
 
+    def __raise_value_error_if_sentence_pool_mismatch(self, position: Position):
+        if self.sentence_pool() != position.sentence_pool():
+            raise ValueError("The function you called expects positions to be based on the same sentence pool as",
+                             " the dialectical structure.")
+
     # ToDo: How do we deal with positions that indicate a larger sentencepool?
     # ToDo (check, @Basti): Should raise error for Setbased/Bitarry/Numpy Implementation. (add Unit Test)
     # Either throwing an error or leave it as it is (treating them as if the are inconsistent).
     # The first one what I would expect from the user point of view, but it is possibly costly.
     def is_consistent(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self.__update()
         if position.size() == 0:
             return True
@@ -354,12 +388,15 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
             return SetBasedPosition.as_setbased_position(position) in self.dict_n_complete_extensions.keys()
 
     def are_compatible(self, position1: Position, position2: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
+
         if not self.is_consistent(position1) or not self.is_consistent(position2):
             return False
         if position1.size() == 0 or position2.size() == 0:
             return True
         if len(self.arguments) == 0:
-            return SetBasedPosition.union({position1, position2}).is_minimally_consistent()
+            return (position1.union(position2)).is_minimally_consistent()
         else:
             return not self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position2)].\
                 isdisjoint(self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position1)])
@@ -377,6 +414,8 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         return iter(self.complete_consistent_positions)
 
     def entails(self, position1: Position, position2: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         # contradiction entail everything (ex falso quodlibet)
         if not self.is_consistent(position1):
             return True
@@ -388,12 +427,13 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
             return True
         # case of empty graph
         if len(self.arguments) == 0:
-            return SetBasedPosition.intersection({position1, position2}).as_set() == position2.as_set()
+            return position1.intersection(position2) == position2
         else:
             return self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position1)].\
                 issubset(self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position2)])
 
     def closure(self, position: Position) -> Position:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         if self.is_consistent(position):
             return self.closures[SetBasedPosition.as_setbased_position(position)]
         # ex falso quodlibet
@@ -401,14 +441,15 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
             return SetBasedPosition.from_set(set(self.__sentence_pool), self.n)
 
     def is_closed(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         return SetBasedPosition.as_setbased_position(position) == self.closure(position)
 
     def closed_positions(self) -> Iterator[Position]:
         self.__update()
         return iter({closure for closure in self.closures.values()})
 
-
     def is_minimal(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         if not self.is_consistent(position):
             return True
         if position.size() == 0:
@@ -422,6 +463,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         return True
 
     def axioms(self, position: Position, source: Iterator[Position] = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         if not self.is_consistent(position):
             raise ValueError('The given position is inconsistent.')
         if position.size() == 0:
@@ -434,7 +476,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
             if self.entails(pos, position) and \
                     not any(self.entails(subpos, position) for subpos in pos.subpositions() if subpos != pos):
                 axioms.add(pos)
-        if not axioms:
+        if len(axioms) == 0:
             return []
         return iter(axioms)
 
@@ -452,27 +494,30 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         return self.dict_n_complete_extensions[SetBasedPosition.as_setbased_position(position)]
 
     def is_complete(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         return position.domain().as_set() == set(self.__sentence_pool)
 
     # ToDo (@Basti): Is the cut of the complete consistent extensions of two positions A and B the same as set
     # of complete consistent extension of $A\cup B$?
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
+
         if not self.is_consistent(position2):
             raise(ZeroDivisionError())
 
-        return self.n_complete_extensions(SetBasedPosition.union([position1, position2]))/\
-               self.n_complete_extensions(position2)
+        return self.n_complete_extensions(position1.union(position2))/self.n_complete_extensions(position2)
 
     def minimally_consistent_positions(self) -> Iterator[Position]:
         return self.__minimally_consistent_positions()
 
     def complete_minimally_consistent_positions(self) -> Iterator[Position]:
-        return self.__minimally_consistent_positions(only_complete_positions = True)
+        return self.__minimally_consistent_positions(only_complete_positions=True)
 
-    def __minimally_consistent_positions(self, propositions = None,
-                                         only_complete_positions = False) -> Iterator[Position]:
+    def __minimally_consistent_positions(self, propositions=None,
+                                         only_complete_positions=False) -> Iterator[Position]:
         if propositions is None:
-            propositions = list(np.arange(1, self.n + 1, 1)) +  list(np.arange(-1, -self.n - 1, -1))
+            propositions = list(np.arange(1, self.n + 1, 1)) + list(np.arange(-1, -self.n - 1, -1))
         if len(propositions) == 2:
             yield SetBasedPosition({propositions[0]}, self.n)
             yield SetBasedPosition({propositions[1]}, self.n)
@@ -483,28 +528,27 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                                                               propositions[int(len(propositions) / 2) +
                                                                            1:len(propositions)],
                                                               only_complete_positions):
-                yield SetBasedPosition.union({SetBasedPosition({propositions[0]}, self.n), item})
-                yield SetBasedPosition.union({SetBasedPosition({propositions[int(len(propositions) / 2)]}, self.n),
-                                              item})
+                yield item.union(SetBasedPosition({propositions[0]}, self.n))
+                yield item.union(SetBasedPosition({propositions[int(len(propositions) / 2)]}, self.n))
                 if not only_complete_positions:
                     yield SetBasedPosition(item, self.n)
 
-    def __minimally_consistent_positions2(self, propositions = None,
-                                         only_complete_positions = False) -> Iterator[Position]:
-        if propositions is None:
-            propositions = list(np.arange(1, self.n + 1, 1)) +  list(np.arange(-1, -self.n - 1, -1))
-        if len(propositions) == 2:
-            yield {propositions[0]}
-            yield {propositions[1]}
-            if not only_complete_positions:
-                yield set()
-        else:
-            for item in self.__minimally_consistent_positions(propositions[1:int(len(propositions) / 2)] +
-                                                              propositions[int(len(propositions) / 2) +
-                                                                           1:len(propositions)],
-                                                              only_complete_positions):
-                yield SetBasedPosition({propositions[0]}.union(item), self.n)
-                yield SetBasedPosition({propositions[int(len(propositions) / 2)]}.union(item), self.n)
-                if not only_complete_positions:
-                    yield SetBasedPosition(item, self.n)
+    # def __minimally_consistent_positions2(self, propositions = None,
+    #                                      only_complete_positions = False) -> Iterator[Position]:
+    #     if propositions is None:
+    #         propositions = list(np.arange(1, self.n + 1, 1)) +  list(np.arange(-1, -self.n - 1, -1))
+    #     if len(propositions) == 2:
+    #         yield {propositions[0]}
+    #         yield {propositions[1]}
+    #         if not only_complete_positions:
+    #             yield set()
+    #     else:
+    #         for item in self.__minimally_consistent_positions(propositions[1:int(len(propositions) / 2)] +
+    #                                                           propositions[int(len(propositions) / 2) +
+    #                                                                        1:len(propositions)],
+    #                                                           only_complete_positions):
+    #             yield SetBasedPosition({propositions[0]}.union(item), self.n)
+    #             yield SetBasedPosition({propositions[int(len(propositions) / 2)]}.union(item), self.n)
+    #             if not only_complete_positions:
+    #                 yield SetBasedPosition(item, self.n)
 
