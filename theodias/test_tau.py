@@ -444,7 +444,7 @@ class Testtheodias:
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {3, 1}, 5):
             assert pos1 == pos2
             assert pos2 == pos1
-        # testing `hash` directly
+        # testing `hash` directly (it should be implementation-independent)
         for pos1, pos2 in get_implementations_product_of_positions({1, 3}, {3, 1}, 3):
             assert hash(pos1) == hash(pos2)
         for pos1, pos2 in get_implementations_product_of_positions({1, -1}, {-1, 1}, 3):

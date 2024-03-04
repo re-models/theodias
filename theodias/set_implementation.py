@@ -25,12 +25,7 @@ class SetBasedPosition(Position):
 
     # representation as string when a Position is printed, for example
     def __repr__(self) -> str:
-        # ToDo: rewrite without relying on assumptions about what frozenset.__repr__ returns!
-        #return self.__position.__repr__().replace('frozenset','SetBasedPosition')
         return set(self.__position).__repr__()
-    # hashing enables to form sets of Positions
-    #def __hash__(self):
-    #    return self.__position.__hash__()
 
     def __iter__(self):
         return self.__position.__iter__()
@@ -277,15 +272,14 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
 
     def __update(self):
         if self.__dirty:
-            # ToDo: Which ones are really important to keep and which ones can be set private?
-            self.complete_consistent_extensions = {}
+            self.__complete_consistent_extensions = {}
             # These two I call only in the constructor
             self.__consistent_extensions = {}
             self.__consistent_parents = {}
 
-            self.dict_n_complete_extensions = {}
-            self.n_extensions = {}
-            self.closures = {}
+            self.__dict_n_complete_extensions = {}
+            self.__n_extensions = {}
+            self.__closures = {}
 
             if self.arguments:
 
@@ -293,11 +287,11 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                 current_gamma = self.complete_consistent_positions
                 for pos in current_gamma:
                     # complete positions have no parents
-                    self.complete_consistent_extensions[pos] = {pos}
+                    self.__complete_consistent_extensions[pos] = {pos}
                     self.__consistent_extensions[pos] = {pos}
-                    self.dict_n_complete_extensions[pos] = 1
-                    self.closures[pos] = pos
-                    self.n_extensions[pos] = 1
+                    self.__dict_n_complete_extensions[pos] = 1
+                    self.__closures[pos] = pos
+                    self.__n_extensions[pos] = 1
 
                 new_gamma = set()
                 # iterate backwards over length of subpositions
@@ -306,28 +300,28 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                         for sub_pos in combinations(position, i):
                             sub_pos = SetBasedPosition(sub_pos, self.n)
                             # add parent to dictionary
-                            if sub_pos not in self.complete_consistent_extensions.keys():
-                                self.complete_consistent_extensions[sub_pos] = set(self.complete_consistent_extensions[position])
+                            if sub_pos not in self.__complete_consistent_extensions.keys():
+                                self.__complete_consistent_extensions[sub_pos] = set(self.__complete_consistent_extensions[position])
                                 self.__consistent_parents[sub_pos] = {position}
                                 self.__consistent_extensions[sub_pos] = {sub_pos}
                                 self.__consistent_extensions[sub_pos].update(self.__consistent_extensions[position])
                             else:
                                 self.__consistent_parents[sub_pos].add(position)
                                 self.__consistent_extensions[sub_pos].update(self.__consistent_extensions[position])
-                                self.complete_consistent_extensions[sub_pos].update(
-                                    set(self.complete_consistent_extensions[position]))
+                                self.__complete_consistent_extensions[sub_pos].update(
+                                    set(self.__complete_consistent_extensions[position]))
 
                             new_gamma.add(sub_pos)
                         # reiterate again over layer and for each position:
                         # (i) calculate number of complete positions extending the position and
                         # (ii) determine its dialectical closure
                         for sub_pos in new_gamma:
-                            self.dict_n_complete_extensions[sub_pos] = len(self.complete_consistent_extensions[sub_pos])
-                            self.n_extensions[sub_pos] = len(self.__consistent_extensions[sub_pos])
-                            self.closures[sub_pos] = sub_pos
+                            self.__dict_n_complete_extensions[sub_pos] = len(self.__complete_consistent_extensions[sub_pos])
+                            self.__n_extensions[sub_pos] = len(self.__consistent_extensions[sub_pos])
+                            self.__closures[sub_pos] = sub_pos
                             for parent in self.__consistent_parents[sub_pos]:
-                                if self.dict_n_complete_extensions[sub_pos] == self.dict_n_complete_extensions[parent]:
-                                    self.closures[sub_pos] = self.closures[parent]
+                                if self.__dict_n_complete_extensions[sub_pos] == self.__dict_n_complete_extensions[parent]:
+                                    self.__closures[sub_pos] = self.__closures[parent]
                                     break
 
                     current_gamma = new_gamma
@@ -335,17 +329,17 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
             # case: no arguments
             else:
                 for pos in self.minimally_consistent_positions():
-                    self.closures[pos] = pos
-                    self.dict_n_complete_extensions[pos] = 2**(self.n - pos.size())
+                    self.__closures[pos] = pos
+                    self.__dict_n_complete_extensions[pos] = 2 ** (self.n - pos.size())
                     if pos.size() == self.n:
-                        self.n_extensions[pos] = 1
+                        self.__n_extensions[pos] = 1
                     else:
-                        self.n_extensions[pos] = 1 + 2**(self.n - pos.size())
+                        self.__n_extensions[pos] = 1 + 2 ** (self.n - pos.size())
                     # Todo (to decrease ram-usage?)
                     # dealing with complete_consistent_extensions:
                     # instead of filling the dictionary, we deal with empty graphs in the function that would
                     # otherwise use complete_consistent_extensions
-                    self.complete_consistent_extensions[pos] = {pos}
+                    self.__complete_consistent_extensions[pos] = {pos}
                     # do we need them?
                     self.__consistent_parents = {}
 
@@ -381,7 +375,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         if position.size() == 0:
             return True
         else:
-            return SetBasedPosition.as_setbased_position(position) in self.dict_n_complete_extensions.keys()
+            return SetBasedPosition.as_setbased_position(position) in self.__dict_n_complete_extensions.keys()
 
     def are_compatible(self, position1: Position, position2: Position) -> bool:
         self.__raise_value_error_if_sentence_pool_mismatch(position1)
@@ -394,8 +388,8 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         if len(self.arguments) == 0:
             return (position1.union(position2)).is_minimally_consistent()
         else:
-            return not self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position2)].\
-                isdisjoint(self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position1)])
+            return not self.__complete_consistent_extensions[SetBasedPosition.as_setbased_position(position2)].\
+                isdisjoint(self.__complete_consistent_extensions[SetBasedPosition.as_setbased_position(position1)])
 
     def consistent_positions(self, position: Position = None) -> Iterator[Position]:
         self.__raise_value_error_if_sentence_pool_mismatch(position)
@@ -405,7 +399,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
             if len(self.arguments) == 0:
                 return self.minimally_consistent_positions()
             else:
-                return iter(self.complete_consistent_extensions.keys())
+                return iter(self.__complete_consistent_extensions.keys())
         else:
             if len(self.arguments) == 0:
                 return self.__it_minimally_consistent_positions(position)
@@ -418,7 +412,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                 yield pos
 
     def __it_consistent_positions(self, position: Position = None) -> Iterator[Position]:
-        for pos in iter(self.complete_consistent_extensions.keys()):
+        for pos in iter(self.__complete_consistent_extensions.keys()):
             if position.is_subposition(pos):
                 yield pos
 
@@ -463,13 +457,13 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         if len(self.arguments) == 0:
             return position1.intersection(position2) == position2
         else:
-            return self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position1)].\
-                issubset(self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position2)])
+            return self.__complete_consistent_extensions[SetBasedPosition.as_setbased_position(position1)].\
+                issubset(self.__complete_consistent_extensions[SetBasedPosition.as_setbased_position(position2)])
 
     def closure(self, position: Position) -> Position:
         self.__raise_value_error_if_sentence_pool_mismatch(position)
         if self.is_consistent(position):
-            return self.closures[SetBasedPosition.as_setbased_position(position)]
+            return self.__closures[SetBasedPosition.as_setbased_position(position)]
         # ex falso quodlibet
         else:
             return SetBasedPosition.from_set(set(self.__sentence_pool), self.n)
@@ -480,7 +474,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
 
     def closed_positions(self) -> Iterator[Position]:
         self.__update()
-        return iter({closure for closure in self.closures.values()})
+        return iter({closure for closure in self.__closures.values()})
 
     def is_minimal(self, position: Position) -> bool:
         self.__raise_value_error_if_sentence_pool_mismatch(position)
@@ -521,11 +515,11 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         self.__update()
         if position is None or position.size() == 0:
         #    return len(self.complete_consistent_positions)
-            return self.dict_n_complete_extensions[SetBasedPosition({},self.n)]
+            return self.__dict_n_complete_extensions[SetBasedPosition({}, self.n)]
         if not self.is_consistent(position):
             return 0
 
-        return self.dict_n_complete_extensions[SetBasedPosition.as_setbased_position(position)]
+        return self.__dict_n_complete_extensions[SetBasedPosition.as_setbased_position(position)]
 
     def is_complete(self, position: Position) -> bool:
         self.__raise_value_error_if_sentence_pool_mismatch(position)
