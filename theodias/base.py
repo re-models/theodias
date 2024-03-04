@@ -402,12 +402,13 @@ class DialecticalStructure(ABC):
         pass
 
     @abstractmethod
-    def consistent_positions(self) -> Iterator[Position]:
-        """ Iterator over all dialectically consistent positions.
+    def consistent_positions(self, position: Position = None) -> Iterator[Position]:
+        """ Iterator over all dialectically consistent positions that extend :code:`position`.
 
         This iterator will include the empty position.
 
-        :return: A python iterator over all dialectically consistent positions.
+        :return: A python iterator over all dialectically consistent positions that extend :code:`position`. If
+            no position is given, the function returns an iterator over all dialectically consistent positions.
         """
         pass
 
@@ -425,10 +426,12 @@ class DialecticalStructure(ABC):
         """
 
     @abstractmethod
-    def consistent_complete_positions(self) -> Iterator[Position]:
-        """ Iterator over all dialectically consistent and complete positions.
+    def consistent_complete_positions(self, position: Position = None) -> Iterator[Position]:
+        """ Iterator over all dialectically consistent and complete positions that extend :code:`position`.
 
-        :return: An iterator over all dialectically consistent and complete positions.
+        :return: An iterator over all dialectically consistent and complete positions that extend :code:`position`. If
+            no position is given, the function returns an iterator over all dialectically consistent
+            and complete positions.
         """
         pass
 

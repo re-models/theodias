@@ -371,14 +371,10 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         return SetBasedPosition(np.arange(1, self.n + 1), self.n)
 
     def __raise_value_error_if_sentence_pool_mismatch(self, position: Position):
-        if self.sentence_pool() != position.sentence_pool():
+        if position and self.sentence_pool() != position.sentence_pool():
             raise ValueError("The function you called expects positions to be based on the same sentence pool as",
                              " the dialectical structure.")
 
-    # ToDo: How do we deal with positions that indicate a larger sentencepool?
-    # ToDo (check, @Basti): Should raise error for Setbased/Bitarry/Numpy Implementation. (add Unit Test)
-    # Either throwing an error or leave it as it is (treating them as if the are inconsistent).
-    # The first one what I would expect from the user point of view, but it is possibly costly.
     def is_consistent(self, position: Position) -> bool:
         self.__raise_value_error_if_sentence_pool_mismatch(position)
         self.__update()
@@ -401,17 +397,55 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
             return not self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position2)].\
                 isdisjoint(self.complete_consistent_extensions[SetBasedPosition.as_setbased_position(position1)])
 
-    def consistent_positions(self) -> Iterator[Position]:
-        self.__update()
-        if len(self.arguments) == 0:
-            return self.minimally_consistent_positions()
-        return iter(self.complete_consistent_extensions.keys())
+    def consistent_positions(self, position: Position = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
+        if len(self.arguments) > 0:
+            self.__update()
+        if position is None:
+            if len(self.arguments) == 0:
+                return self.minimally_consistent_positions()
+            else:
+                return iter(self.complete_consistent_extensions.keys())
+        else:
+            if len(self.arguments) == 0:
+                return self.__it_minimally_consistent_positions(position)
+            else:
+                return self.__it_consistent_positions(position)
 
-    def consistent_complete_positions(self) -> Iterator[Position]:
-        self.__update()
-        if len(self.arguments) == 0:
-            return self.complete_minimally_consistent_positions()
-        return iter(self.complete_consistent_positions)
+    def __it_minimally_consistent_positions(self, position: Position = None) -> Iterator[Position]:
+        for pos in iter(self.minimally_consistent_positions()):
+            if position.is_subposition(pos):
+                yield pos
+
+    def __it_consistent_positions(self, position: Position = None) -> Iterator[Position]:
+        for pos in iter(self.complete_consistent_extensions.keys()):
+            if position.is_subposition(pos):
+                yield pos
+
+    def consistent_complete_positions(self, position: Position = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
+        if len(self.arguments) > 0:
+            self.__update()
+        if position is None:
+            if len(self.arguments) == 0:
+                return self.complete_minimally_consistent_positions()
+            else:
+                return iter(self.complete_consistent_positions)
+        else:
+            if len(self.arguments) == 0:
+                return self.__it_minimally_consistent_complete_positions(position)
+            else:
+                return self.__it_consistent_complete_positions(position)
+
+    def __it_minimally_consistent_complete_positions(self, position: Position = None) -> Iterator[Position]:
+        for pos in iter(self.complete_minimally_consistent_positions()):
+            if position.is_subposition(pos):
+                yield pos
+
+    def __it_consistent_complete_positions(self, position: Position = None) -> Iterator[Position]:
+        for pos in iter(self.complete_consistent_positions):
+            if position.is_subposition(pos):
+                yield pos
 
     def entails(self, position1: Position, position2: Position) -> bool:
         self.__raise_value_error_if_sentence_pool_mismatch(position1)
@@ -497,8 +531,6 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
         self.__raise_value_error_if_sentence_pool_mismatch(position)
         return position.domain().as_set() == set(self.__sentence_pool)
 
-    # ToDo (@Basti): Is the cut of the complete consistent extensions of two positions A and B the same as set
-    # of complete consistent extension of $A\cup B$?
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
         self.__raise_value_error_if_sentence_pool_mismatch(position1)
         self.__raise_value_error_if_sentence_pool_mismatch(position2)
