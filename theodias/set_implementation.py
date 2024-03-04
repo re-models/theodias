@@ -1,4 +1,6 @@
-# Todo (@Basti): Add module docstring.
+"""
+Implementing abstract base classes on the basis of Python sets.
+"""
 
 # see: https://stackoverflow.com/questions/33533148
 from __future__ import annotations
@@ -13,8 +15,9 @@ from pysat.solvers import Minisat22
 import numpy as np
 from collections import deque
 
-# Todo (@Basti): Add class docstring.
 class SetBasedPosition(Position):
+    """An implementation of :py:class:`Position` on the basis of Python sets.
+    """
 
     # comment: `def __init__(self, position1: Set[int] = set()):` should do as well, but it doesn't... beats me
     def __init__(self, position: Set[int], n_unnegated_sentence_pool: int):
@@ -77,16 +80,24 @@ class SetBasedPosition(Position):
         return position_ba
 
     def as_ternary(self) -> int:
-        if self.is_minimally_consistent():
-            res = 0
-            for sentence in self.__position:
-                if sentence < 0:
-                    res += 2 * 10 ** (abs(sentence) - 1)
+        #if self.is_minimally_consistent():
+        res = 0
+        for sentence in self.sentence_pool():
+            if sentence in self.__position:
+                if -sentence in self.__position:
+                    res += 3 * 10 ** (sentence - 1)
                 else:
                     res += 1 * 10 ** (sentence - 1)
-            return res
-        else:
-            return None
+            elif -sentence in self.__position:
+                res += 2 * 10 ** (sentence - 1)
+            # for sentence in self.__position:
+            #     if sentence < 0:
+            #         res += 2 * 10 ** (abs(sentence) - 1)
+            #     else:
+            #         res += 1 * 10 ** (sentence - 1)
+        return res
+        #else:
+        #    return None
 
     def as_set(self) -> Set[int]:
         return set(self.__position)
@@ -218,8 +229,15 @@ class SetBasedPosition(Position):
                     else:
                         queue.append((neighbour, level + 1, changes_left - 1))
 
-# Todo (@Basti): Add class docstring.
 class DAGSetBasedDialecticalStructure(DialecticalStructure):
+    """An implementation of :py:class:`DialecticalStructure` on the basis of :py:class:`SetBasedPosition`.
+
+        .. note::
+
+            This implementations is a reference implementation, which is not optimized for performance. We advice to
+            use :py:class:`DAGNumpyDialecticalStructure` or :py:class:`BDDNumpyDialecticalStructure`
+            in non-illustrative contexts.
+    """
 
     def __init__(self, n: int, initial_arguments: List[List[int]] = None, name: str = None):
         self.arguments = []
