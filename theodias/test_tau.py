@@ -46,12 +46,8 @@ model_implementations = [{'module_name': 'theodias',
                            'dialectical_structure_class_name': 'DAGBitarrayDialecticalStructure'
                           }
                          ]
-model_implementations = [{'module_name': 'theodias',
-                                  'position_class_name': 'SetBasedPosition',
-                                  'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
-                                  }
-                                ]
 # Helper functions
+
 
 def get_dia(args: List[List[int]], n_unnegated_sentence_pool: int, impl):
     dia_class_ = getattr(importlib.import_module(impl['module_name']),
@@ -234,14 +230,14 @@ class Testtheodias:
             assert position_class_.from_set(set(), 3).union(position_class_.from_set(set(), 3)).as_set() == set()
             assert (position_class_.from_set(set(), 3) | position_class_.from_set(set(), 3)).as_set() == set()
             # union of more than two positions
-            assert position_class_.from_set({1,2}, 3).union(position_class_.from_set({1,2,3}, 3),
-                                                            position_class_.from_set({1,2,3,4}, 3),
-                                                            position_class_.from_set({3,4,5}, 3)
-                                                            ) == position_class_.from_set({1,2,3,4,5}, 3)
-            assert position_class_.from_set({1, 2}, 3) | position_class_.from_set({1, 2, 3}, 3) | \
-                                                             position_class_.from_set({1, 2, 3, 4}, 3) | \
-                                                             position_class_.from_set({3, 4, 5}, 3) \
-                                                              == position_class_.from_set({1, 2, 3, 4, 5}, 3)
+            assert position_class_.from_set({1,2}, 5).union(position_class_.from_set({1,2,3}, 5),
+                                                            position_class_.from_set({1,2,3,4}, 5),
+                                                            position_class_.from_set({3,4,5}, 5)
+                                                            ) == position_class_.from_set({1,2,3,4,5}, 5)
+            assert position_class_.from_set({1, 2}, 5) | position_class_.from_set({1, 2, 3}, 5) | \
+                                                             position_class_.from_set({1, 2, 3, 4}, 5) | \
+                                                             position_class_.from_set({3, 4, 5}, 5) \
+                                                              == position_class_.from_set({1, 2, 3, 4, 5}, 5)
             # union with domain/(half) sentence pool
             pos = get_position({1, 2}, 3, impl)
             assert pos.union(pos.domain()) == get_position({1, 2, -1, -2}, 3, impl)
@@ -293,14 +289,14 @@ class Testtheodias:
             assert position_class_.from_set(set(), 3).intersection(position_class_.from_set(set(), 3)).as_set() == set()
             assert (position_class_.from_set(set(), 3) & position_class_.from_set(set(), 3)).as_set() == set()
             # intersection of more than two positions
-            assert position_class_.from_set({1, 2}, 3).intersection(position_class_.from_set({1, 2, 3}, 3),
-                                                             position_class_.from_set({1, 2, 3, 4}, 3),
-                                                             position_class_.from_set({2 ,3, 4, 5}, 3)
-                                                             ) == position_class_.from_set({2}, 3)
-            assert position_class_.from_set({1, 2}, 3) & position_class_.from_set({1, 2, 3}, 3) & \
-                   position_class_.from_set({1, 2, 3, 4}, 3) & \
-                   position_class_.from_set({2, 3, 4, 5}, 3) \
-                   == position_class_.from_set({2}, 3)
+            assert position_class_.from_set({1, 2}, 5).intersection(position_class_.from_set({1, 2, 3}, 5),
+                                                             position_class_.from_set({1, 2, 3, 4}, 5),
+                                                             position_class_.from_set({2 ,3, 4, 5}, 5)
+                                                             ) == position_class_.from_set({2}, 5)
+            assert position_class_.from_set({1, 2}, 5) & position_class_.from_set({1, 2, 3}, 5) & \
+                   position_class_.from_set({1, 2, 3, 4}, 5) & \
+                   position_class_.from_set({2, 3, 4, 5}, 5) \
+                   == position_class_.from_set({2}, 5)
             # intersection with domain/(half) sentence pool
             pos = get_position({1, 2}, 3, impl)
             assert pos.intersection(pos.domain()) == get_position({1, 2}, 3, impl)
@@ -357,10 +353,10 @@ class Testtheodias:
             assert position_class_.from_set(set(), 3).difference(position_class_.from_set(set(), 3)).as_set() == set()
             assert (position_class_.from_set(set(), 3) - position_class_.from_set(set(), 3)).as_set() == set()
             # difference of more than two positions
-            assert position_class_.from_set({1, 2}, 3).difference(position_class_.from_set({2, 3}, 3)).difference(
-                                                             position_class_.from_set({3, 4}, 3)) == position_class_.from_set({1}, 3)
-            assert position_class_.from_set({1, 2}, 3) - position_class_.from_set({2, 3}, 3) - \
-                   position_class_.from_set({3, 4}, 3) == position_class_.from_set({1}, 3)
+            assert position_class_.from_set({1, 2}, 4).difference(position_class_.from_set({2, 3}, 4)).difference(
+                                                             position_class_.from_set({3, 4}, 4)) == position_class_.from_set({1}, 4)
+            assert position_class_.from_set({1, 2}, 4) - position_class_.from_set({2, 3}, 4) - \
+                   position_class_.from_set({3, 4}, 4) == position_class_.from_set({1}, 4)
             # difference with domain/(half) sentence pool
             pos = get_position({1, 2}, 3, impl)
             assert pos.difference(pos.domain()) == get_position(set(), 3, impl)
@@ -384,6 +380,7 @@ class Testtheodias:
 
             # testing for different sentence-pool sizes: Should raise Error
             with pytest.raises(ValueError):
+                print(impl)
                 pos.difference(get_position({1, 2}, 4, impl))
 
         # testing difference (including mixing implementations)
