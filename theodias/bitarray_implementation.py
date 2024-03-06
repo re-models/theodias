@@ -119,14 +119,10 @@ class BitarrayPosition(Position):
         return self.__bitarray
 
     def as_ternary(self) -> int:
-        if self.is_minimally_consistent():
-
-            # 0:suspension, 2:rejection, 1:acceptance
-            a = sum(1 * 10 ** index for index, val in enumerate(self.__bitarray[0::2]) if val)
-            r = sum(2 * 10 ** index for index, val in enumerate(self.__bitarray[1::2]) if val)
-            return a + r
-        else:
-            return None
+        # 0:suspension, 2:rejection, 1:acceptance, 3:contradiction (i.e. rejection and acceptance)
+        a = sum(1 * 10 ** index for index, val in enumerate(self.__bitarray[0::2]) if val)
+        r = sum(2 * 10 ** index for index, val in enumerate(self.__bitarray[1::2]) if val)
+        return a + r
 
     def as_set(self) -> Set[int]:
         return set(self.as_list())
@@ -283,10 +279,6 @@ class BitarrayPosition(Position):
             return self.intersection(other)
         else:
             raise TypeError(f"{other} must be a theodias.Position.")
-
-    def difference(self, other: Position) -> Position:
-        return BitarrayPosition(self.as_set().difference(other.as_set()),
-                                other.sentence_pool().size())
 
     def neighbours(self, depth: int) -> Iterator[Position]:
         position_array = [0] * self.sentence_pool().size()

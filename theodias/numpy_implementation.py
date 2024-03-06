@@ -124,10 +124,10 @@ class NumpyPosition(Position):
             return arr
 
     def as_ternary(self) -> int:
-        if self.is_minimally_consistent():
+        #if self.is_minimally_consistent():
             return sum(self.__np_array[i] * 10 ** i for i in range(len(self.__np_array)))
-        else:
-            return None
+        #else:
+            #return None
 
     def as_set(self) -> Set[int]:
 
@@ -241,7 +241,6 @@ class NumpyPosition(Position):
         else:
             raise TypeError(f"{other} must be a theodias.Position.")
 
-
     def intersection(self, *positions: Position) -> Position:
 
         if not positions:
@@ -252,17 +251,11 @@ class NumpyPosition(Position):
             raise ValueError("Intersection of positions is restricted to positions "
                              "with matching sentence pools.")
 
-        position_list = list(NumpyPosition.as_np_array(pos) for pos in positions)
-        position_list.append(NumpyPosition.as_np_array(self))
+        result = self.as_set()
+        for position in positions:
+            result = result & position.as_set()
+        return NumpyPosition.from_set(result, self.sentence_pool().size())
 
-        n = len(position_list[0])
-        intersection = np.zeros(n)
-
-        for i in range(n):
-            if all(position_list[0][i] == pos[i] for pos in position_list[1:]):
-                intersection[i] = position_list[0][i]
-
-        return NumpyPosition(intersection)
 
     # operator version of intersection
     def __and__(self, other):
