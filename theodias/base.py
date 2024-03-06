@@ -21,7 +21,14 @@ class Position(ABC):
 
         .. note::
 
-            Implementations of this abstract class do not necessarily adhere to a set-theoretic representation.
+            * Implementations of this abstract class do not necessarily adhere to a set-theoretic representation.
+            * Positions are immutable---that is, you cannot change them once instantiated. In this way, you can use
+              them as keys in, e.g., dictionaries and form sets of positions.
+            * A position is determined by its sentences and the corresponding sentence pool. Consequently, whether two
+              numerically distinct positions are considered the same (as in :code:`pos1 == pos2`) does not depend on
+              the implementation.
+            * A position is bound to a specific sentence pool. If you pass positions to functions that have
+              non-matching sentence pools, the function will raise a :py:class:`ValueError`.
     """
 
     # deprecated: Position should be imutable
@@ -122,14 +129,13 @@ class Position(ABC):
     def as_ternary(self) -> int:
         """Position as ternary.
 
-        The position :math:`\\mathcal{A}` represented by an integer of base 3 (at least).
+        The position :math:`\\mathcal{A}` represented by an integer of base 4.
         :math:`s_i \\in \\mathcal{A}` is represented by :math:`1*10^{i-1}`,
-        :math:`\\neg s_i \\in \\mathcal{A}` by :math:`2*10^{i-1}` and
-        :math:`s_i, \\neg s_i \\notin \\mathcal{A}` by zero. For instance, the position
+        :math:`\\neg s_i \\in \\mathcal{A}` by :math:`2*10^{i-1}`,
+        :math:`s_i, \\neg s_i \\notin \\mathcal{A}` by zero and :math:`s_i, \\neg s_i \\notin \\mathcal{A}`
+        by 4. For instance, the position
         :math:`\\{ s_1, s_3, \\neg s_4 \\}` is represented by the integer 2101.
 
-        .. note::
-            Positions that are not minimally consistent cannot be represented in this way.
 
         :returns: a ternary representation of the position if possible, otherwise should return :code:`None`
         """
@@ -156,7 +162,7 @@ class Position(ABC):
         For instance, the position :math:`\\{ s_1, s_3, \\neg s_4 \\}` is represented by :code:`[1, 3, -4]`.
 
         .. note::
-            The returned order integer values is not specified.
+            The returned order of the values is not specified.
 
         :returns: a representation of the position as a list of integer values
         """
@@ -350,7 +356,7 @@ class DialecticalStructure(ABC):
 
     @abstractmethod
     def is_complete(self, position: Position) -> bool:
-        """Checks whether :code:`position' is complete.
+        """Checks whether :code:`position` is complete.
 
         A position :math:`\\mathcal{A}` is complete iff the domain of :math:`\\mathcal{A}` is identical with the
         sentence pool :math:`S`.
@@ -528,8 +534,8 @@ class DialecticalStructure(ABC):
         """Number of complete and consistent extension.
 
         :return: The number of complete and consistent positions that extend :code:`position`. If none is given, the
-        function returns the number of all complete consistent extensions. If the given position is dialectically
-        inconsistent, there are no consistent extensions.
+            function returns the number of all complete consistent extensions. If the given position is dialectically
+            inconsistent, there are no consistent extensions.
         """
         pass
 

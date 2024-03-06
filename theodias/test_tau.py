@@ -46,11 +46,11 @@ model_implementations = [{'module_name': 'theodias',
                            'dialectical_structure_class_name': 'DAGBitarrayDialecticalStructure'
                           }
                          ]
-# model_implementations = [{'module_name': 'theodias',
-#                                   'position_class_name': 'SetBasedPosition',
-#                                   'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
-#                                   }
-#                                 ]
+model_implementations = [{'module_name': 'theodias',
+                                  'position_class_name': 'SetBasedPosition',
+                                  'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
+                                  }
+                                ]
 # Helper functions
 
 def get_dia(args: List[List[int]], n_unnegated_sentence_pool: int, impl):
@@ -129,10 +129,14 @@ class Testtheodias:
             assert get_position({1, 3 }, 3, impl).as_bitarray() == bitarray('100010')
             assert get_position({1, -2, 3}, 3, impl).as_bitarray() == bitarray('100110')
 
+            # todo: check ternary for minimally inconsistent positions
+            assert get_position({1, -3}, 3, impl).as_ternary() == 201
             assert get_position({1, -2, 3}, 3, impl).as_ternary() == 121
             assert get_position({1, 3 }, 3, impl).as_ternary() == 101
             assert get_position({1, 2, 3}, 3, impl).as_ternary() == 111
-            assert get_position({1, 2, 3, -1}, 3, impl).as_ternary() == None
+            # minimally inconsistent positions
+            assert get_position({2, -2, -5}, 5, impl).as_ternary() == 20030
+            #assert get_position({1, 2, 3, -1}, 3, impl).as_ternary() == None
             assert get_position({-2, -5}, 5, impl).as_ternary() == 20020
             assert get_position(set(), 0, impl).as_ternary() == 0
 
@@ -366,6 +370,9 @@ class Testtheodias:
             assert pos.difference(pos.sentence_pool()).domain() == get_position(set(), 3, impl)
 
             assert pos.difference(pos.sentence_pool().domain()) == get_position(set(), 3, impl)
+
+            # difference that results in minimally inconsistent positions
+            assert position_class_.from_set({1, -1, 2}, 3) - position_class_.from_set({2,}, 3)  == position_class_.from_set({1, -1}, 3)
 
             n = 6
             assert get_position({-3, 4, 5}, n, impl) - get_position({-3, -2}, n, impl) == get_position({4,5}, n, impl)

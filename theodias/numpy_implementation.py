@@ -867,12 +867,27 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         for position in gray(3, self.n):
             yield NumpyPosition(position.copy())
 
+
     def complete_minimally_consistent_positions(self) -> Iterator[Position]:
         for pos in self.minimally_consistent_positions():
             if self.is_complete(pos):
                 yield pos
 
     def consistent_positions(self, position: Position = None) -> Iterator[Position]:
+
+        """ Iterator over all dialectically consistent positions that extend :code:`position`.
+
+        This iterator will include the empty position.
+
+        .. note::
+
+            This function will be computationally costly for large sentence pools.
+
+
+        :return: A python iterator over all dialectically consistent positions that extend :code:`position`. If
+            no position is given, the function returns an iterator over all dialectically consistent positions.
+        """
+
         self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
 
@@ -920,11 +935,29 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
 
         return position2.as_set().issubset(closure_pos1.as_set())
 
-    # ToDo (@Basti): Add own docstring with performance warning.
     def axioms(self, position: Position,
                source: Iterator[Position] = None) -> Iterator[Position]:
-        self.__raise_value_error_if_sentence_pool_mismatch(position)
+        """Iterator over all axiomatic bases from source.
+
+        The source defaults to all consistent positions if it is not provided.
+
+        A position :math:`\\mathcal{B}` (:math:`\\in` :code:`source`) is an axiomatic basis of another
+        position :math:`\\mathcal{A}` iff
+        :math:`\\mathcal{A}` is dialectically entailed by :math:`\\mathcal{B}` and there is no proper
+        subset :math:`\\mathcal{C}` of :math:`\\mathcal{B}` such that :math:`\\mathcal{A}` is entailed by
+        :math:`\\mathcal{C}`.
+
+        .. note::
+
+            This function will become computationally costly if the source is not given (in this case the function
+            has to go through all dialectically consistent positions).
+
+        :return: A (possibly empty) python-iterator over all axiomatic bases of :code:`position` from :code:`source`.
+                The iterator will be empty (:code:`[]`) if there is no axiomatic basis in the source.
+        :raises: A :code:`ValueError` if the given position is inconsistent.
+        """
         position = NumpyPosition.to_numpy_position(position)
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
 
         if not self.is_consistent(position):
@@ -933,11 +966,8 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         res = set()
 
         # old: if no source is provided, default to all consistent positions of dialectical structure
-        # here: default to all dialectically consistetn neighbours (full range). That is risky for large sentence pools.
-        # ToDo (@Basti) Check documentation for performance wanring
+        # here: default to all dialectically consistent neighbours (full range). That is risky for large sentence pools.
         if not source:
-            # raise NotImplementedError("Cannot iterate over all consistent positions.")
-            # source = position.neighbours(self.n) (we should exclude dial. inconsistent neighbours)
             source = self.consistent_positions()
         #  collect inclusion minimal positions from *source*, which entail *position*
         for pos in source:
