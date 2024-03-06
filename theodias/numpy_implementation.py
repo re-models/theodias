@@ -61,9 +61,6 @@ class NumpyPosition(Position):
         elif isinstance(other, Position):
             return super().__eq__(other)
 
-    def __and__(self, other):
-        return NumpyPosition(NumpyPosition.as_np_array(self) & NumpyPosition.as_np_array(other))
-
     def sentence_pool(self) -> Position:
         return NumpyPosition(np.ones(self.n_unnegated_sentence_pool))
 
@@ -166,7 +163,7 @@ class NumpyPosition(Position):
         return 3 not in self.__np_array
 
     def is_minimally_compatible(self, position: Position) -> bool:
-        return self.union([self, position]).is_minimally_consistent()
+        return self.union(position).is_minimally_consistent()
 
     def is_subposition(self: Position, pos2: Position) -> bool:
         return self.as_set().issubset(pos2.as_set())
@@ -213,47 +210,81 @@ class NumpyPosition(Position):
         except IndexError:
             return False
 
-    @staticmethod
-    def union(positions: Set[Position]) -> Position:
+    def union(self, *positions: Position) -> Position:
         if not positions:
-            return NumpyPosition.from_set(set(), 0)
-        # assumption: positions have the same length
-        if len(positions) == 1:
-            return next(iter(positions))
+            return self
+
+        if len({self.sentence_pool().size()} | {pos.sentence_pool().size()
+                                                for pos in positions}) != 1:
+            raise ValueError("Union of positions is restricted to positions with "
+                             "matching sentence pools.")
+
+        position_list = list(NumpyPosition.as_np_array(pos) for pos in positions)
+        position_list.append(NumpyPosition.as_np_array(self))
+
+        n = len(position_list[0])
+        union = np.zeros(n)
+
+        for i in range(n):
+            if (any(1.0 == pos[i] for pos in position_list)
+                    and any(2.0 == pos[i] for pos in position_list)):
+                union[i] = 3
+            else:
+                union[i] = max(pos[i] for pos in position_list)
+
+        return NumpyPosition(union)
+
+    # operator version of union
+    def __or__(self, other):
+        if isinstance(other, Position):
+            return self.union(other)
         else:
-            position_list = list(NumpyPosition.as_np_array(pos) for pos in positions)
-            n = len(position_list[0])
-            union = np.zeros(n)
+            raise TypeError(f"{other} must be a theodias.Position.")
 
-            for i in range(n):
-                if (any(1.0 == pos[i] for pos in position_list)
-                        and any(2.0 == pos[i] for pos in position_list)):
-                    union[i] = 3
-                else:
-                    union[i] = max(pos[i] for pos in position_list)
 
-            return NumpyPosition(union)
-
-    @staticmethod
-    def intersection(positions: Set[Position]) -> Position:
+    def intersection(self, *positions: Position) -> Position:
 
         if not positions:
-            return NumpyPosition(np.array([]))
-        elif len(positions) == 1:
-            return next(iter(positions))
-        else:
-            position_list = list(NumpyPosition.as_np_array(pos) for pos in positions)
-            n = len(position_list[0])
-            intersection = np.zeros(n)
+            return NumpyPosition.from_set(set(), self.sentence_pool().size())
 
-            for i in range(n):
-                if all(position_list[0][i] == pos[i] for pos in position_list[1:]):
-                    intersection[i] = position_list[0][i]
-            return NumpyPosition(intersection)
+        if len({self.sentence_pool().size()} | {pos.sentence_pool().size()
+                                                for pos in positions}) != 1:
+            raise ValueError("Intersection of positions is restricted to positions "
+                             "with matching sentence pools.")
+
+        position_list = list(NumpyPosition.as_np_array(pos) for pos in positions)
+        position_list.append(NumpyPosition.as_np_array(self))
+
+        n = len(position_list[0])
+        intersection = np.zeros(n)
+
+        for i in range(n):
+            if all(position_list[0][i] == pos[i] for pos in position_list[1:]):
+                intersection[i] = position_list[0][i]
+
+        return NumpyPosition(intersection)
+
+    # operator version of intersection
+    def __and__(self, other):
+        if isinstance(other, Position):
+            return self.intersection(other)
+        else:
+            raise TypeError(f"{other} must be a theodias.Position.")
 
     def difference(self, other: Position) -> Position:
+        if self.sentence_pool().size() != other.sentence_pool().size():
+            raise ValueError("Difference of positions is restricted to positions "
+                             "with matching sentence pools.")
+
         return NumpyPosition.from_set(self.as_set().difference(other.as_set()),
-                                other.sentence_pool().size())
+                                      other.sentence_pool().size())
+
+    # operator version of difference
+    def __sub__(self, other):
+        if isinstance(other, Position):
+            return self.difference(other)
+        else:
+            raise TypeError(f"{other} must be a theodias.Position.")
 
     def neighbours(self, depth: int) -> Iterator[Position]:
         """Iterate over the neighbours of the position.
@@ -333,6 +364,11 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             # update the dialectical structure
             self._update()
 
+    def __raise_value_error_if_sentence_pool_mismatch(self, position: Position):
+        if position and self.sentence_pool() != position.sentence_pool():
+            raise ValueError("The function you called expects positions to be based on the same sentence pool as",
+                             " the dialectical structure.")
+
     @staticmethod
     def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
                        name: str = None) -> DialecticalStructure:
@@ -380,6 +416,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
     # Sentence-pool, domain and completeness
 
     def is_complete(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         return self.__sp.domain() == position.domain()
 
     def sentence_pool(self) -> Position:
@@ -399,13 +436,14 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
                                      & NumpyPosition.as_np_array(position)))
 
     def is_consistent(self, position: Position) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
 
         return NumpyPosition.to_numpy_position(position) in self.__complete_consistent_extensions
 
     def are_compatible(self, position1: Position, position2: Position, ) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         self._update()
 
         # at least one of the positions is not minimally consistent
@@ -435,16 +473,24 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             self.__min_cons_pos = min_consistent_positions
             return iter(min_consistent_positions)
 
-    def consistent_positions(self) -> Iterator[Position]:
-        # check update status of dialectical structure
+    def complete_minimally_consistent_positions(self) -> Iterator[Position]:
+        for pos in self.minimally_consistent_positions():
+            if self.is_complete(pos):
+                yield pos
+
+    def consistent_positions(self, position: Position = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
 
-        # note that the complete_parent_graph and direct_parent_graph have the
-        # same keys
-        return iter(self.__complete_consistent_extensions)
+        if not position:
+            position = NumpyPosition.from_set(set(), self.n)
 
-    def consistent_complete_positions(self) -> Iterator[Position]:
-        # self.__update()
+        for pos in self.__complete_consistent_extensions:
+            if position.is_subposition(pos):
+                yield pos
+
+    def consistent_complete_positions(self, position: Position = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         if not self.__cons_comp_pos:
             all_complete_positions = [NumpyPosition(np.array(e))
                                       for e in product([1, 2], repeat=self.n)]
@@ -454,18 +500,19 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
                 [pos for pos in all_complete_positions
                  if all(self._satisfies(arg, pos) for arg in self.arguments_cnf)])
 
-            return iter(self.__cons_comp_pos)
 
-        else:
-            # check update status of dialectical structure
-            # self.check_update()
+        if not position:
+            position = NumpyPosition.from_set(set(), self.n)
 
-            return iter(self.__cons_comp_pos)
+        for pos in self.__cons_comp_pos:
+            if position.is_subposition(pos):
+                yield pos
 
     # Dialectic entailment and dialectic closure of consistent positions
 
     def entails(self, position1: Position, position2: Position) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         self._update()
 
         if not self.is_consistent(position1):  # ex falso quodlibet
@@ -487,6 +534,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return pos1_extensions.issubset(pos2_extensions)
 
     def closure(self, position: Position) -> Position:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         if self.is_consistent(position):
             return self._closures[NumpyPosition.to_numpy_position(position)]
         # ex falso quodlibet
@@ -494,6 +542,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             return self.__sp.domain()
 
     def is_closed(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         # check update status of dialectical structure
         self._update()
 
@@ -505,7 +554,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
     def axioms(self, position: Position,
                source: Iterator[Position] = None) -> Iterator[Position]:
-
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
 
         if not self.is_consistent(position):
@@ -529,6 +578,8 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
         return iter(res)
 
     def is_minimal(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
+
         for pos in position.subpositions():
             if pos != position and self.entails(pos, position):
                 return False
@@ -546,11 +597,10 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
     def _complete_extensions(self, position: Position) -> Set[Position]:
         """Returns complete extensions of `position` by retrieving corresponding
          node in the graph that stores complete extensions."""
-
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
 
-        if not position.is_minimally_consistent():
+        if (not position.is_minimally_consistent()) or (not self.is_consistent(position)):
             return set()
         # complete positions have no parents but extend themselves
         elif len(self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position)]) == 0:
@@ -559,6 +609,7 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
             return self.__complete_consistent_extensions[NumpyPosition.to_numpy_position(position)]
 
     def n_complete_extensions(self, position: Position = None) -> int:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
         if not position or position.size() == 0:
             return len(self.__cons_comp_pos)
@@ -567,7 +618,8 @@ class DAGNumpyDialecticalStructure(DialecticalStructure):
 
     # conditional degree of justification
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
-
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         return len(self._complete_extensions(position1).intersection(
             self._complete_extensions(position2))) / self.n_complete_extensions(position2)
 
@@ -672,6 +724,11 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         for s in range(1, n + 1):
             self.arguments.append([s, s])
 
+    def __raise_value_error_if_sentence_pool_mismatch(self, position: Position):
+        if position and self.sentence_pool() != position.sentence_pool():
+            raise ValueError("The function you called expects positions to be based on the same sentence pool as",
+                             " the dialectical structure.")
+
     @staticmethod
     def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
                        name: str = None) -> DialecticalStructure:
@@ -755,7 +812,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
     # would be returned, which have to be intersected afterwards in a costly fashion
     # to arrive at dialectical closures.
     def closure(self, position: Position) -> Position:
-
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         # the position's closure has been calculated before
         if position in self._closures:
             return self._closures[position]
@@ -784,12 +841,14 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         return closure
 
     def is_consistent(self, position: NumpyPosition) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
 
         return self.closure(position) != self.__full_sentence_pool
 
     def are_compatible(self, position1: Position, position2: Position, ) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         # check update status of dialectical structure
         self._update()
 
@@ -798,7 +857,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
             return False
         # case: both positions are minimally consistent
         else:
-            pos_union = NumpyPosition.union({position1, position2})
+            pos_union = position1.union(position2)
             return self.closure(pos_union) != self.__full_sentence_pool
             # if not self.closure(pos_union):
             #    return False
@@ -808,27 +867,44 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
         for position in gray(3, self.n):
             yield NumpyPosition(position.copy())
 
-    def consistent_positions(self) -> Iterator[Position]:
-        # check update status of dialectical structure
-        self._update()
-        empty_pos = NumpyPosition.from_set(set(), self.n)
-        for neighbour in empty_pos.neighbours(self.n):
-            if self.is_consistent(neighbour):
-                yield neighbour
-        # raise NotImplementedError("Cannot iterate over all consistent positions.")
+    def complete_minimally_consistent_positions(self) -> Iterator[Position]:
+        for pos in self.minimally_consistent_positions():
+            if self.is_complete(pos):
+                yield pos
 
-    def consistent_complete_positions(self) -> Iterator[Position]:
+    def consistent_positions(self, position: Position = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
+
+        empty_pos = NumpyPosition.from_set(set(), self.n)
+
+        if not position:
+            position = empty_pos
+
+        for neighbour in empty_pos.neighbours(self.n):
+            if self.is_consistent(neighbour) and position.is_subposition(neighbour):
+                yield neighbour
+
+    def consistent_complete_positions(self, position: Position = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
+        self._update()
+
+        empty_pos = NumpyPosition.from_set(set(), self.n)
+        if not position:
+            position = empty_pos
 
         models = list(self.bdd.pick_iter(self.dia_expr, care_vars=self.bdd.vars))
 
         for model in models:
-            position = self._dict_to_set(model)
-            position = NumpyPosition.from_set(position, self.n)
-            yield position
+            pos = self._dict_to_set(model)
+            pos = NumpyPosition.from_set(pos, self.n)
+
+            if position.is_subposition(pos):
+                yield pos
 
     def entails(self, position1: Position, position2: Position) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         self._update()
 
         if not self.is_consistent(position1):  # ex falso quodlibet
@@ -847,6 +923,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
     # ToDo (@Basti): Add own docstring with performance warning.
     def axioms(self, position: Position,
                source: Iterator[Position] = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         position = NumpyPosition.to_numpy_position(position)
         self._update()
 
@@ -877,6 +954,7 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
     #    raise NotImplementedError("Cannot iterate over all consistent positions.")
 
     def n_complete_extensions(self, position: Position = None) -> int:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self._update()
         if not position or position.size() == 0:
             return self.bdd.count(self.dia_expr, nvars=self.n)
@@ -885,6 +963,8 @@ class BDDNumpyDialecticalStructure(DAGNumpyDialecticalStructure):
             return self.bdd.count(self.dia_expr & v, nvars=self.n)
 
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
 
         v1 = self.bdd.add_expr(self._pos_to_expr(position1))
         v2 = self.bdd.add_expr(self._pos_to_expr(position2))

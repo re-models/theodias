@@ -146,7 +146,7 @@ class BitarrayPosition(Position):
         return not any(self.__bitarray[0::2] & self.__bitarray[1::2])
 
     def is_minimally_compatible(self, position: Position) -> bool:
-        return self.union([self, position]).is_minimally_consistent()
+        return self.union(position).is_minimally_consistent()
 
     def is_subposition(self: Position, pos2: Position) -> bool:
         try:
@@ -219,52 +219,70 @@ class BitarrayPosition(Position):
     def is_in_domain(self, sentence: int) -> bool:
         return any(self.__bitarray[2 * (abs(sentence) - 1):2 * (abs(sentence) - 1) + 2])
 
-    @staticmethod
-    def union(positions: Set[Position]) -> Position:
+    def union(self, *positions: Position) -> Position:
         if not positions:
-            return BitarrayPosition.from_set(set(), 0)
-        if len(positions) == 1:
-            return next(iter(positions))
-        else:
-            position_list = list(positions)
-            ba = position_list.pop().as_bitarray().copy()
-            # create union with bitwise OR: |
-            for pos in position_list:
-                try:
-                    ba |= pos.as_bitarray()
-                except ValueError:
-                    logger.error("Union: bitwise comparison of " + str(ba) + " and "
-                                  + str(pos.as_bitarray()) + " failed due to different sizes.")
+            return self
 
-                    # reraise error to interrupt program
-                    raise
+        if len({self.sentence_pool().size()} | {pos.sentence_pool().size()
+                                                for pos in positions}) != 1:
+            raise ValueError("Union of positions is restricted to positions with "
+                             "matching sentence pools.")
+
+        position_list = list(positions)
+        ba = self.as_bitarray().copy()
+        # create union with bitwise OR: |
+        for pos in position_list:
+                ba |= pos.as_bitarray()
 
         return BitarrayPosition(ba)
 
-    @staticmethod
-    def intersection(positions: Set[Position]) -> Position:
-
-        # quick fix for empty set of positions
-        if not positions:
-            return BitarrayPosition(bitarray('0'))
-
-        elif len(positions) == 1:
-            return BitarrayPosition(next(iter(positions)).as_bitarray())
+    # operator version of union
+    def __or__(self, other):
+        if isinstance(other, Position):
+            return self.union(other)
         else:
-            position_list = [BitarrayPosition(pos.as_bitarray()) for pos in positions]
-            ba = position_list.pop().as_bitarray().copy()
-            # create intersection with bitwise AND: &
-            for pos in position_list:
-                try:
-                    ba &= pos.as_bitarray()
-                except ValueError:
-                    logger.error("Intersection: bitwise comparison of " + str(ba) + " and "
-                                  + str(pos.as_bitarray()) + " failed due to different sizes.")
+            raise TypeError(f"{other} must be a theodias.Position.")
 
-                    # reraise error to interrupt program
-                    raise
+    def difference(self, other: Position) -> Position:
+        if self.sentence_pool().size() != other.sentence_pool().size():
+            raise ValueError("Difference of positions is restricted to positions "
+                             "with matching sentence pools.")
+
+        return BitarrayPosition.from_set(self.as_set().difference(other.as_set()),
+                                         other.sentence_pool().size())
+
+    # operator version of difference
+    def __sub__(self, other):
+        if isinstance(other, Position):
+            return self.difference(other)
+        else:
+            raise TypeError(f"{other} must be a theodias.Position.")
+
+    def intersection(self, *positions: Position) -> Position:
+
+        if not positions:
+            return BitarrayPosition.from_set(set(), self.sentence_pool().size())
+
+        if len({self.sentence_pool().size()} | {pos.sentence_pool().size()
+                                                for pos in positions}) != 1:
+            raise ValueError("Intersection of positions is restricted to positions "
+                             "with matching sentence pools.")
+
+        position_list = [BitarrayPosition(pos.as_bitarray()) for pos in positions]
+        ba = self.as_bitarray().copy()
+
+        # create intersection with bitwise AND: &
+        for pos in position_list:
+            ba &= pos.as_bitarray()
 
         return BitarrayPosition(ba)
+
+    # operator version of intersection
+    def __and__(self, other):
+        if isinstance(other, Position):
+            return self.intersection(other)
+        else:
+            raise TypeError(f"{other} must be a theodias.Position.")
 
     def difference(self, other: Position) -> Position:
         return BitarrayPosition(self.as_set().difference(other.as_set()),
@@ -352,6 +370,11 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
             # update the dialectical structure
             self.__update()
 
+    def __raise_value_error_if_sentence_pool_mismatch(self, position: Position):
+        if position and self.sentence_pool() != position.sentence_pool():
+            raise ValueError("The function you called expects positions to be based on the same sentence pool as",
+                             " the dialectical structure.")
+
     @staticmethod
     def from_arguments(arguments: List[List[int]], n_unnegated_sentence_pool: int,
                        name: str = None) -> DialecticalStructure:
@@ -413,6 +436,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
     # Sentence-pool, domain and completeness
 
     def is_complete(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         return self.__sp == position.domain()
 
     def sentence_pool(self) -> Position:
@@ -429,15 +453,14 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
             raise
 
     def is_consistent(self, position: Position) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self.__update()
-
-        # position is converted to a BitarrayPosition to ensure compatibility with other implementations
 
         return self.to_bitarray_position(position) in self.__complete_consistent_extensions.keys()
 
     def are_compatible(self, position1: Position, position2: Position, ) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         self.__update()
 
         # if necessary, convert to BitarrayPosition
@@ -491,15 +514,22 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         self.__min_cons_pos = min_consistent_positions
         return iter(min_consistent_positions)
 
-    def consistent_positions(self) -> Iterator[Position]:
-        # check update status of dialectical structure
+    def complete_minimally_consistent_positions(self) -> Iterator[Position]:
+        for pos in self.minimally_consistent_positions():
+            if self.is_complete(pos):
+                yield pos
+
+    def consistent_positions(self, position: Position = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self.__update()
+        if not position:
+            position = BitarrayPosition.from_set(set(), self.sentence_pool().size())
 
-        # note that the complete_parent_graph and direct_parent_graph have the
-        # same keys
-        return iter(self.__complete_consistent_extensions.keys())
+        for pos in self.__complete_consistent_extensions.keys():
+            if position.is_subposition(pos):
+                yield pos
 
-    def consistent_complete_positions(self) -> Iterator[Position]:
+    def consistent_complete_positions(self, position: Position = None) -> Iterator[Position]:
         # self.__update()
         if not self.__cons_comp_pos:
             all_complete_positions = [BitarrayPosition(bitarray(''.join(e)))
@@ -510,20 +540,20 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
                     [pos for pos in all_complete_positions
                      if all(self._satisfies(arg, pos) for arg in self.__arguments_cnf)])
 
-            return iter(self.__cons_comp_pos)
+        if not position:
+            position = BitarrayPosition.from_set(set(), self.sentence_pool().size())
 
-        else:
-            # check update status of dialectical structure
-            # self.check_update()
-
-            return iter(self.__cons_comp_pos)
+        for pos in self.__cons_comp_pos:
+            if position.is_subposition(pos):
+                yield pos
 
     '''
     Dialectic entailment and dialectic closure of consistent positions
     '''
 
     def entails(self, position1: Position, position2: Position) -> bool:
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
         self.__update()
 
         # if necessary, convert to BitarrayPosition
@@ -549,16 +579,19 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         return pos1_extensions.issubset(pos2_extensions)
 
     def closure(self, position: Position) -> Position:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         if self.is_consistent(position):
-            if position.size() == 0:
-                return BitarrayPosition.intersection(self.__cons_comp_pos)
-            else:
+            #if position.size() == 0:
+            #
+            #    return BitarrayPosition.intersection(self.__cons_comp_pos)
+            #else:
                 return self.__closures[self.to_bitarray_position(position)]
         # ex falso quodlibet
         else:
             return self.__sp
 
     def is_closed(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         # check update status of dialectical structure
         self.__update()
 
@@ -569,6 +602,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         return iter([pos for pos in self.consistent_positions() if self.is_closed(pos)])
 
     def axioms(self, position: Position, source: Iterator[Position] = None) -> Iterator[Position]:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         if not self.is_consistent(position):
             logger.error(position)
             logger.error(self.__complete_consistent_extensions)
@@ -594,6 +628,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         return iter(res)
 
     def is_minimal(self, position: Position) -> bool:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         for pos in position.subpositions():
             if pos != position and self.entails(pos, position):
                 return False
@@ -612,10 +647,10 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
         """Returns complete extensions of position by retrieving corresponding
          node in the graph that stores complete extensions."""
 
-        # check update status of dialectical structure
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self.__update()
 
-        if not position.is_minimally_consistent():
+        if (not position.is_minimally_consistent()) or (not self.is_consistent(position)):
             return set()
         # complete positions have no parents but extend themselves
         elif len(self.__complete_consistent_extensions[self.to_bitarray_position(position)]) == 0:
@@ -625,6 +660,7 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
     # sigma
     def n_complete_extensions(self, position: Position = None) -> int:
+        self.__raise_value_error_if_sentence_pool_mismatch(position)
         self.__update()
         if not position or position.size() == 0:
             return len(self.__cons_comp_pos)
@@ -633,6 +669,8 @@ class DAGBitarrayDialecticalStructure(DialecticalStructure):
 
     # conditional doj
     def degree_of_justification(self, position1: Position, position2: Position) -> float:
+        self.__raise_value_error_if_sentence_pool_mismatch(position1)
+        self.__raise_value_error_if_sentence_pool_mismatch(position2)
 
         return len(self.complete_extensions(position1).intersection(
             self.complete_extensions(position2)))/self.n_complete_extensions(position2)
