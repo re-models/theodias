@@ -133,7 +133,7 @@ class Position(ABC):
         :math:`s_i \\in \\mathcal{A}` is represented by :math:`1*10^{i-1}`,
         :math:`\\neg s_i \\in \\mathcal{A}` by :math:`2*10^{i-1}`,
         :math:`s_i, \\neg s_i \\notin \\mathcal{A}` by zero and :math:`s_i, \\neg s_i \\notin \\mathcal{A}`
-        by 4. For instance, the position
+        by 3. For instance, the position
         :math:`\\{ s_1, s_3, \\neg s_4 \\}` is represented by the integer 2101.
 
 

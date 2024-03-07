@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Theodias &#8212; Theodias Docs  documentation</title>
+    <title>Theodias &#8212; Theodias  documentation</title>
   
   
   
@@ -43,7 +43,7 @@
     <script src="_static/custom-icon.js?v=40bda21d"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tau Tutorials" href="tutorials/tau-tutorials.html" />
+    <link rel="next" title="Theodias Tutorials" href="tutorials/theodias-tutorials.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -116,7 +116,7 @@
   
   
   
-    <p class="title logo__title">Theodias Docs  documentation</p>
+    <p class="title logo__title">Theodias  documentation</p>
   
 </a></div>
     
@@ -131,7 +131,7 @@
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -256,7 +256,7 @@ document.write(`
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -347,21 +347,20 @@ document.write(`
   <section id="theodias">
 <span id="tau-docs-label"></span><h1>Theodias<a class="headerlink" href="#theodias" title="Link to this heading">#</a></h1>
 <p>A Python package for dialectical structures.</p>
-<p>The <cite>tau</cite> package provides different classes and methods to apply the theory of
+<p>The <cite>theodias</cite> package provides different classes and methods to apply the theory of
 dialectical structures (as introduced in <a class="reference internal" href="#betz2010" id="id1"><span>[Betz2010]</span></a> and <a class="reference internal" href="#betz2013" id="id2"><span>[Betz2013]</span></a>).</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
-<section id="using-pip">
-<h3>Using <code class="code docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#using-pip" title="Link to this heading">#</a></h3>
-<p>… to come …</p>
-</section>
-<section id="from-the-source-code">
-<h3>From the source code<a class="headerlink" href="#from-the-source-code" title="Link to this heading">#</a></h3>
+<p>With <code class="code docutils literal notranslate"><span class="pre">pip</span></code> (👉 <a href="https://pypi.org/project/theodias/" target="_blank">https://pypi.org/project/theodias/</a>)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>theodias
+</pre></div>
+</div>
+<p>From the source code:</p>
 <p>You can install the package locally, by</p>
 <ul class="simple">
 <li><p>first git-cloning the repository:</p>
 <ul>
-<li><p><code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:debatelab/tau.git</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:re-models/theodias.git</span></code></p></li>
 </ul>
 </li>
 <li><p>and then installing the package by running ‘<code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>’ from the local directory of
@@ -373,26 +372,25 @@ change the source code.)</p></li>
 <p class="admonition-title">Note</p>
 <p>The package requires a python version &gt;= 3.8 and depends on the
 packages <a class="reference external" href="https://pypi.org/project/bitarray/">bitarray</a>, <a class="reference external" href="https://numba.pydata.org/">numba</a> and <a class="reference external" href="https://github.com/pysathq/pysat">PySat</a>
-(which will be installed when installing <em>remodel</em> by using pip).</p>
+(which will be installed by pip automatically).</p>
 </div>
-</section>
 </section>
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
 <p>A Jupyter notebook provides step-by-step instructions of using
-the <code class="code docutils literal notranslate"><span class="pre">tau</span></code> package. Further details can be found in the <a class="reference internal" href="api-docs/api.html#tau-api-docs-label"><span class="std std-ref">API documentation</span></a>.</p>
+the <code class="code docutils literal notranslate"><span class="pre">theodias</span></code> package. Further details can be found in the <a class="reference internal" href="api-docs/api.html#tau-api-docs-label"><span class="std std-ref">API documentation</span></a>.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
 <section id="logging">
 <h2>Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h2>
-<p>code:<cite>tau</cite> uses a logger named ‘tau’ but does not add any logging handlers. Accordingly, logs will be printed to
-code:<cite>sys.stderr</cite> if the application using <code class="code docutils literal notranslate"><span class="pre">tau</span></code> does not specify any other logging configuration
+<p><code class="code docutils literal notranslate"><span class="pre">theodias</span></code> uses a logger named ‘tau’ but does not add any logging handlers. Accordingly, logs will be printed to
+<code class="code docutils literal notranslate"><span class="pre">sys.stderr</span></code> if the application using <code class="code docutils literal notranslate"><span class="pre">theodias</span></code> does not specify any other logging configuration
 (see <a class="reference external" href="https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library">https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library</a>).</p>
 </section>
 <section id="licence">
 <h2>Licence<a class="headerlink" href="#licence" title="Link to this heading">#</a></h2>
-<p><strong>ToDo</strong></p>
+<p><a href="https://github.com/re-models/theodias?tab=MIT-1-ov-file#readme" target="_blank">MIT Licence</a></p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
@@ -431,11 +429,7 @@ code:<cite>sys.stderr</cite> if the application using <code class="code docutils
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pip">Using <code class="code docutils literal notranslate"><span class="pre">pip</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-source-code">From the source code</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">Logging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licence">Licence</a></li>
@@ -477,7 +471,7 @@ code:<cite>sys.stderr</cite> if the application using <code class="code docutils
 
   <p class="copyright">
     
-      © Copyright 2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
+      © Copyright 2024, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
       <br/>
     
   </p>

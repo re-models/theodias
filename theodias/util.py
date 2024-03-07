@@ -151,8 +151,8 @@ def write_as_tex(arguments: List[List[int]], directory: str, file_name: str, ) -
     it as .tex-file.
 
     :param arguments: a list of integer list representing arguments of the dialectical
-    structure. Each integer list represents an argument where the last element is
-    assumed to be the conclusion of the preceding premises.
+        structure. Each integer list represents an argument where the last element is
+        assumed to be the conclusion of the preceding premises.
     :param directory: the full path to where the .tex-file should be saved
     :param file_name: the name of the .tex-file
 
@@ -201,8 +201,8 @@ def write_as_dot(arguments, directory: str, file_name: str, equal_rank_for_princ
     it as .dot-file.
 
     :param arguments: a list of integer list representing arguments of the dialectical
-    structure. Each integer list represents an argument where the last element is
-    assumed to be the conclusion of the preceding premises.
+        structure. Each integer list represents an argument where the last element is
+        assumed to be the conclusion of the preceding premises.
     :param directory: the full path to where the .dot-file should be saved
     :param file_name: the name of the .dot-file
     :param equal_rank_for_principles: if :code:`True`, an equal rank is assigned to the principles
@@ -592,7 +592,7 @@ class TauJSONEncoder(JSONEncoder):
         :class:`DialecticalStructure` instances.
         """
         if isinstance(o, Position):
-            json_dict = {'n_unnegated_sentence_pool': o.sentence_pool(), 'position': list(o.as_set())}
+            json_dict = {'n_unnegated_sentence_pool': o.sentence_pool().size(), 'position': list(o.as_set())}
             if self.serialize_implementation:
                 json_dict['module_name'] = o.__module__
                 json_dict['class_name'] = type(o).__name__
@@ -623,8 +623,8 @@ class TauJSONEncoder(JSONEncoder):
 def tau_decoder(json_obj,
                 use_json_specified_type=False,
                 position_module='theodias',
-                position_class='StandardPosition.',
-                dialectical_structure_module='theodias.core',
+                position_class='StandardPosition',
+                dialectical_structure_module='theodias',
                 dialectical_structure_class='BDDDialecticalStructure'):
     """
     Object hook for :py:func:`json.loads` and :py:func:`json.load`.
@@ -700,9 +700,9 @@ def tau_dump(re_object,
 
 def tau_loads(json_obj,
               use_json_specified_type=False,
-              position_module='theodias.core',
+              position_module='theodias',
               position_class='StandardPosition',
-              dialectical_structure_module='theodias.core',
+              dialectical_structure_module='theodias',
               dialectical_structure_class='BDDDialecticalStructure'):
     """
     Load an object from a JSON string.

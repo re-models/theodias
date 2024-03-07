@@ -19,8 +19,8 @@ print('Using the python:', sys.executable)
 print ('Using path:', sys.path)
 # -- Project information -----------------------------------------------------
 
-project = 'Theodias Docs'
-copyright = '2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse'
+project = 'Theodias'
+copyright = '2024, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse'
 author = 'Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse'
 
 
@@ -80,7 +80,6 @@ html_theme_options = {
             "name": "PyPI",
             "url": "https://pypi.org/project/theodias/",
             "icon": "fa-custom fa-pypi",
-            #"icon": "fa-brands fa-github",
         },
     ],
 }
@@ -92,8 +91,4 @@ html_static_path = ["_static"]
 #html_css_files = ["custom.css"]
 html_js_files = ["custom-icon.js"]
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
 

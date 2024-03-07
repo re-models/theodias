@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Utility Methods &#8212; Theodias Docs  documentation</title>
+    <title>Utility Methods &#8212; Theodias  documentation</title>
   
   
   
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">Theodias Docs  documentation</p>
+    <p class="title logo__title">Theodias  documentation</p>
   
 </a></div>
     
@@ -133,7 +133,7 @@
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="../tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -256,7 +256,7 @@ document.write(`
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="../tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -455,33 +455,51 @@ version of the object or raise a <code class="docutils literal notranslate"><spa
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.arg_to_cnf">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">arg_to_cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.arg_to_cnf" title="Link to this definition">#</a></dt>
-<dd><p>Converts list representation of an argument to a cnf-position-like list
-of negated premises + non-negated conclusion</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">arg_to_cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.arg_to_cnf" title="Link to this definition">#</a></dt>
+<dd><p>Convert a list representation of an argument to a cnf-position-like list
+of negated premises and a non-negated conclusion.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>arg</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>argument</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – An integer list representing an argument where the last element is</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>List</em>[int]</p>
 </dd>
 </dl>
+<p>assumed to be the conclusion of the preceding premises.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the converted integer list with negated premises and a</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>argument</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – </p>
+</dd>
+</dl>
+<p>non-negated conclusion.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="theodias.util.args2cnf">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">args2cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentence_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.args2cnf" title="Link to this definition">#</a></dt>
-<dd><p>Converting argument list to <code class="code docutils literal notranslate"><span class="pre">pysat.formula.CNF</span></code></p>
-<p>This method converts a list of arguments into a conjunctive normal form.
-Sentences <span class="math notranslate nohighlight">\(p\)</span> that are not used in arguments will be added in a tautological manner (i.e.,
+<dt class="sig sig-object py" id="theodias.util.args_to_cnf">
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">args_to_cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentence_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.args_to_cnf" title="Link to this definition">#</a></dt>
+<dd><p>Convert arguments to conjunctive normal form of <code class="code docutils literal notranslate"><span class="pre">pysat.formula.CNF</span></code></p>
+<p>Sentences <span class="math notranslate nohighlight">\(p\)</span> that are not used in arguments will be added in a tautological manner (i.e.,
 <span class="math notranslate nohighlight">\(p\vee\neg p\)</span>)
 to the CNF formula.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNF</span></code></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>arguments</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
-<li><p><strong>n_sentence_pool</strong> (<em>int</em>) – </p></li>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>) – </p></li>
+<li><p><strong>n_sentence_pool</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of different sentence (without counting their negations)</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNF</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a CNF formula</p>
 </dd>
 </dl>
 </dd></dl>
@@ -489,21 +507,28 @@ to the CNF formula.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.create_random_argument_list">
 <span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">create_random_argument_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_arguments_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.create_random_argument_list" title="Link to this definition">#</a></dt>
-<dd><p>A random list of arguments.</p>
-<p>A convenience function that uses <a class="reference internal" href="#theodias.util.create_random_arguments" title="theodias.util.create_random_arguments"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_random_arguments()</span></code></a> to create a random list of arguments.
-Instead of specifying a fixed number of desired arguments the number of arguments will be a random
-number between <cite>n_arguments_min</cite> and ` n_arguments_max`.</p>
+<dd><p>Create a list of random arguments.</p>
+<p>A convenience function that uses <a class="reference internal" href="#theodias.util.create_random_arguments" title="theodias.util.create_random_arguments"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_random_arguments()</span></code></a> to create
+a random list of arguments. Instead of specifying a fixed number of desired
+arguments, the number of arguments randomly falls between <code class="code docutils literal notranslate"><span class="pre">n_arguments_min</span></code>
+and <code class="code docutils literal notranslate"><span class="pre">n_arguments_max</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>n_arguments_min</strong> (<em>int</em>) – </p></li>
-<li><p><strong>n_arguments_max</strong> (<em>int</em>) – </p></li>
-<li><p><strong>n_sentences</strong> (<em>int</em>) – </p></li>
-<li><p><strong>n_premises_max</strong> (<em>int</em>) – </p></li>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_arguments_min</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the minimal number of arguments</p></li>
+<li><p><strong>n_arguments_max</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the maximal number of arguments</p></li>
+<li><p><strong>n_sentences</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of sentences (without counting their negations)</p></li>
+<li><p><strong>n_premises_max</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the maximal number of premises per argument</p></li>
+<li><p><strong>n_premises_weights</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – If <code class="code docutils literal notranslate"><span class="pre">None</span></code> (default), the distribution of randomly
+choosing the number of premises in an argument is uniform. Otherwise the given
+weights will be used to choose a number of premises between 1 and <code class="code docutils literal notranslate"><span class="pre">n_max_premises</span></code>.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of argument as integer lists.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -511,36 +536,38 @@ number between <cite>n_arguments_min</cite> and ` n_arguments_max`.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.create_random_arguments">
 <span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">create_random_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_max_premises</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_all_sentences</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_loops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.create_random_arguments" title="Link to this definition">#</a></dt>
-<dd><p>Returns a list of arguments represented as integer lists.</p>
+<dd><p>Return a list of randomly generated arguments represented as integer lists.</p>
 <p>The dialectical structure given by the returned arguments is satisfiable
 (i.e. there is at least one complete and dialectically consistent position).
 Furthermore, the arguments avoid begging the question, repeating premises,
 flat contradictions among premises and with the conclusion, and using the same
 premises for different conclusions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>n_sentences</strong> (<em>int</em>) – Number of non-negated sentences of the sentence pool.
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_sentences</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Number of non-negated sentences of the sentence pool.
 Every sentence (or its negation) occurs at least once in an argument.</p></li>
-<li><p><strong>n_arguments</strong> (<em>int</em>) – Number of generated arguments.</p></li>
-<li><p><strong>n_max_premises</strong> (<em>int</em>) – Maximal number of premises per argument.</p></li>
-<li><p><strong>n_principles</strong> (<em>int</em>) – The number of principles, i.e. sentences that may occur in arguments as premises only.</p></li>
-<li><p><strong>variation</strong> (<em>bool</em>) – If true (default), the number of premises per argument is chosen randomly.
-Otherwise it is constantly n_max_premises.</p></li>
-<li><p><strong>n_premises_weights</strong> (<em>list</em><em> of </em><em>floats</em>) – If <code class="code docutils literal notranslate"><span class="pre">None</span></code> (default) the distribution of randomly choosing the number of
-premises in an argument is uniform. Otherwise the given weights will be used to choose a number of premises
-between 1 and <code class="code docutils literal notranslate"><span class="pre">n_max_premises</span></code>.</p></li>
-<li><p><strong>connected</strong> (<em>bool</em>) – If true (default), the arguments are related
-(either by attack or support) to at least one other argument in the structure.</p></li>
-<li><p><strong>use_all_sentences</strong> (<em>bool</em>) – If true, the algorithm returns only dialectical structures that include each sentence
-,or its negation respectively, in the arguments. If the algorithm is not able to generate such a structure
-in the limits given by <code class="code docutils literal notranslate"><span class="pre">max_loops</span></code>, a RuntimeWarning is thrown.</p></li>
-<li><p><strong>max_loops</strong> (<em>int</em>) – Breaks possibly endless loops. Number of arguments that tested
-whether they fit into the dialectical structure. If the algorithm takes longer a RuntimeWarning is thrown.</p></li>
+<li><p><strong>n_arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Number of generated arguments.</p></li>
+<li><p><strong>n_max_premises</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Maximal number of premises per argument.</p></li>
+<li><p><strong>n_principles</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The number of principles, i.e. sentences that may occur
+in arguments as premises only.</p></li>
+<li><p><strong>variation</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <code class="code docutils literal notranslate"><span class="pre">True</span></code> (default), the number of premises per argument
+is chosen randomly. Otherwise it is constantly n_max_premises.</p></li>
+<li><p><strong>n_premises_weights</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>) – If <code class="code docutils literal notranslate"><span class="pre">None</span></code> (default), the distribution of randomly
+choosing the number of premises in an argument is uniform. Otherwise the given
+weights will be used to choose a number of premises between 1 and <code class="code docutils literal notranslate"><span class="pre">n_max_premises</span></code>.</p></li>
+<li><p><strong>connected:</strong> – If true (default), the arguments are related (either by attack
+or support) to at least one other argument in the structure.</p></li>
+<li><p><strong>use_all_sentences</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – If <code class="code docutils literal notranslate"><span class="pre">True</span></code>, the algorithm returns only dialectical
+structures that include each sentence, or its negation respectively, in the arguments.</p></li>
+<li><p><strong>max_loops</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Breaks possibly endless loops. Number of arguments that tested
+whether they fit into the dialectical structure. If the algorithm takes longer
+a <code class="code docutils literal notranslate"><span class="pre">RuntimeWarning</span></code> is raised.</p></li>
+<li><p><strong>connected</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A list of argument as integer lists.</p>
@@ -552,53 +579,121 @@ whether they fit into the dialectical structure. If the algorithm takes longer a
 <dt class="sig sig-object py" id="theodias.util.get_principles">
 <span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">get_principles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.get_principles" title="Link to this definition">#</a></dt>
 <dd><p>”
-Returns a list of tuples of the form <code class="code docutils literal notranslate"><span class="pre">(principle,</span> <span class="pre">multiplicity)</span></code> with <code class="code docutils literal notranslate"><span class="pre">multiplicity</span></code>
-indicating the multiplicity of the principle.
-A sentence counts as a principle iff it occurs in at least one argument as premise and it or its negation
-does not occur as a conclusion in an argument. The multiplicity counts in how many argument the sentence occurs
-as premise.</p>
+Get the principles and their multiplicity for a list of arguments.</p>
+<p>A sentence counts as a principle if and only if it occurs in at least one argument
+as premise and it or its negation does not occur as a conclusion in an argument.
+The multiplicity is the count of arguments in which the sentence occurs as premise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>) – a list of integer list representing arguments. Each integer</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>List</em>[<em>Tuple</em>[int, int]]</p>
+</dd>
+</dl>
+<p>list represents an argument where the last element is assumed to be the
+conclusion of the preceding premises.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of tuples of the form <code class="code docutils literal notranslate"><span class="pre">(principle,</span> <span class="pre">multiplicity)</span></code> with</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p>
+</dd>
+</dl>
+<p><code class="code docutils literal notranslate"><span class="pre">multiplicity</span></code> indicating the multiplicity of the principle.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.inferential_density">
 <span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">inferential_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dialectical_structure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.inferential_density" title="Link to this definition">#</a></dt>
-<dd><p>Inferential density of a dialectical structure :math:` au`.</p>
-<p>As defined by Betz (2013, Debate Dynamics, p. 44): <span class="math notranslate nohighlight">\(D(\tau) = \frac{n-log_{2}(\sigma)}{n}\)</span>,
+<dd><p>Return the inferential density of a dialectical structure <span class="math notranslate nohighlight">\(\tau\)</span> as
+defined by Betz (2013, Debate Dynamics, p. 44): <span class="math notranslate nohighlight">\(D(\tau) = \frac{n-log_{2}(\sigma)}{n}\)</span>,
 where <span class="math notranslate nohighlight">\(\sigma(\tau)\)</span> is the number of complete and dialectically consistent positions
 of :math:`  au`.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dialectical_structure</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure" title="theodias.base.DialecticalStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code></a></span>) – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a value between 0 and 1 if the dialectical structure has complete</p>
+</dd>
+</dl>
+<p>and consistent extensions. Otherwise, a <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> is raised.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.is_satisfiable">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">is_satisfiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.is_satisfiable" title="Link to this definition">#</a></dt>
-<dd><p>Fast method of checking for satisfiability (using xxx).</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">is_satisfiable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.is_satisfiable" title="Link to this definition">#</a></dt>
+<dd><p>Check whether some arguments and principles are satisfiable when taken together.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>) – A list of integer lists. Each integer list represents an argument where</p></li>
+<li><p><strong>principles</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+<p>the last element is assumed to be the conclusion of the preceding premises.
+:type principles: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>
+:param principles: An optional list of integers representing principles as
+additional constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code docutils literal notranslate"><span class="pre">True</span></code> if the arguments and the principles are satisfiable.</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
 <li><p><strong>principles</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="theodias.util.load_dialectical_structure">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">load_dialectical_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DIR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.load_dialectical_structure" title="Link to this definition">#</a></dt>
-<dd><p>ToDo: doc</p>
+<p>Otherwise, :code:<a href="#id1"><span class="problematic" id="id2">`</span></a>False`is returned.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.number_of_complete_consistent_positions">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">number_of_complete_consistent_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_unnegated_sentence_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.number_of_complete_consistent_positions" title="Link to this definition">#</a></dt>
-<dd><p>Fast method to calculate the number of complete consistent positions.</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">number_of_complete_consistent_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_unnegated_sentence_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.number_of_complete_consistent_positions" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the number of complete and consistent positions in a dialectical structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>) – a list of integer list representing arguments of the dialectical</p></li>
+<li><p><strong>n_unnegated_sentence_pool</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p>structure. Each integer list represents an argument where the last element is
+assumed to be the conclusion of the preceding premises.
+:type n_unnegated_sentence_pool: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>
+:param n_unnegated_sentence_pool: the number of different sentences in the
+dialectical structure (without counting their negations).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>args</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the number of complete and consistent positions</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – </p></li>
 <li><p><strong>n_unnegated_sentence_pool</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
@@ -607,16 +702,32 @@ of :math:`  au`.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.random_dialectical_structures">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">random_dialectical_structures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_dialectical_structure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rethon.model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DAGDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.random_dialectical_structures" title="Link to this definition">#</a></dt>
-<dd><p>A random list of dialectical structures.</p>
-<p>A convenience function that uses <a class="reference internal" href="#theodias.util.create_random_argument_list" title="theodias.util.create_random_argument_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_random_argument_list()</span></code></a> to create an instance of
-<code class="xref py py-class docutils literal notranslate"><span class="pre">basics.DialecticalStructure</span></code>.</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">random_dialectical_structures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_dialectical_structures</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arguments_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_premises_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'theodias.core'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DAGDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.random_dialectical_structures" title="Link to this definition">#</a></dt>
+<dd><p>Create a list of randomly generated dialectical structures.</p>
+<p>A convenience function that uses <a class="reference internal" href="#theodias.util.create_random_argument_list" title="theodias.util.create_random_argument_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_random_argument_list()</span></code></a> to
+create instances of <code class="xref py py-class docutils literal notranslate"><span class="pre">base.DialecticalStructure</span></code>. The implementing
+class can be specified via the method’s arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure" title="theodias.base.DialecticalStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code></a>]</span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_dialectical_structures</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The number of dialectical structures to be generated</p></li>
+<li><p><strong>n_arguments_min</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the minimal number of arguments per dialectical structure</p></li>
+<li><p><strong>n_arguments_max</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the maximal number of arguments per dialectical structure</p></li>
+<li><p><strong>n_sentences</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the number of  the number of sentences (without counting their negations)</p></li>
+<li><p><strong>n_premises_max</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – the maximal number of premises per argument</p></li>
+<li><p><strong>module_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the name of the module from which the class of the dialectical
+structure will be imported (default: <cite>rethon.model</cite>)</p></li>
+<li><p><strong>class_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – <p>the name of the dialectical structure class (default: <cite>DAGDialecticalStructure</cite>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An iterator over random dialectical structures.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A random dialectical structure. The implementing class can be specified via the method’s arguments.</p>
+</dl>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.DialecticalStructure" title="theodias.base.DialecticalStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -644,21 +755,20 @@ of :math:`  au`.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.random_positions">
 <span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">random_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.random_positions" title="Link to this definition">#</a></dt>
-<dd><p>Generation of random positions.</p>
-<p>Generates random minimally consistent positions in their set-representation.</p>
+<dd><p>Randomly generate minimally consistent positions in their set-representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n_sentences</strong> (<em>int</em>) – Size of the sentence-pool (without negations).</p></li>
 <li><p><strong>k</strong> (<em>int</em>) – Sample size.</p></li>
-<li><p><strong>allow_empty_position</strong> (<em>bool</em>) – Iff <code class="code docutils literal notranslate"><span class="pre">True</span></code> an empty position might be returned.</p></li>
+<li><p><strong>allow_empty_position</strong> (<em>bool</em>) – If and only if <code class="code docutils literal notranslate"><span class="pre">True</span></code>, an empty position might be returned.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of random positions is integer sets.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Set[int]]</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of random positions as integer sets.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – if k exceeds the number of minimally consistent positions given
@@ -668,14 +778,8 @@ of :math:`  au`.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="theodias.util.save_dialectical_structure">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">save_dialectical_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DIR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.save_dialectical_structure" title="Link to this definition">#</a></dt>
-<dd><p>ToDo: doc</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.tau_decoder">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BitarrayPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BitarrayDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_decoder" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'theodias'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'StandardPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'theodias'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BDDDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_decoder" title="Link to this definition">#</a></dt>
 <dd><p>Object hook for <code class="xref py py-func docutils literal notranslate"><span class="pre">json.loads()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">json.load()</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -693,7 +797,7 @@ the method uses implementation details as specified the other given parameters.<
 <p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dump()</span></code> with <a class="reference internal" href="#theodias.util.TauJSONEncoder" title="theodias.util.TauJSONEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TauJSONEncoder</span></code></a> as
 its default encoder, which will handle the JSON serialization of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and
 <code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> instances.</p>
-<p><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs will be given to <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></p>
+<p><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs will be given to <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>serialize_implementation</strong> – If <code class="code docutils literal notranslate"><span class="pre">True</span></code> implementation details (modulename and classname) will
@@ -708,11 +812,11 @@ be serialized.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.tau_dumps">
 <span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_dumps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">re_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls=&lt;class</span> <span class="pre">'theodias.util.TauJSONEncoder'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize_implementation=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_dumps" title="Link to this definition">#</a></dt>
-<dd><p>Getting an object as JSON-String.</p>
+<dd><p>Get an object as JSON-String.</p>
 <p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code> with <a class="reference internal" href="#theodias.util.TauJSONEncoder" title="theodias.util.TauJSONEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TauJSONEncoder</span></code></a> as
 its default encoder, which will handle the JSON serialization of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and
 <code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code>.</p>
-<p><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs will be given to <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></p>
+<p><a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs will be given to <code class="xref py py-func docutils literal notranslate"><span class="pre">json.dumps()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>serialize_implementation</strong> – If <code class="code docutils literal notranslate"><span class="pre">True</span></code> implementation details (modulename and classname) will
@@ -726,22 +830,22 @@ be serialized.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.tau_load">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NumpyPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BDDNumpyDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_load" title="Link to this definition">#</a></dt>
-<dd><p>Loading an object from a JSON file.</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'theodias.core'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'StandardPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'theodias.core'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BDDDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_load" title="Link to this definition">#</a></dt>
+<dd><p>Load an object from a JSON file.</p>
 <p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.load()</span></code> and uses <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a> as object hook
 to handle the instantiation of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> objects. Desired
 implementation details can be given by parameter values (see <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Per default positions will be instantiated as <code class="xref py py-class docutils literal notranslate"><span class="pre">NumpyPosition</span></code> and dialectical structures
-as <code class="xref py py-class docutils literal notranslate"><span class="pre">BDDNumpyDialecticalStructure</span></code> (to avoid long instantiation times).</p>
+<p>Per default, positions will be instantiated as <code class="xref py py-class docutils literal notranslate"><span class="pre">StandardPosition</span></code> and dialectical structures
+as <code class="xref py py-class docutils literal notranslate"><span class="pre">BDDDialecticalStructure</span></code> (to avoid long instantiation times).</p>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.tau_loads">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NumpyPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BDDNumpyDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_loads" title="Link to this definition">#</a></dt>
-<dd><p>Loading an object from a JSON string.</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">tau_loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_json_specified_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'theodias'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'StandardPosition'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'theodias'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dialectical_structure_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BDDDialecticalStructure'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.tau_loads" title="Link to this definition">#</a></dt>
+<dd><p>Load an object from a JSON string.</p>
 <p>This is a convenient method that calls <code class="xref py py-func docutils literal notranslate"><span class="pre">json.loads()</span></code> and uses <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a> as object hook
 to handle the instantiation of <code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> objects. Desired
 implementation details can be given by parameter values (see <a class="reference internal" href="#theodias.util.tau_decoder" title="theodias.util.tau_decoder"><code class="xref py py-func docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a>).</p>
@@ -754,14 +858,48 @@ as <code class="xref py py-class docutils literal notranslate"><span class="pre"
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.write_as_dot">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">write_as_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equal_rank_for_principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.write_as_dot" title="Link to this definition">#</a></dt>
-<dd><p>ToDo: doc</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">write_as_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equal_rank_for_principles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.write_as_dot" title="Link to this definition">#</a></dt>
+<dd><p>Create a graphical representation of a dialectical structure and save
+it as .dot-file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> – a list of integer list representing arguments of the dialectical
+structure. Each integer list represents an argument where the last element is
+assumed to be the conclusion of the preceding premises.</p></li>
+<li><p><strong>directory</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the full path to where the .dot-file should be saved</p></li>
+<li><p><strong>file_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the name of the .dot-file</p></li>
+<li><p><strong>equal_rank_for_principles</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – if <code class="code docutils literal notranslate"><span class="pre">True</span></code>, an equal rank is assigned to the principles</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="theodias.util.write_as_tex">
-<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">write_as_tex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.write_as_tex" title="Link to this definition">#</a></dt>
-<dd><p>ToDo: doca</p>
+<span class="sig-prename descclassname"><span class="pre">theodias.util.</span></span><span class="sig-name descname"><span class="pre">write_as_tex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.util.write_as_tex" title="Link to this definition">#</a></dt>
+<dd><p>Create a simple graphical representation of a dialectical structure and save
+it as .tex-file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>) – a list of integer list representing arguments of the dialectical
+structure. Each integer list represents an argument where the last element is
+assumed to be the conclusion of the preceding premises.</p></li>
+<li><p><strong>directory</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the full path to where the .tex-file should be saved</p></li>
+<li><p><strong>file_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the name of the .tex-file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -794,18 +932,16 @@ as <code class="xref py py-class docutils literal notranslate"><span class="pre"
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.arg_to_cnf"><code class="docutils literal notranslate"><span class="pre">arg_to_cnf()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.args2cnf"><code class="docutils literal notranslate"><span class="pre">args2cnf()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.args_to_cnf"><code class="docutils literal notranslate"><span class="pre">args_to_cnf()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.create_random_argument_list"><code class="docutils literal notranslate"><span class="pre">create_random_argument_list()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.create_random_arguments"><code class="docutils literal notranslate"><span class="pre">create_random_arguments()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.get_principles"><code class="docutils literal notranslate"><span class="pre">get_principles()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.inferential_density"><code class="docutils literal notranslate"><span class="pre">inferential_density()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.is_satisfiable"><code class="docutils literal notranslate"><span class="pre">is_satisfiable()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.load_dialectical_structure"><code class="docutils literal notranslate"><span class="pre">load_dialectical_structure()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.number_of_complete_consistent_positions"><code class="docutils literal notranslate"><span class="pre">number_of_complete_consistent_positions()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.random_dialectical_structures"><code class="docutils literal notranslate"><span class="pre">random_dialectical_structures()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.random_position_as_set"><code class="docutils literal notranslate"><span class="pre">random_position_as_set()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.random_positions"><code class="docutils literal notranslate"><span class="pre">random_positions()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.save_dialectical_structure"><code class="docutils literal notranslate"><span class="pre">save_dialectical_structure()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_decoder"><code class="docutils literal notranslate"><span class="pre">tau_decoder()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_dump"><code class="docutils literal notranslate"><span class="pre">tau_dump()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.util.tau_dumps"><code class="docutils literal notranslate"><span class="pre">tau_dumps()</span></code></a></li>
@@ -850,7 +986,7 @@ as <code class="xref py py-class docutils literal notranslate"><span class="pre"
 
   <p class="copyright">
     
-      © Copyright 2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
+      © Copyright 2024, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
       <br/>
     
   </p>

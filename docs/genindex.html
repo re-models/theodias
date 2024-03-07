@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; Theodias Docs  documentation</title>
+    <title>Index &#8212; Theodias  documentation</title>
   
   
   
@@ -114,7 +114,7 @@
   
   
   
-    <p class="title logo__title">Theodias Docs  documentation</p>
+    <p class="title logo__title">Theodias  documentation</p>
   
 </a></div>
     
@@ -129,7 +129,7 @@
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -250,7 +250,7 @@ document.write(`
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -351,7 +351,6 @@ document.write(`
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
@@ -423,19 +422,9 @@ document.write(`
         <li><a href="api-docs/api-abstract.html#theodias.DialecticalStructure.are_compatible">(theodias.DialecticalStructure method)</a>
 </li>
       </ul></li>
-      <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.are_minimally_compatible">are_minimally_compatible() (theodias.BitarrayPosition method)</a>
-
-      <ul>
-        <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.are_minimally_compatible">(theodias.NumpyPosition method)</a>
-</li>
-        <li><a href="api-docs/api-abstract.html#theodias.Position.are_minimally_compatible">(theodias.Position method)</a>
-</li>
-        <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.are_minimally_compatible">(theodias.SetBasedPosition method)</a>
-</li>
-      </ul></li>
       <li><a href="api-docs/api-util.html#theodias.util.arg_to_cnf">arg_to_cnf() (in module theodias.util)</a>
 </li>
-      <li><a href="api-docs/api-util.html#theodias.util.args2cnf">args2cnf() (in module theodias.util)</a>
+      <li><a href="api-docs/api-util.html#theodias.util.args_to_cnf">args_to_cnf() (in module theodias.util)</a>
 </li>
       <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.as_bitarray">as_bitarray() (theodias.BitarrayPosition method)</a>
 
@@ -537,12 +526,20 @@ document.write(`
       </ul></li>
       <li><a href="api-docs/api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.complete_extensions">complete_extensions() (theodias.DAGBitarrayDialecticalStructure method)</a>
 </li>
-      <li><a href="api-docs/api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.complete_minimally_consistent_positions">complete_minimally_consistent_positions() (theodias.DAGSetBasedDialecticalStructure method)</a>
+      <li><a href="api-docs/api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.complete_minimally_consistent_positions">complete_minimally_consistent_positions() (theodias.BDDNumpyDialecticalStructure method)</a>
+
+      <ul>
+        <li><a href="api-docs/api-bitarray-implementation.html#theodias.DAGBitarrayDialecticalStructure.complete_minimally_consistent_positions">(theodias.DAGBitarrayDialecticalStructure method)</a>
 </li>
-      <li><a href="api-docs/api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.compute_complete_consistent_positions">compute_complete_consistent_positions() (theodias.DAGSetBasedDialecticalStructure method)</a>
+        <li><a href="api-docs/api-numpy-implementation.html#theodias.DAGNumpyDialecticalStructure.complete_minimally_consistent_positions">(theodias.DAGNumpyDialecticalStructure method)</a>
 </li>
+        <li><a href="api-docs/api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.complete_minimally_consistent_positions">(theodias.DAGSetBasedDialecticalStructure method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-docs/api-setbased-implementation.html#theodias.DAGSetBasedDialecticalStructure.compute_complete_consistent_positions">compute_complete_consistent_positions() (theodias.DAGSetBasedDialecticalStructure method)</a>
+</li>
       <li><a href="api-docs/api-numpy-implementation.html#theodias.BDDNumpyDialecticalStructure.consistent_complete_positions">consistent_complete_positions() (theodias.BDDNumpyDialecticalStructure method)</a>
 
       <ul>
@@ -601,8 +598,16 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-docs/api-abstract.html#theodias.DialecticalStructure">DialecticalStructure (class in theodias)</a>
 </li>
-      <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.difference">difference() (theodias.SetBasedPosition method)</a>
+      <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.difference">difference() (theodias.BitarrayPosition method)</a>
+
+      <ul>
+        <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.difference">(theodias.NumpyPosition method)</a>
 </li>
+        <li><a href="api-docs/api-abstract.html#theodias.Position.difference">(theodias.Position method)</a>
+</li>
+        <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.difference">(theodias.SetBasedPosition method)</a>
+</li>
+      </ul></li>
       <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.direct_subpositions">direct_subpositions() (theodias.NumpyPosition method)</a>
 </li>
       <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.domain">domain() (theodias.BitarrayPosition method)</a>
@@ -703,14 +708,14 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-docs/api-util.html#theodias.util.inferential_density">inferential_density() (in module theodias.util)</a>
 </li>
-      <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.intersection">intersection() (theodias.BitarrayPosition static method)</a>
+      <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.intersection">intersection() (theodias.BitarrayPosition method)</a>
 
       <ul>
-        <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.intersection">(theodias.NumpyPosition static method)</a>
+        <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.intersection">(theodias.NumpyPosition method)</a>
 </li>
-        <li><a href="api-docs/api-abstract.html#theodias.Position.intersection">(theodias.Position static method)</a>
+        <li><a href="api-docs/api-abstract.html#theodias.Position.intersection">(theodias.Position method)</a>
 </li>
-        <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.intersection">(theodias.SetBasedPosition static method)</a>
+        <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.intersection">(theodias.SetBasedPosition method)</a>
 </li>
       </ul></li>
       <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.is_accepting">is_accepting() (theodias.BitarrayPosition method)</a>
@@ -777,6 +782,16 @@ document.write(`
         <li><a href="api-docs/api-abstract.html#theodias.DialecticalStructure.is_minimal">(theodias.DialecticalStructure method)</a>
 </li>
       </ul></li>
+      <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.is_minimally_compatible">is_minimally_compatible() (theodias.BitarrayPosition method)</a>
+
+      <ul>
+        <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.is_minimally_compatible">(theodias.NumpyPosition method)</a>
+</li>
+        <li><a href="api-docs/api-abstract.html#theodias.Position.is_minimally_compatible">(theodias.Position method)</a>
+</li>
+        <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.is_minimally_compatible">(theodias.SetBasedPosition method)</a>
+</li>
+      </ul></li>
       <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.is_minimally_consistent">is_minimally_consistent() (theodias.BitarrayPosition method)</a>
 
       <ul>
@@ -799,14 +814,6 @@ document.write(`
         <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.is_subposition">(theodias.SetBasedPosition method)</a>
 </li>
       </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-docs/api-util.html#theodias.util.load_dialectical_structure">load_dialectical_structure() (in module theodias.util)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -876,8 +883,6 @@ document.write(`
         <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.neighbours">(theodias.SetBasedPosition method)</a>
 </li>
       </ul></li>
-      <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.np_neighbours">np_neighbours() (theodias.NumpyPosition static method)</a>
-</li>
       <li><a href="api-docs/api-util.html#theodias.util.number_of_complete_consistent_positions">number_of_complete_consistent_positions() (in module theodias.util)</a>
 </li>
       <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition">NumpyPosition (class in theodias)</a>
@@ -910,8 +915,6 @@ document.write(`
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-docs/api-util.html#theodias.util.save_dialectical_structure">save_dialectical_structure() (in module theodias.util)</a>
-</li>
       <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.sentence_pool">sentence_pool() (theodias.BitarrayPosition method)</a>
 
       <ul>
@@ -1003,14 +1006,14 @@ document.write(`
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.union">union() (theodias.BitarrayPosition static method)</a>
+      <li><a href="api-docs/api-bitarray-implementation.html#theodias.BitarrayPosition.union">union() (theodias.BitarrayPosition method)</a>
 
       <ul>
-        <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.union">(theodias.NumpyPosition static method)</a>
+        <li><a href="api-docs/api-numpy-implementation.html#theodias.NumpyPosition.union">(theodias.NumpyPosition method)</a>
 </li>
-        <li><a href="api-docs/api-abstract.html#theodias.Position.union">(theodias.Position static method)</a>
+        <li><a href="api-docs/api-abstract.html#theodias.Position.union">(theodias.Position method)</a>
 </li>
-        <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.union">(theodias.SetBasedPosition static method)</a>
+        <li><a href="api-docs/api-setbased-implementation.html#theodias.SetBasedPosition.union">(theodias.SetBasedPosition method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1065,7 +1068,7 @@ document.write(`
 
   <p class="copyright">
     
-      © Copyright 2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
+      © Copyright 2024, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
       <br/>
     
   </p>

@@ -12,7 +12,7 @@ SetBasedPosition
    :show-inheritance:
 
 DAGSetBasedDialecticalStructure
-----------------------------
+-------------------------------
 
 .. autoclass:: DAGSetBasedDialecticalStructure
    :members:
