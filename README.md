@@ -5,7 +5,7 @@ is based on the **THEO**ry of **DIA**lectical **S**tructures (Betz 2010).
 
 The package contains classes that provide basic functionalities for using dialectical structures as they are described in Betz (2010) and Betz (2013).
 
-Further information can be found under [https://github.com/re-models/theodias](https://github.com/re-models/theodias).
+Further information can be found under [https://re-models.github.io/theodias/](https://re-models.github.io/theodias/).
 
 ## Literature
 
