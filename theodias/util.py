@@ -63,7 +63,6 @@ def inferential_density(dialectical_structure: DialecticalStructure) -> float:
             math.log2(n_complete_extensions)) / dialectical_structure.sentence_pool().size()
 
 
-# todo: unit test
 def get_principles(arguments: List[List[int]]) -> List[Tuple[int, int]]:
     """"
     Get the principles and their multiplicity for a list of arguments.
