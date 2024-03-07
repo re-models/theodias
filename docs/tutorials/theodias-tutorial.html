@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction of using the tau package &#8212; Theodias Docs  documentation</title>
+    <title>Introduction of using the theodias package &#8212; Theodias  documentation</title>
   
   
   
@@ -42,12 +42,10 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/tau-tutorial';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/theodias-tutorial';</script>
     <script src="../_static/custom-icon.js?v=40bda21d"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Visualising Dialectical Structures" href="visualisation.html" />
-    <link rel="prev" title="Tau Tutorials" href="tau-tutorials.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -120,7 +118,7 @@
   
   
   
-    <p class="title logo__title">Theodias Docs  documentation</p>
+    <p class="title logo__title">Theodias  documentation</p>
   
 </a></div>
     
@@ -134,8 +132,8 @@
 <nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="tau-tutorials.html">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -244,7 +242,9 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -257,8 +257,8 @@ document.write(`
 <nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="tau-tutorials.html">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -323,19 +323,6 @@ document.write(`
     
   </div>
   
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tau Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualisation.html">Visualisation</a></li>
-</ul>
-</div>
-</nav></div>
-    </div>
-  
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
@@ -368,9 +355,6 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    
-    <li class="breadcrumb-item"><a href="tau-tutorials.html" class="nav-link">Tau Tutorials</a></li>
-    
     <li class="breadcrumb-item active" aria-current="page">Introduction...</li>
   </ul>
 </nav>
@@ -388,32 +372,67 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="Introduction-of-using-the-tau-package">
-<h1>Introduction of using the <code class="docutils literal notranslate"><span class="pre">tau</span></code> package<a class="headerlink" href="#Introduction-of-using-the-tau-package" title="Link to this heading">#</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">tau</span></code> package provides different classes and methods to apply the theory of dialectical structures (as introduced in <a class="reference external" href="https://doi.org/10.5771/9783465136293">Betz (2010)</a> and <a class="reference external" href="https://www.springer.com/de/book/9789400745988">Betz (2013)</a>).</p>
+  <section id="Introduction-of-using-the-theodias-package">
+<h1>Introduction of using the <code class="docutils literal notranslate"><span class="pre">theodias</span></code> package<a class="headerlink" href="#Introduction-of-using-the-theodias-package" title="Link to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">theodias</span></code> package provides different classes and methods to apply the theory of dialectical structures (as introduced in <a class="reference external" href="https://doi.org/10.5771/9783465136293">Betz (2010)</a> and <a class="reference external" href="https://www.springer.com/de/book/9789400745988">Betz (2013)</a>).</p>
 <p>The provided functionalities are described by two abstract classes. Implementations of <code class="docutils literal notranslate"><span class="pre">DialecticalStructure</span></code> can be used to create, manipulate and calculate properties of dialectical structures. Implementations of <code class="docutils literal notranslate"><span class="pre">Position</span></code> represent positions on a sentence pool.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">tau</span></code> package includes different implementations of these abstract classes, which differ w.r.t. their runtime performance:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">theodias</span></code> package includes different implementations of these abstract classes, which differ w.r.t. their runtime performance:</p>
 <ul class="simple">
 <li><p><em>DAG (directed acyclic graphs) based dialectical structures:</em> All important properties of the stucture are calculated and stored during instantiation. This implementation is fast for small sentence pools (<span class="math notranslate nohighlight">\(n&lt;15\)</span>).</p>
 <ul>
 <li><p>We recommend to use the following standard implementation: <code class="docutils literal notranslate"><span class="pre">DAGDialecticalStructure</span></code>.</p></li>
 </ul>
 </li>
-<li><p><em>BDD (binary decision diagramm) based dialectical structures:</em> Important properties of the structure are calculated by using binary decision trees. This representation is comparably fast for most properties of the graph even if the sentence pool is larger (<span class="math notranslate nohighlight">\(n&gt;10\)</span>). However, for larger sentence pools it will become more difficult to calculate all dialectically consistent positions, axiomatic bases (without a confining source) and minimal positions. (see the API-DOCs for further details
-(LINK NEEDED).</p>
+<li><p><em>BDD (binary decision diagramm) based dialectical structures:</em> Important properties of the structure are calculated by using binary decision trees. This representation is comparably fast for most properties of the graph even if the sentence pool is larger (<span class="math notranslate nohighlight">\(n&gt;10\)</span>). However, for larger sentence pools it will become more difficult to calculate all dialectically consistent positions, axiomatic bases (without a confining source) and minimal positions.</p>
 <ul>
 <li><p>We recommend to use the following standard implementation: <code class="docutils literal notranslate"><span class="pre">BDDDialecticalStructure</span></code>.</p></li>
 </ul>
 </li>
 </ul>
-<p><em>Source:</em> You can download this notebook from <a class="reference external" href="https://github.com/debatelab/re-docs/blob/master/source/tau-docs/tutorials/tau-tutorial.ipynb">here</a>.</p>
+<section id="How-to-run-this-notebook">
+<h2>How to run this notebook<a class="headerlink" href="#How-to-run-this-notebook" title="Link to this heading">#</a></h2>
+<p>There are several possibilities to execute this notebook. You can, for instance,</p>
+<ol class="arabic simple">
+<li><p>execute this notebook on Colab: <a class="reference external" href="https://colab.research.google.com/github/re-models/theodias/blob/master/docs-source/tutorials/theodias-tutorial.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>, or</p></li>
+<li><p>execute this notebook locally in, for instance, <a class="reference external" href="https://jupyter.org/">JupyterLab</a>. You can download this notebook from <a class="reference external" href="https://github.com/re-models/theodias/blob/master/docs-source/tutorials/theodias-tutorial.ipynb">here</a>.</p></li>
+</ol>
+</section>
+<section id="Installing-libraries">
+<h2>Installing libraries<a class="headerlink" href="#Installing-libraries" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install theodias
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Are we on Colab?</span>
+<span class="n">on_colab</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Are we on Colab? </span><span class="si">{</span><span class="s1">&#39;Yes&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">on_colab</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;No&#39;</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Are we on Colab? No!
+</pre></div></div>
+</div>
+</section>
 <section id="Instantiation-of-dialectical-structures-and-positions">
 <h2>Instantiation of dialectical structures and positions<a class="headerlink" href="#Instantiation-of-dialectical-structures-and-positions" title="Link to this heading">#</a></h2>
 <p>A dialectical structure is a tupel <span class="math notranslate nohighlight">\(\left&lt;S,A\right&gt;\)</span> of a sentence pool <span class="math notranslate nohighlight">\(S = \{ s_1, s_2, \dots, s_n, \neg s_1, \neg s_2, \dots, \neg s_n \}\)</span> and a set <span class="math notranslate nohighlight">\(A\)</span> of arguments.</p>
 <p>An argument <span class="math notranslate nohighlight">\(a=(P_a, c_a)\)</span> is defined as a pair consisting of premises <span class="math notranslate nohighlight">\(P_a \subset S\)</span> and a conclusion <span class="math notranslate nohighlight">\(c_a \in S\)</span>.</p>
 <p>A dialectical structure is instantiated by specifying the size <span class="math notranslate nohighlight">\(n\)</span> of the sentence pool and a list of arguments, in which sententences are represented numerals. The minus sign is used to indicate the negation of a sentence. For instance, the list <code class="docutils literal notranslate"><span class="pre">[1,3,-4]</span></code> represents an argument with the premsises <span class="math notranslate nohighlight">\(P_a=\{s_1,s_3\}\)</span> and the conclusion <span class="math notranslate nohighlight">\(\neg s_4\)</span>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">theodias</span> <span class="kn">import</span> <span class="n">DAGDialecticalStructure</span>
@@ -429,7 +448,7 @@ document.write(`
 </div>
 <p>A position is a binary belief state that is represented by a subset <span class="math notranslate nohighlight">\(\mathcal{A}\subset S\)</span> over the sentence pool <span class="math notranslate nohighlight">\(S\)</span>. The internal representation depends on the implementation. However, independent of their implementation, positions can be instantiated by specifying the set of sentences the agent believes:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">theodias</span> <span class="kn">import</span> <span class="n">StandardPosition</span>
@@ -442,9 +461,9 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">tau</span></code> package provides several methods to manipulate dialectical structures and to determine properties of positions with regard to a given dialectical structure. For instance:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">theodias</span></code> package provides several methods to manipulate dialectical structures and to determine properties of positions with regard to a given dialectical structure. For instance:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># implications of a believed sentences w.r.t. the</span>
@@ -478,7 +497,7 @@ Are {3, 4, 5} and {2, -4} consistent with each other? False
 <h3>Important notes<a class="headerlink" href="#Important-notes" title="Link to this heading">#</a></h3>
 <p>You can operate with position in the usual set-theoretic fashion:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos1</span> <span class="o">=</span> <span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">},</span> <span class="n">n</span><span class="p">)</span>
@@ -497,21 +516,14 @@ Are {3, 4, 5} and {2, -4} consistent with each other? False
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-Cell <span class="ansi-green-fg">In[13], line 4</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> pos2 <span style="color: rgb(98,98,98)">=</span> StandardPosition<span style="color: rgb(98,98,98)">.</span>from_set({<span style="color: rgb(98,98,98)">4</span>, <span style="color: rgb(98,98,98)">5</span>, <span style="color: rgb(98,98,98)">6</span>}, n)
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span style="color: rgb(95,135,135)"># set-theoretic union</span>
-<span class="ansi-green-fg">----&gt; 4</span> <span style="color: rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">pos1</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">|</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">pos2</span>)
-<span class="ansi-green-intense-fg ansi-bold">      5</span> <span style="color: rgb(95,135,135)"># set-theoretic intersection</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> <span style="color: rgb(0,135,0)">print</span>(pos1 <span style="color: rgb(98,98,98)">&amp;</span> pos2)
-
-<span class="ansi-red-fg">TypeError</span>: unsupported operand type(s) for |: &#39;NumpyPosition&#39; and &#39;NumpyPosition&#39;
+{3, 4, 5, 6}
+{4, 5}
+{3}
 </pre></div></div>
 </div>
 <p>Positions are <strong>immutable</strong>—that is, you cannot change them once instantiated. If you want to change, for instance, the underlying sentence pool, you can reinstantiate the position:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instantiating {3, 4, 5} with a sentence pool of size 5</span>
@@ -523,7 +535,7 @@ Cell <span class="ansi-green-fg">In[13], line 4</span>
 </div>
 <p>Since positions are immutable, you can use them as keys in, e.g., dictionaries and form sets of positions.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">set_of_positions</span> <span class="o">=</span> <span class="p">{</span><span class="n">pos_n5</span><span class="p">,</span> <span class="n">pos_n6</span><span class="p">}</span>
@@ -532,7 +544,7 @@ Cell <span class="ansi-green-fg">In[13], line 4</span>
 </div>
 <p><strong>Identity criteria:</strong> A position is determined by its sentences and the corresponding sentence pool. Consequently, whether two numerically distinct positions are considered the same (as in :code:<code class="docutils literal notranslate"><span class="pre">pos1</span> <span class="pre">==</span> <span class="pre">pos2</span></code>) does not depend on the implementation.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">theodias</span> <span class="kn">import</span> <span class="n">SetBasedPosition</span><span class="p">,</span> <span class="n">BitarrayPosition</span><span class="p">,</span> <span class="n">NumpyPosition</span>
@@ -559,8 +571,8 @@ True
 </pre></div></div>
 </div>
 <p>A position is <strong>bound to a specific sentence pool</strong>. If you pass positions to functions that have non-matching sentence pools, the function will raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># size of the sentencepool</span>
@@ -571,34 +583,25 @@ True
 <span class="n">tau</span> <span class="o">=</span> <span class="n">DAGDialecticalStructure</span><span class="o">.</span><span class="n">from_arguments</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">tau</span><span class="o">.</span><span class="n">is_complete</span><span class="p">(</span><span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)))</span>
-<span class="c1"># calling a function with the &quot;same&quot; position based on another sentence pool:</span>
+<span class="c1"># calling a function with the &quot;same&quot; position based on another sentence pool: Raises a ValueError</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tau</span><span class="o">.</span><span class="n">is_complete</span><span class="p">(</span><span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">)))</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-False
-False
-</pre></div></div>
 </div>
 </section>
 </section>
 <section id="Export-to-JSON">
 <h2>Export to JSON<a class="headerlink" href="#Export-to-JSON" title="Link to this heading">#</a></h2>
-<section id="Serializing-tau-objects">
-<h3>Serializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects<a class="headerlink" href="#Serializing-tau-objects" title="Link to this heading">#</a></h3>
-<p>You can serialize <code class="docutils literal notranslate"><span class="pre">tau</span></code> positions and dialectical structures and any compounds thereof, as long as the <code class="docutils literal notranslate"><span class="pre">json</span></code> python module can handle them (e.g., lists, dictionaries).</p>
+<section id="Serializing-theodias-objects">
+<h3>Serializing <code class="docutils literal notranslate"><span class="pre">theodias</span></code> objects<a class="headerlink" href="#Serializing-theodias-objects" title="Link to this heading">#</a></h3>
+<p>You can serialize <code class="docutils literal notranslate"><span class="pre">theodias</span></code> positions and dialectical structures and any compounds thereof, as long as the <code class="docutils literal notranslate"><span class="pre">json</span></code> python module can handle them (e.g., lists, dictionaries).</p>
 <p>For instance, the following code will serialize a position:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">StandardPosition</span>
-<span class="kn">from</span> <span class="nn">tau.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span><span class="p">,</span> <span class="n">tau_dump</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">theodias</span> <span class="kn">import</span> <span class="n">StandardPosition</span>
+<span class="kn">from</span> <span class="nn">theodias.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span><span class="p">,</span> <span class="n">tau_dump</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">path</span>
 
 <span class="c1"># serializing a position as JSON String</span>
@@ -613,9 +616,11 @@ False
 <span class="nb">print</span><span class="p">(</span><span class="n">tau_dumps</span><span class="p">(</span><span class="n">pos_list</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 
 <span class="c1"># serializing a list of position into a file</span>
-<span class="n">output_file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span><span class="s1">&#39;positions.json&#39;</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">output_file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
-    <span class="n">tau_dump</span><span class="p">(</span><span class="n">pos_list</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># only if we are not on colab</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">on_colab</span><span class="p">:</span>
+    <span class="n">output_file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span><span class="s1">&#39;positions.json&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">output_file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
+        <span class="n">tau_dump</span><span class="p">(</span><span class="n">pos_list</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -655,11 +660,11 @@ False
 </div>
 <p>If important, you can save the implementation details (module and class name), which can be considered later to deserialize the objects:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">SetBasedPosition</span>
-<span class="kn">from</span> <span class="nn">tau.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">theodias</span> <span class="kn">import</span> <span class="n">SetBasedPosition</span>
+<span class="kn">from</span> <span class="nn">theodias.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span>
 
 <span class="c1"># serializing a position as JSON String</span>
 <span class="n">pos_json_str</span> <span class="o">=</span> <span class="n">tau_dumps</span><span class="p">(</span><span class="n">StandardPosition</span><span class="o">.</span><span class="n">from_set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span><span class="mi">4</span><span class="p">),</span>
@@ -680,21 +685,21 @@ False
         1,
         2
     ],
-    &#34;module_name&#34;: &#34;tau.bitarray_implementation&#34;,
-    &#34;class_name&#34;: &#34;BitarrayPosition&#34;
+    &#34;module_name&#34;: &#34;theodias.numpy_implementation&#34;,
+    &#34;class_name&#34;: &#34;NumpyPosition&#34;
 }
 </pre></div></div>
 </div>
 </section>
-<section id="Deserializing-tau-objects">
-<h3>Deserializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects<a class="headerlink" href="#Deserializing-tau-objects" title="Link to this heading">#</a></h3>
+<section id="Deserializing-theodias-objects">
+<h3>Deserializing <code class="docutils literal notranslate"><span class="pre">theodias</span></code> objects<a class="headerlink" href="#Deserializing-theodias-objects" title="Link to this heading">#</a></h3>
 <p>The deserialization of objects is similarly simple. The implementation details can either be taken from the json file or can be explicitly given via parameters.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tau</span> <span class="kn">import</span> <span class="n">SetBasedPosition</span><span class="p">,</span> <span class="n">BitarrayPosition</span>
-<span class="kn">from</span> <span class="nn">tau.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span><span class="p">,</span> <span class="n">tau_loads</span><span class="p">,</span> <span class="n">tau_load</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">theodias</span> <span class="kn">import</span> <span class="n">SetBasedPosition</span><span class="p">,</span> <span class="n">BitarrayPosition</span>
+<span class="kn">from</span> <span class="nn">theodias.util</span> <span class="kn">import</span> <span class="n">tau_dumps</span><span class="p">,</span> <span class="n">tau_loads</span><span class="p">,</span> <span class="n">tau_load</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">path</span>
 
 <span class="c1"># serializing a position as JSON String</span>
@@ -707,15 +712,16 @@ False
 
 <span class="c1"># deserializing it and using another implementation</span>
 <span class="n">position</span> <span class="o">=</span> <span class="n">tau_loads</span><span class="p">(</span><span class="n">pos_json_str</span><span class="p">,</span>
-                     <span class="n">position_module</span> <span class="o">=</span> <span class="s1">&#39;tau&#39;</span><span class="p">,</span>
+                     <span class="n">position_module</span> <span class="o">=</span> <span class="s1">&#39;theodias&#39;</span><span class="p">,</span>
                      <span class="n">position_class</span> <span class="o">=</span> <span class="s1">&#39;BitarrayPosition&#39;</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2"> of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># deserializing tau objects from a file</span>
-<span class="n">input_file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span><span class="s1">&#39;positions.json&#39;</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">input_file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_file</span><span class="p">:</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">tau_load</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="c1"># deserializing tau objects from a file (only if we are not on colab)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">on_colab</span><span class="p">:</span>
+    <span class="n">input_file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span><span class="s1">&#39;positions.json&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">input_file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_file</span><span class="p">:</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">tau_load</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -724,8 +730,8 @@ False
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{1, 2} of type &lt;class &#39;tau.set_implementation.SetBasedPosition&#39;&gt;
-{1, 2} of type &lt;class &#39;tau.bitarray_implementation.BitarrayPosition&#39;&gt;
+{1, 2} of type &lt;class &#39;theodias.set_implementation.SetBasedPosition&#39;&gt;
+{1, 2} of type &lt;class &#39;theodias.bitarray_implementation.BitarrayPosition&#39;&gt;
 [{1, 2}, {1, 3}, set()]
 </pre></div></div>
 </div>
@@ -755,13 +761,15 @@ False
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#How-to-run-this-notebook">How to run this notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Installing-libraries">Installing libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Instantiation-of-dialectical-structures-and-positions">Instantiation of dialectical structures and positions</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Important-notes">Important notes</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Export-to-JSON">Export to JSON</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Serializing-tau-objects">Serializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Deserializing-tau-objects">Deserializing <code class="docutils literal notranslate"><span class="pre">tau</span></code> objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Serializing-theodias-objects">Serializing <code class="docutils literal notranslate"><span class="pre">theodias</span></code> objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Deserializing-theodias-objects">Deserializing <code class="docutils literal notranslate"><span class="pre">theodias</span></code> objects</a></li>
 </ul>
 </li>
 </ul>
@@ -770,7 +778,7 @@ False
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/tau-tutorial.ipynb.txt">
+    <a href="../_sources/tutorials/theodias-tutorial.ipynb.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

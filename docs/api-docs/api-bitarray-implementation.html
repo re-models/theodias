@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Bitarray Implementation &#8212; Theodias Docs  documentation</title>
+    <title>Bitarray Implementation &#8212; Theodias  documentation</title>
   
   
   
@@ -119,7 +119,7 @@
   
   
   
-    <p class="title logo__title">Theodias Docs  documentation</p>
+    <p class="title logo__title">Theodias  documentation</p>
   
 </a></div>
     
@@ -134,7 +134,7 @@
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="../tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -257,7 +257,7 @@ document.write(`
   <ul class="bd-navbar-elements navbar-nav">
     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../tutorials/tau-tutorials.html">
+                      <a class="nav-link nav-internal" href="../tutorials/theodias-tutorials.html">
                         Tutorials
                       </a>
                     </li>
@@ -402,20 +402,20 @@ document.write(`
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.are_minimally_compatible" title="theodias.BitarrayPosition.are_minimally_compatible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">are_minimally_compatible</span></code></a>(position)</p></td>
-<td><p>Checks for minimal compatibility with <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_bitarray" title="theodias.BitarrayPosition.as_bitarray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_bitarray</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_bitarray" title="theodias.BitarrayPosition.as_bitarray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_bitarray</span></code></a>()</p></td>
 <td><p>Position as <a class="reference internal" href="#theodias.BitarrayPosition" title="theodias.BitarrayPosition"><code class="xref py py-class docutils literal notranslate"><span class="pre">BitarrayPosition</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_list" title="theodias.BitarrayPosition.as_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_list</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_list" title="theodias.BitarrayPosition.as_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_list</span></code></a>()</p></td>
 <td><p>Position as integer list.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_set" title="theodias.BitarrayPosition.as_set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_set</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_set" title="theodias.BitarrayPosition.as_set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_set</span></code></a>()</p></td>
 <td><p>Position as integer set.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_ternary" title="theodias.BitarrayPosition.as_ternary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_ternary</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.as_ternary" title="theodias.BitarrayPosition.as_ternary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_ternary</span></code></a>()</p></td>
 <td><p>Position as ternary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.difference" title="theodias.BitarrayPosition.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference</span></code></a>(other)</p></td>
+<td><p>The set theoretic difference of two positions.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.domain" title="theodias.BitarrayPosition.domain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">domain</span></code></a>()</p></td>
 <td><p>Determines the domain of the position.</p></td>
@@ -423,8 +423,8 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.from_set" title="theodias.BitarrayPosition.from_set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_set</span></code></a>(position, n_unnegated_sentence_pool)</p></td>
 <td><p>Instanciating a <a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a> from a set.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.intersection" title="theodias.BitarrayPosition.intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersection</span></code></a>(positions)</p></td>
-<td><p>Intersect postions set-theoretically.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.intersection" title="theodias.BitarrayPosition.intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersection</span></code></a>(*positions)</p></td>
+<td><p>The set theoretic intersection of positions.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.is_accepting" title="theodias.BitarrayPosition.is_accepting"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_accepting</span></code></a>(sentence)</p></td>
 <td><p>Checks whether <code class="code docutils literal notranslate"><span class="pre">sentence</span></code> is in the position.</p></td>
@@ -432,34 +432,37 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.is_in_domain" title="theodias.BitarrayPosition.is_in_domain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_in_domain</span></code></a>(sentence)</p></td>
 <td><p>Checks whether <code class="code docutils literal notranslate"><span class="pre">sentence</span></code> is in the domain of the position.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.is_minimally_consistent" title="theodias.BitarrayPosition.is_minimally_consistent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_minimally_consistent</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.is_minimally_compatible" title="theodias.BitarrayPosition.is_minimally_compatible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_minimally_compatible</span></code></a>(position)</p></td>
+<td><p>Checks for minimal compatibility with <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.is_minimally_consistent" title="theodias.BitarrayPosition.is_minimally_consistent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_minimally_consistent</span></code></a>()</p></td>
 <td><p>Checks for minimal consistency.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.is_subposition" title="theodias.BitarrayPosition.is_subposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_subposition</span></code></a>(pos2)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.is_subposition" title="theodias.BitarrayPosition.is_subposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_subposition</span></code></a>(pos2)</p></td>
 <td><p>Checks for set-theoretic inclusion.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.neighbours" title="theodias.BitarrayPosition.neighbours"><code class="xref py py-obj docutils literal notranslate"><span class="pre">neighbours</span></code></a>(depth)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.neighbours" title="theodias.BitarrayPosition.neighbours"><code class="xref py py-obj docutils literal notranslate"><span class="pre">neighbours</span></code></a>(depth)</p></td>
 <td><p>Neighbours of the position.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.sentence_pool" title="theodias.BitarrayPosition.sentence_pool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sentence_pool</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.sentence_pool" title="theodias.BitarrayPosition.sentence_pool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sentence_pool</span></code></a>()</p></td>
 <td><p>Returns the sentences (without negations) of a position's sentence pool.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.size" title="theodias.BitarrayPosition.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.size" title="theodias.BitarrayPosition.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a>()</p></td>
 <td><p>size of the position</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.subpositions" title="theodias.BitarrayPosition.subpositions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subpositions</span></code></a>([n, only_consistent_subpositions])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.subpositions" title="theodias.BitarrayPosition.subpositions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subpositions</span></code></a>([n, only_consistent_subpositions])</p></td>
 <td><p>Returns an iterator over subpositions of size n, with n being an optional argument (defaulting to -1, returning all subpositions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.union" title="theodias.BitarrayPosition.union"><code class="xref py py-obj docutils literal notranslate"><span class="pre">union</span></code></a>(positions)</p></td>
-<td><p>set-theoretic union</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.BitarrayPosition.union" title="theodias.BitarrayPosition.union"><code class="xref py py-obj docutils literal notranslate"><span class="pre">union</span></code></a>(*positions)</p></td>
+<td><p>The set theoretic union of positions.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="theodias.BitarrayPosition.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_unnegated_sentence_pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.__init__" title="Link to this definition">#</a></dt>
-<dd><p>Instantiates a <a class="reference internal" href="api-numpy-implementation.html#theodias.NumpyPosition" title="theodias.NumpyPosition"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumpyPosition</span></code></a> from a numpy array.</p>
-<p>A pair of bits, which can take the values <code class="code docutils literal notranslate"><span class="pre">True/1</span></code> or         <code class="code docutils literal notranslate"><span class="pre">False/0</span></code>,  represents a sentence in a position.         The first bit represents acceptance and the second bit rejection.         Suspension of a sentence corresponds to both bits being <code class="code docutils literal notranslate"><span class="pre">False/0</span></code>,         (minimal or flat) contradiction obtains when both bits are         <code class="code docutils literal notranslate"><span class="pre">False/0</span></code>.</p>
+<dd><p>Instantiates a <a class="reference internal" href="#theodias.BitarrayPosition" title="theodias.BitarrayPosition"><code class="xref py py-class docutils literal notranslate"><span class="pre">BitarrayPosition</span></code></a> from a bitarray or a set of ints.</p>
+<p>A pair of bits, which can take the values <code class="code docutils literal notranslate"><span class="pre">True/1</span></code> or         <code class="code docutils literal notranslate"><span class="pre">False/0</span></code>,  represents a sentence in a position.         The first bit represents acceptance and the second bit rejection.         Suspension of a sentence corresponds to both bits being <code class="code docutils literal notranslate"><span class="pre">False/0</span></code>,         (minimal or flat) contradiction obtains when both bits are         <code class="code docutils literal notranslate"><span class="pre">True/1</span></code>.</p>
 <p>A position is represented by an array of bits. The status of sentence         <span class="math notranslate nohighlight">\(s_{i}\)</span> (<span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>) corresponds to the bits at indices         <span class="math notranslate nohighlight">\(2 \cdot (i - 1)\)</span> and <span class="math notranslate nohighlight">\(2 \cdot (i - 1) + 1\)</span></p>
 <p>For example, for a sentence pool of 7 unnegated sentences,         <span class="math notranslate nohighlight">\(\mathcal{A} = \lbrace s_{1}, \neg s_{2}, s_{6} \rbrace\)</span>         correponds to <code class="code docutils literal notranslate"><span class="pre">bitarray('10010000001000')</span></code>, which can be handed         over to <a class="reference internal" href="#theodias.BitarrayPosition" title="theodias.BitarrayPosition"><code class="xref py py-class docutils literal notranslate"><span class="pre">BitarrayPosition</span></code></a>.</p>
 <div class="admonition note">
@@ -476,25 +479,6 @@ or <code class="code docutils literal notranslate"><span class="pre">BitarrayPos
 <li><p><strong>ba</strong> (<em>bitarray</em><em> | </em><em>Set</em><em>[</em><em>int</em><em>]</em>) – </p></li>
 <li><p><strong>n_unnegated_sentence_pool</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="theodias.BitarrayPosition.are_minimally_compatible">
-<span class="sig-name descname"><span class="pre">are_minimally_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.are_minimally_compatible" title="Link to this definition">#</a></dt>
-<dd><p>Checks for minimal compatibility with <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p>
-<p>Two positions <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{A}'\)</span> are minimally compatible iff
-<span class="math notranslate nohighlight">\(\mathcal{A} \cup \mathcal{A}'\)</span> is minimally consistent.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="code docutils literal notranslate"><span class="pre">True</span></code> iff the position-instance is compatible with <code class="code docutils literal notranslate"><span class="pre">position</span></code></p>
-</dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>position</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -527,7 +511,7 @@ the position <span class="math notranslate nohighlight">\(\{ s_1, s_3, \neg s_4 
 For instance, the position <span class="math notranslate nohighlight">\(\{ s_1, s_3, \neg s_4 \}\)</span> is represented by <code class="code docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">3,</span> <span class="pre">-4]</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The returned order integer values is not specified.</p>
+<p>The returned order of the values is not specified.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -560,21 +544,39 @@ For instance, the position <span class="math notranslate nohighlight">\(\{ s_1, 
 <dt class="sig sig-object py" id="theodias.BitarrayPosition.as_ternary">
 <span class="sig-name descname"><span class="pre">as_ternary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.as_ternary" title="Link to this definition">#</a></dt>
 <dd><p>Position as ternary.</p>
-<p>The position <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> represented by an integer of base 3 (at least).
+<p>The position <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> represented by an integer of base 4.
 <span class="math notranslate nohighlight">\(s_i \in \mathcal{A}\)</span> is represented by <span class="math notranslate nohighlight">\(1*10^{i-1}\)</span>,
-<span class="math notranslate nohighlight">\(\neg s_i \in \mathcal{A}\)</span> by <span class="math notranslate nohighlight">\(2*10^{i-1}\)</span> and
-<span class="math notranslate nohighlight">\(s_i, \neg s_i \notin \mathcal{A}\)</span> by zero. For instance, the position
+<span class="math notranslate nohighlight">\(\neg s_i \in \mathcal{A}\)</span> by <span class="math notranslate nohighlight">\(2*10^{i-1}\)</span>,
+<span class="math notranslate nohighlight">\(s_i, \neg s_i \notin \mathcal{A}\)</span> by zero and <span class="math notranslate nohighlight">\(s_i, \neg s_i \notin \mathcal{A}\)</span>
+by 3. For instance, the position
 <span class="math notranslate nohighlight">\(\{ s_1, s_3, \neg s_4 \}\)</span> is represented by the integer 2101.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Positions that are not minimally consistent cannot be represented in this way.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a ternary representation of the position if possible, otherwise should return <code class="code docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="theodias.BitarrayPosition.difference">
+<span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.difference" title="Link to this definition">#</a></dt>
+<dd><p>The set theoretic difference of two positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The set-theoretic difference of the two positions (sentences that are in the position but not in
+the other position).</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> if the sentence pools do not match.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>other</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -616,17 +618,21 @@ For instance, the position <span class="math notranslate nohighlight">\(\{ s_1, 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="theodias.BitarrayPosition.intersection">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.intersection" title="Link to this definition">#</a></dt>
-<dd><p>Intersect postions set-theoretically.</p>
+<span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.intersection" title="Link to this definition">#</a></dt>
+<dd><p>The set theoretic intersection of positions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The set-theoretic intersection of the given set of <code class="code docutils literal notranslate"><span class="pre">positions</span></code>.</p>
+<dd class="field-even"><p>The set-theoretic intersection of the position with the given <code class="code docutils literal notranslate"><span class="pre">positions</span></code>. If no argument
+is provided, the empty position is returned.</p>
 </dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>positions</strong> (<em>Set</em><em>[</em><a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a><em>]</em>) – </p>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> if the sentence pools do not match.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>positions</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -666,6 +672,25 @@ For instance, the position <span class="math notranslate nohighlight">\(\{ s_1, 
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="theodias.BitarrayPosition.is_minimally_compatible">
+<span class="sig-name descname"><span class="pre">is_minimally_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.is_minimally_compatible" title="Link to this definition">#</a></dt>
+<dd><p>Checks for minimal compatibility with <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p>
+<p>Two positions <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{A}'\)</span> are minimally compatible iff
+<span class="math notranslate nohighlight">\(\mathcal{A} \cup \mathcal{A}'\)</span> is minimally consistent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code docutils literal notranslate"><span class="pre">True</span></code> iff the position-instance is compatible with <code class="code docutils literal notranslate"><span class="pre">position</span></code></p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>position</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="theodias.BitarrayPosition.is_minimally_consistent">
 <span class="sig-name descname"><span class="pre">is_minimally_consistent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.is_minimally_consistent" title="Link to this definition">#</a></dt>
 <dd><p>Checks for minimal consistency.</p>
@@ -686,7 +711,7 @@ For instance, the position <span class="math notranslate nohighlight">\(\{ s_1, 
 <span class="sig-name descname"><span class="pre">is_subposition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.is_subposition" title="Link to this definition">#</a></dt>
 <dd><p>Checks for set-theoretic inclusion.</p>
 <p>The position <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is a subposition of <span class="math notranslate nohighlight">\(\mathcal{A}'\)</span> iff
-<span class="math notranslate nohighlight">\(\mathcal{A} \subset \mathcal{A}'\)</span>.</p>
+<span class="math notranslate nohighlight">\(\mathcal{A} \subseteq \mathcal{A}'\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
@@ -775,17 +800,21 @@ consistent subpositions are returned, which is less costly than returning all su
 
 <dl class="py method">
 <dt class="sig sig-object py" id="theodias.BitarrayPosition.union">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.union" title="Link to this definition">#</a></dt>
-<dd><p>set-theoretic union</p>
+<span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">positions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.BitarrayPosition.union" title="Link to this definition">#</a></dt>
+<dd><p>The set theoretic union of positions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The set-theoretic union of the given set of <code class="code docutils literal notranslate"><span class="pre">positions</span></code>.</p>
+<dd class="field-even"><p>The set-theoretic union of the position with the given <code class="code docutils literal notranslate"><span class="pre">positions</span></code>. If no argument is provided,
+the positions is returned.</p>
 </dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>positions</strong> (<em>Set</em><em>[</em><a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a><em>]</em>) – </p>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> if the sentence pools do not match.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>positions</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -821,7 +850,7 @@ consistent subpositions are returned, which is less costly than returning all su
 <td><p>Iterator over all axiomatic bases from source.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.closed_positions" title="theodias.DAGBitarrayDialecticalStructure.closed_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">closed_positions</span></code></a>()</p></td>
-<td><p>Iterator over all dialectically closed positions.</p></td>
+<td><p>Iterator over all dialectically consistent and closed positions.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.closure" title="theodias.DAGBitarrayDialecticalStructure.closure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">closure</span></code></a>(position)</p></td>
 <td><p>Dialectical closure.</p></td>
@@ -829,11 +858,11 @@ consistent subpositions are returned, which is less costly than returning all su
 <tr class="row-odd"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.complete_extensions" title="theodias.DAGBitarrayDialecticalStructure.complete_extensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">complete_extensions</span></code></a>(position)</p></td>
 <td><p>Returns complete extensions of position by retrieving corresponding node in the graph that stores complete extensions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions" title="theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">consistent_complete_positions</span></code></a>()</p></td>
-<td><p>Iterator over all dialectically consistent and complete positions.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions" title="theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">consistent_complete_positions</span></code></a>([position])</p></td>
+<td><p>Iterator over all dialectically consistent and complete positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.consistent_positions" title="theodias.DAGBitarrayDialecticalStructure.consistent_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">consistent_positions</span></code></a>()</p></td>
-<td><p>Iterator over all dialectically consistent positions.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.consistent_positions" title="theodias.DAGBitarrayDialecticalStructure.consistent_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">consistent_positions</span></code></a>([position])</p></td>
+<td><p>Iterator over all dialectically consistent positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.degree_of_justification" title="theodias.DAGBitarrayDialecticalStructure.degree_of_justification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">degree_of_justification</span></code></a>(position1, position2)</p></td>
 <td><p>Conditional degree of justification.</p></td>
@@ -854,7 +883,7 @@ consistent subpositions are returned, which is less costly than returning all su
 <td><p>Checks whether a position is dialectically closed.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.is_complete" title="theodias.DAGBitarrayDialecticalStructure.is_complete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_complete</span></code></a>(position)</p></td>
-<td><p>Checks whether :code:<a href="#id1"><span class="problematic" id="id2">`</span></a>position' is complete.</p></td>
+<td><p>Checks whether <code class="code docutils literal notranslate"><span class="pre">position</span></code> is complete.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.is_consistent" title="theodias.DAGBitarrayDialecticalStructure.is_consistent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_consistent</span></code></a>(position)</p></td>
 <td><p>Checks for dialectical consistency.</p></td>
@@ -879,6 +908,13 @@ consistent subpositions are returned, which is less costly than returning all su
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#theodias.DAGBitarrayDialecticalStructure.to_bitarray_position" title="theodias.DAGBitarrayDialecticalStructure.to_bitarray_position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_bitarray_position</span></code></a>(position)</p></td>
 <td><p>Convert a position to an instance of <a class="reference internal" href="#theodias.BitarrayPosition" title="theodias.BitarrayPosition"><code class="xref py py-class docutils literal notranslate"><span class="pre">BitarrayPosition</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><strong>complete_minimally_consistent_positions</strong></p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -957,21 +993,24 @@ extends both.</p>
 <span class="sig-name descname"><span class="pre">axioms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.axioms" title="Link to this definition">#</a></dt>
 <dd><p>Iterator over all axiomatic bases from source.
 The source defaults to all consistent positions if it is not provided.</p>
-<p>A position <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> is an axiomatic basis of another position <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> iff
+<p>A position <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> (<span class="math notranslate nohighlight">\(\in\)</span> <code class="code docutils literal notranslate"><span class="pre">source</span></code>) is an axiomatic basis of another
+position <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> iff
 <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is dialectically entailed by <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> and there is no proper
 subset <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> of <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> such that <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is entailed by
 <span class="math notranslate nohighlight">\(\mathcal{C}\)</span>.</p>
-<p>This method should throw a <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> if the given position is inconsistent.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A python-iterator over all axiomatic bases of <code class="code docutils literal notranslate"><span class="pre">position</span></code> from <code class="code docutils literal notranslate"><span class="pre">source</span></code> and <code class="code docutils literal notranslate"><span class="pre">None</span></code> if
-there is no axiomatic basis in the source.</p>
+<dd class="field-even"><p>A (possibly empty) python-iterator over all axiomatic bases of <code class="code docutils literal notranslate"><span class="pre">position</span></code> from <code class="code docutils literal notranslate"><span class="pre">source</span></code>.
+The iterator will be empty (<code class="code docutils literal notranslate"><span class="pre">[]</span></code>) if there is no axiomatic basis in the source.</p>
 </dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="code docutils literal notranslate"><span class="pre">ValueError</span></code> if the given position is inconsistent.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
 <li><p><strong>position</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a>) – </p></li>
 <li><p><strong>source</strong> (<em>Iterator</em><em>[</em><a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a><em>] </em><em>| </em><em>None</em>) – </p></li>
 </ul>
@@ -982,14 +1021,14 @@ there is no axiomatic basis in the source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="theodias.DAGBitarrayDialecticalStructure.closed_positions">
 <span class="sig-name descname"><span class="pre">closed_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.closed_positions" title="Link to this definition">#</a></dt>
-<dd><p>Iterator over all dialectically closed positions.</p>
-<p>This iterator will include the empty position, if it is closed.</p>
+<dd><p>Iterator over all dialectically consistent and closed positions.</p>
+<p>This iterator will include the empty position if it is closed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A python-iterator over all dialectically closed positions.</p>
+<dd class="field-even"><p>A python-iterator over all dialectically consistent and closed positions.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1030,30 +1069,49 @@ node in the graph that stores complete extensions.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="theodias.DAGBitarrayDialecticalStructure.complete_minimally_consistent_positions">
+<span class="sig-name descname"><span class="pre">complete_minimally_consistent_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.complete_minimally_consistent_positions" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions">
-<span class="sig-name descname"><span class="pre">consistent_complete_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions" title="Link to this definition">#</a></dt>
-<dd><p>Iterator over all dialectically consistent and complete positions.</p>
+<span class="sig-name descname"><span class="pre">consistent_complete_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions" title="Link to this definition">#</a></dt>
+<dd><p>Iterator over all dialectically consistent and complete positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An iterator over all dialectically consistent and complete positions.</p>
+<dd class="field-even"><p>An iterator over all dialectically consistent and complete positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>. If
+no position is given, the function returns an iterator over all dialectically consistent
+and complete positions.</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>position</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a><em> | </em><em>None</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="theodias.DAGBitarrayDialecticalStructure.consistent_positions">
-<span class="sig-name descname"><span class="pre">consistent_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.consistent_positions" title="Link to this definition">#</a></dt>
-<dd><p>Iterator over all dialectically consistent positions.</p>
+<span class="sig-name descname"><span class="pre">consistent_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.consistent_positions" title="Link to this definition">#</a></dt>
+<dd><p>Iterator over all dialectically consistent positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p>
 <p>This iterator will include the empty position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A python iterator over all dialectically consistent positions.</p>
+<dd class="field-even"><p>A python iterator over all dialectically consistent positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>. If
+no position is given, the function returns an iterator over all dialectically consistent positions.</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>position</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a><em> | </em><em>None</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1173,7 +1231,7 @@ every consistent and complete position that extends <span class="math notranslat
 <dl class="py method">
 <dt class="sig sig-object py" id="theodias.DAGBitarrayDialecticalStructure.is_complete">
 <span class="sig-name descname"><span class="pre">is_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#theodias.DAGBitarrayDialecticalStructure.is_complete" title="Link to this definition">#</a></dt>
-<dd><p>Checks whether :code:<a href="#id3"><span class="problematic" id="id4">`</span></a>position’ is complete.</p>
+<dd><p>Checks whether <code class="code docutils literal notranslate"><span class="pre">position</span></code> is complete.</p>
 <p>A position <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is complete iff the domain of <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is identical with the
 sentence pool <span class="math notranslate nohighlight">\(S\)</span>.</p>
 <dl class="field-list simple">
@@ -1271,7 +1329,9 @@ entails <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is ide
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The number of complete and consistent positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>.</p>
+<dd class="field-even"><p>The number of complete and consistent positions that extend <code class="code docutils literal notranslate"><span class="pre">position</span></code>. If none is given, the
+function returns the number of all complete consistent extensions. If the given position is dialectically
+inconsistent, there are no consistent extensions.</p>
 </dd>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>position</strong> (<a class="reference internal" href="api-abstract.html#theodias.Position" title="theodias.base.Position"><em>Position</em></a><em> | </em><em>None</em>) – </p>
@@ -1350,16 +1410,17 @@ only <span class="math notranslate nohighlight">\(\{ s_1, s_2, \dots, s_N\}\)</s
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bitarrayposition">BitarrayPosition</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition</span></code></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.__init__"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.__init__()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.are_minimally_compatible"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.are_minimally_compatible()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.as_bitarray"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_bitarray()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.as_list"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_list()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.as_set"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_set()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.as_ternary"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.as_ternary()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.difference"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.difference()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.domain"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.domain()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.from_set"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.from_set()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.intersection"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.intersection()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.is_accepting"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_accepting()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.is_in_domain"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_in_domain()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.is_minimally_compatible"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_minimally_compatible()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.is_minimally_consistent"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_minimally_consistent()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.is_subposition"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.is_subposition()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.BitarrayPosition.neighbours"><code class="docutils literal notranslate"><span class="pre">BitarrayPosition.neighbours()</span></code></a></li>
@@ -1381,6 +1442,7 @@ only <span class="math notranslate nohighlight">\(\{ s_1, s_2, \dots, s_N\}\)</s
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.DAGBitarrayDialecticalStructure.closed_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.closed_positions()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.DAGBitarrayDialecticalStructure.closure"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.closure()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.DAGBitarrayDialecticalStructure.complete_extensions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.complete_extensions()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.DAGBitarrayDialecticalStructure.complete_minimally_consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.complete_minimally_consistent_positions()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.DAGBitarrayDialecticalStructure.consistent_complete_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.consistent_complete_positions()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.DAGBitarrayDialecticalStructure.consistent_positions"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.consistent_positions()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#theodias.DAGBitarrayDialecticalStructure.degree_of_justification"><code class="docutils literal notranslate"><span class="pre">DAGBitarrayDialecticalStructure.degree_of_justification()</span></code></a></li>
@@ -1439,7 +1501,7 @@ only <span class="math notranslate nohighlight">\(\{ s_1, s_2, \dots, s_N\}\)</s
 
   <p class="copyright">
     
-      © Copyright 2023, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
+      © Copyright 2024, Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse.
       <br/>
     
   </p>

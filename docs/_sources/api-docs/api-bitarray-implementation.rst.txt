@@ -12,7 +12,7 @@ BitarrayPosition
    :show-inheritance:
 
 DAGBitarrayDialecticalStructure
-----------------------------
+-------------------------------
 
 .. autoclass:: DAGBitarrayDialecticalStructure
    :members:
