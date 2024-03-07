@@ -14,6 +14,7 @@ import tarfile
 from .set_implementation import SetBasedPosition
 from .base import Position
 from .core import StandardPosition
+from .util import get_principles
 
 # simply call `pytest -vv` on the console from directory of this file to execute the test
 # or **`pytest -vv --log-cli-level INFO`** to show life logs (you simply use pytest logging mechanism, no need to
@@ -955,3 +956,23 @@ class Testtheodias:
             # since {2} is dia-tautological it shouldbe entaild be the empty set
             for pos1, pos2 in get_implementations_product_of_positions(set(), {2}, 3):
                 assert (taut_dia.entails(pos1, pos2))
+
+    def test_util_get_principles(self):
+        # ARGUMENT LISTS
+        # simple dia
+        dia = [[1, 2], [3, -2]]
+        # dia without args
+        empty_dia = []
+        # dialectiecal structure with tautologies
+        taut_dia = [[1, 2], [-1, 2], [1, 3]]
+        # circular args ->  no principles
+        circ_dia = [[1, -2], [-2,3], [3, 1]]
+        # multiple premises
+        multiprem_dia = [[1, 2, 3], [1, 4,-5], [5, -6, 7], [1, 2, 4, 6]]
+
+        # testing
+        assert set(get_principles(dia)) == {(1, 1), (3, 1)}
+        assert set(get_principles(empty_dia)) == set()
+        assert set(get_principles(taut_dia)) == {(1, 2), (-1, 1)}
+        assert set(get_principles(circ_dia)) == set()
+        assert set(get_principles(multiprem_dia)) == {(1, 3), (2, 2), (4, 2)}
