@@ -12,7 +12,7 @@ NumpyPosition
    :show-inheritance:
 
 DAGNumpyDialecticalStructure
--------------------------
+----------------------------
 
 .. autoclass:: DAGNumpyDialecticalStructure
    :members:
@@ -20,7 +20,7 @@ DAGNumpyDialecticalStructure
    :show-inheritance:
 
 BDDNumpyDialecticalStructure
--------------------------
+----------------------------
 
 .. autoclass:: BDDNumpyDialecticalStructure
    :members:
