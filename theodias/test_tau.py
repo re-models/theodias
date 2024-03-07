@@ -125,7 +125,6 @@ class Testtheodias:
             assert get_position({1, 3 }, 3, impl).as_bitarray() == bitarray('100010')
             assert get_position({1, -2, 3}, 3, impl).as_bitarray() == bitarray('100110')
 
-            # todo: check ternary for minimally inconsistent positions
             assert get_position({1, -3}, 3, impl).as_ternary() == 201
             assert get_position({1, -2, 3}, 3, impl).as_ternary() == 121
             assert get_position({1, 3 }, 3, impl).as_ternary() == 101
