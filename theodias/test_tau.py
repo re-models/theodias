@@ -47,6 +47,11 @@ model_implementations = [{'module_name': 'theodias',
                            'dialectical_structure_class_name': 'DAGBitarrayDialecticalStructure'
                           }
                          ]
+#model_implementations = [
+#                         {'module_name': 'theodias',
+#                          'position_class_name':'SetBasedPosition',
+#                          'dialectical_structure_class_name': 'DAGSetBasedDialecticalStructure'
+#                          },]
 # Helper functions
 
 
@@ -105,6 +110,9 @@ class Testtheodias:
         for impl in model_implementations:
             self.log.info(f"Testing position implementations of types: {impl['position_class_name']}")
 
+            # Testing some expectations for the constructor
+            with pytest.raises(ValueError):
+                get_position({1, 3}, 2, impl)
             ## TESTING MONADIC FUNCTIONS
 
             # testing function `sentence_pool`
