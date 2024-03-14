@@ -457,7 +457,7 @@ def create_random_arguments(n_sentences: int,
             new_argument = weighted_sample_without_replacement(sentences, weights, k=n_prem) + [con]
 
         else:
-            # ToDo (@Basti - what is meant?): needs refinement
+            # ToDo/Open: Do we need to revise this to account for premise weights?
 
             # choose different sentences
             new_argument = sample(range(1, n_sentences + 1), n_prem + 1)
