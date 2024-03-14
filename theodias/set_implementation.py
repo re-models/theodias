@@ -23,6 +23,9 @@ class SetBasedPosition(Position):
     def __init__(self, position: Set[int], n_unnegated_sentence_pool: int):
         self.__position = frozenset(position)
         self.n_unnegated_sentence_pool = n_unnegated_sentence_pool
+        if len(position) > 0 and max([max(position), abs(min(position))]) > n_unnegated_sentence_pool:
+            raise ValueError("The size of the unnegated sentence pool must not be smaller " + \
+                             "then the 'biggest' absolute values of sentence names in the given position.")
         super().__init__()
 
 
@@ -575,8 +578,7 @@ class DAGSetBasedDialecticalStructure(DialecticalStructure):
                 yield item.union(SetBasedPosition({propositions[0]}, self.n))
                 yield item.union(SetBasedPosition({propositions[int(len(propositions) / 2)]}, self.n))
                 if not only_complete_positions:
-                    yield SetBasedPosition(item, self.n)
-
+                    yield item
     # def __minimally_consistent_positions2(self, propositions = None,
     #                                      only_complete_positions = False) -> Iterator[Position]:
     #     if propositions is None:
