@@ -9,5 +9,5 @@ provide step-by-step instructions of using the :code:`theodias` package.
 .. toctree::
     :titlesonly:
 
-    Tau Basics <theodias-tutorial.ipynb>
+    Theodias Basics <theodias-tutorial.ipynb>
     Visualisation <visualisation.ipynb>
