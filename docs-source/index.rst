@@ -21,7 +21,7 @@ With :code:`pip` (👉 |theodias_pypi|)
 
 From the source code:
 
-You can install the package locally, by
+You can install the package from the source code by
 
 * first git-cloning the repository:
 
@@ -29,8 +29,7 @@ You can install the package locally, by
 
 * and then installing the package by running ':code:`pip install -e .`' from the local directory of
   the package (e.g. :code:`local-path-to-repository/tau`) that contains the setup file :code:`setup.py`.
-  (The :code:`-e`-option will install the package in the editable mode, allowing you to
-  change the source code.)
+  (The :code:`-e`-option will install the package in the editable mode.)
 
 .. note:: The package requires a python version >= 3.8 and depends on the
     packages `bitarray <https://pypi.org/project/bitarray/>`_, `numba <https://numba.pydata.org/>`_ and `PySat <https://github.com/pysathq/pysat>`_
@@ -41,7 +40,7 @@ Documentation
 -------------
 
 A Jupyter notebook provides step-by-step instructions of using
-the :code:`theodias` package. Further details can be found in the :ref:`API documentation <tau-api-docs-label>`.
+the :code:`theodias` package (:ref:`theodias tutorial <tau-tutorials-label>`). Further details can be found in the :ref:`API documentation <tau-api-docs-label>`.
 
 .. toctree::
     :hidden:
