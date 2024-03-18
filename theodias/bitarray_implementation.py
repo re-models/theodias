@@ -87,6 +87,10 @@ class BitarrayPosition(Position):
 
     @staticmethod
     def from_set(position: Set[int], n_unnegated_sentence_pool: int) -> Position:
+        if len(position) > 0 and max([abs(sentence) for sentence in position]) > n_unnegated_sentence_pool:
+            raise ValueError("The size of the unnegated sentence pool must not be smaller " + \
+                             "then the 'biggest' absolute values of sentence names in the given position.")
+
         position_ba = 2 * n_unnegated_sentence_pool * bitarray('0')
         for sentence in position:
             if sentence < 0:

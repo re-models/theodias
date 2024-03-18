@@ -147,8 +147,12 @@ class NumpyPosition(Position):
         return pos
 
     @staticmethod
-    def from_set(position: Set[int], n):
-        arr = np.zeros(n)
+    def from_set(position: Set[int], n_unnegated_sentence_pool:int):
+        if len(position) > 0 and max([abs(sentence) for sentence in position]) > n_unnegated_sentence_pool:
+            raise ValueError("The size of the unnegated sentence pool must not be smaller " + \
+                             "then the 'biggest' absolute values of sentence names in the given position.")
+
+        arr = np.zeros(n_unnegated_sentence_pool)
         for s in position:
             if s < 0:
                 arr[abs(s) - 1] += 2
