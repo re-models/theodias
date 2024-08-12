@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="theodias",
-    version="0.0.2a1",
+    version="1.0.0",
     author="Claus Beisbart, Gregor Betz, Georg Brun, Sebastian Cacean, Andreas Freivogel, Richard Lohse",
     author_email="claus.beisbart@philo.unibe.ch, gregor.betz@kit.edu, georg.brun@philo.unibe.ch, "
                  "sebastian.cacean@kit.edu, andreas.freivogel@philo.unibe.ch, richard.lohse@kit.edu",
